@@ -14,6 +14,10 @@ import AdminBlogs from './Components/Admin-Dashboard/Blogs/AdminBlogs.jsx'
 import AdminProducts from './Components/Admin-Dashboard/Products/AdminProducts.jsx'
 import CreateEvents from './Components/Admin-Dashboard/Events/CreateEvents.jsx'
 import AdminSingleEvent from './Components/Admin-Dashboard/Events/AdminSingleEvent.jsx'
+import ProductPage from './Components/ProductPage.jsx'
+import BlogsPage from './Components/BlogPage.jsx'
+import ContactPage from './Components/ContactPage.jsx'
+import Cart from './Components/Cart.jsx'
 
 
 const router = createBrowserRouter(
@@ -33,6 +37,11 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/donation' element={<AdminDonation />} />
         <Route path='/admin-dashboard/blogs' element={<AdminBlogs />} />
         <Route path='/admin-dashboard/products' element={<AdminProducts />} />
+        <Route path="/shop" element={<ProductPage/>} />
+        <Route path="/blogs" element={<BlogsPage/>} />
+        <Route path="/contacts" element={<ContactPage/>} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
     </>
   )

@@ -1,5 +1,5 @@
 import logo from "../assets/logo.svg";
-import { NavLink } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import cart from "../assets/cart.svg";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
@@ -22,9 +22,9 @@ const Navbar = () => {
       }}
     >
       <div className="w-full h-full flex justify-between items-center">
-        <span className="flex justify-center items-center">
+        <Link to="/" className="flex justify-center items-center">
           <img src={logo} alt="logo" className="w-full h-full object-contain" />
-        </span>
+        </Link>
 
         {/* Desktop Navigation */}
         <span className="hidden md:flex items-center gap-10">
