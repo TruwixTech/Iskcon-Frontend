@@ -14,6 +14,10 @@ import AdminBlogs from './Components/Admin-Dashboard/Blogs/AdminBlogs.jsx'
 import AdminProducts from './Components/Admin-Dashboard/Products/AdminProducts.jsx'
 import CreateEvents from './Components/Admin-Dashboard/Events/CreateEvents.jsx'
 import AdminSingleEvent from './Components/Admin-Dashboard/Events/AdminSingleEvent.jsx'
+import CreateBlogs from './Components/Admin-Dashboard/Blogs/CreateBlogs.jsx'
+import AdminSingleBlog from './Components/Admin-Dashboard/Blogs/AdminSingleBlog.jsx'
+import AdminSingleService from './Components/Admin-Dashboard/Services/AdminSingleService.jsx'
+import CreateService from './Components/Admin-Dashboard/Services/CreateService.jsx'
 
 
 const router = createBrowserRouter(
@@ -29,9 +33,17 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/events' element={<AdminEvents />} />
         <Route path='/admin-dashboard/events/create-event' element={<CreateEvents />} />
         <Route path='/admin-dashboard/events/single-event/:id' element={<AdminSingleEvent />} />
-        <Route path='/admin-dashboard/services' element={<AdminServices />} />
-        <Route path='/admin-dashboard/donation' element={<AdminDonation />} />
+        {/* Admin Blogs Related Routes */}
         <Route path='/admin-dashboard/blogs' element={<AdminBlogs />} />
+        <Route path='/admin-dashboard/blogs/create-blog' element={<CreateBlogs />} />
+        <Route path='/admin-dashboard/blogs/single-blog/:id' element={<AdminSingleBlog />} />
+        {/* Admin Services Related Routes */}
+        <Route path='/admin-dashboard/services' element={<AdminServices />} />
+        <Route path='/admin-dashboard/services/create-service' element={<CreateService />} />
+        <Route path='/admin-dashboard/services/single-service/:id' element={<AdminSingleService />} />
+        {/* Admin Donation Related Routes */}
+        <Route path='/admin-dashboard/donation' element={<AdminDonation />} />
+        {/* Admin Products Related Routes */}
         <Route path='/admin-dashboard/products' element={<AdminProducts />} />
       </Route>
     </>

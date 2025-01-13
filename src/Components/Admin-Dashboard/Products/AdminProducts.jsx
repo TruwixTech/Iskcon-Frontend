@@ -29,7 +29,7 @@ function AdminProducts() {
         </div>
         <div className='w-full h-auto px-5 md:px-10 lg:px-20 gap-4 lg:gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center'>
           {[{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }].map((event, index) => (
-            <NavLink to='/admin-dashboard/events/single-event/125366434' className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
+            <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
               <img src={event.image} alt="" className='w-full h-40' />
               <h1 className='text-xl font-semibold'>{event.title}</h1>
               <div className='w-full h-auto flex justify-between items-center'>
@@ -40,7 +40,11 @@ function AdminProducts() {
                 <span>Stock</span>
                 <span>Price</span>
               </div>
-            </NavLink>
+              <div className='w-full h-auto flex justify-between items-center'>
+                <button onClick={() => openPopup()} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
+                <button className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
+              </div>
+            </div>
           ))}
         </div>
         {isPopupOpen && (
