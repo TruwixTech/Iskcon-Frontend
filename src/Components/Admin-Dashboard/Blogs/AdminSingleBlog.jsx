@@ -1,0 +1,15 @@
+import React from 'react'
+
+function AdminSingleBlog() {
+    return (
+        <div className='w-full h-auto flex flex-col my-10 px-5 md:px-10 lg:px-20'>
+            <img src="" alt="" className='w-full h-40 rounded-lg bg-gray-200 sm:h-60 md:h-80 lg:h-[400px] xl:h-[450px]' />
+            <h1 className='my-4 lg:my-6 w-full h-auto text-xl sm:text-2xl md:text-3xl xl:text-4xl font-semibold'>Sample Single Event Page Title</h1>
+            <p style={{ whiteSpace: "pre-wrap" }} className='w-full h-auto text-sm text-gray-500 sm:text-base lg:text-lg'>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur cum quae officiis. Nostrum quo, eligendi necessitatibus amet vero temporibus delectus ducimus iste debitis at quam inventore mollitia provident. Sequi ullam modi dignissimos, hic eaque facilis sunt unde cupiditate labore nesciunt ratione cumque iusto rem vero assumenda autem iste nemo blanditiis cum aspernatur eius voluptatem, ea consequatur? Doloremque quisquam reiciendis, molestiae ipsum, dolore quia velit dolorum ipsam obcaecati vitae doloribus voluptas aliquam eveniet tempora et quibusdam consectetur esse! Laudantium eos velit error, unde dolorem quibusdam nisi sed voluptate et non quae similique labore vero. Fuga debitis soluta accusantium placeat odit! Perferendis unde, similique necessitatibus, odit maxime est culpa consequatur pariatur reiciendis dolor dolorum velit modi! Fugit accusantium deleniti quo magnam sit obcaecati iure eos. Non impedit excepturi voluptas, veniam officia saepe maiores! Earum dolorum exercitationem cum? Ullam dolore ducimus ea aliquam perferendis sit sunt est aspernatur reiciendis, obcaecati exercitationem, rem saepe dolorum. Itaque, aspernatur quam suscipit, eius similique ea facere odit autem sit, dolor corrupti! Et dolore tenetur, ipsum numquam praesentium corporis odit, qui beatae natus delectus, fugiat consequatur. Praesentium, deleniti voluptas voluptatem quidem, hic esse molestias eaque debitis pariatur autem aspernatur velit officia quis consectetur sint accusantium consequuntur corrupti reprehenderit culpa sit sequi quod saepe beatae? Perspiciatis qui, similique accusamus, tempore corrupti praesentium, necessitatibus nobis architecto blanditiis inventore modi voluptatem incidunt aspernatur eum? Ut maiores iure eveniet dolor commodi quae porro. Soluta dignissimos, debitis nemo veniam ab exercitationem eaque beatae consequuntur corrupti, quos molestiae, numquam laborum hic maxime. Assumenda sit natus, suscipit dicta ex nihil ullam id dolor harum voluptates unde aliquam dolore, quo in quod. Ea odit atque totam eveniet illo cupiditate iure non deserunt iste est dolorem repudiandae nisi sapiente praesentium aperiam, itaque deleniti quos nam quam consectetur. Dignissimos recusandae corrupti assumenda aliquid doloribus vero sequi omnis sapiente.
+            </p>
+        </div>
+    )
+}
+
+export default AdminSingleBlog
