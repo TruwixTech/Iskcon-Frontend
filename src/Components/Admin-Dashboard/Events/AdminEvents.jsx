@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import EditEventsPopup from './EditEventsPopup';
 
 function AdminEvents() {
+  const [popup, setPopup] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(null);
 
+  function handleOpenPopup(blog = null) {
+    setCurrentEvent(blog);
+    setPopup(true);
+  }
   const navigate = useNavigate();
   const handleCreateEvents = () => {
     navigate('/admin-dashboard/events/create-event');
@@ -18,15 +25,28 @@ function AdminEvents() {
           </span>
         </div>
         <div className='w-full h-auto px-5 md:px-10 lg:px-20 gap-4 lg:gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center'>
-          {[{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." },{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." },{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." },{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }].map((event, index) => (
-            <NavLink to='/admin-dashboard/events/single-event/125366434' className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
-              <img src={event.image} alt="" className='w-full h-40' />
-              <h1 className='text-xl font-semibold'>{event.title}</h1>
-              <p className='text-sm text-gray-500'>{event.content.length > 150 ? event.content.slice(0,150) + "..." : event.content.slice(0,150)}</p>
-            </NavLink>
+          {[{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }].map((event, index) => (
+            <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
+              <NavLink to='/admin-dashboard/events/single-event/125366434' className='w-full h-auto flex flex-col'>
+                <img src={event.image} alt="" className='w-full h-40' />
+                <h1 className='text-xl font-semibold'>{event.title}</h1>
+                <p className='text-sm text-gray-500'>{event.content.length > 150 ? event.content.slice(0, 150) + "..." : event.content.slice(0, 150)}</p>
+              </NavLink>
+              <div className='w-full h-auto flex justify-between items-center'>
+                <button onClick={() => handleOpenPopup(event)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
+                <button className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
+              </div>
+            </div>
           ))}
         </div>
       </div>
+      {popup && (
+        <EditEventsPopup
+          product={currentEvent}
+          closePopup={() => setPopup(false)}
+        // refreshProducts={fetchProducts}
+        />
+      )}
     </div>
   )
 }

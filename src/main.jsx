@@ -18,6 +18,9 @@ import CreateBlogs from './Components/Admin-Dashboard/Blogs/CreateBlogs.jsx'
 import AdminSingleBlog from './Components/Admin-Dashboard/Blogs/AdminSingleBlog.jsx'
 import AdminSingleService from './Components/Admin-Dashboard/Services/AdminSingleService.jsx'
 import CreateService from './Components/Admin-Dashboard/Services/CreateService.jsx'
+import AdminGuestHouse from './Components/Admin-Dashboard/GuestHouse/AdminGuestHouse.jsx'
+import AdminSingleGuestHouse from './Components/Admin-Dashboard/GuestHouse/AdminSingleGuestHouse.jsx'
+import CreateGuestHouse from './Components/Admin-Dashboard/GuestHouse/CreateGuestHouse.jsx'
 
 
 const router = createBrowserRouter(
@@ -45,6 +48,10 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/donation' element={<AdminDonation />} />
         {/* Admin Products Related Routes */}
         <Route path='/admin-dashboard/products' element={<AdminProducts />} />
+        {/* Admin Guest House Related Routes */}
+        <Route path='/admin-dashboard/guest-house' element={<AdminGuestHouse />} />
+        <Route path='/admin-dashboard/guest-house/create-guest-house' element={<CreateGuestHouse />} />
+        <Route path='/admin-dashboard/guest-house/guest-house/:id' element={<AdminSingleGuestHouse />} />
       </Route>
     </>
   )
