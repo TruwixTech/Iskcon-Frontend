@@ -28,6 +28,9 @@ import CreateGuestHouse from './Components/Admin-Dashboard/GuestHouse/CreateGues
 import AdminClasses from './Components/Admin-Dashboard/Classes/AdminClasses.jsx'
 import CreateOfflineClasses from './Components/Admin-Dashboard/Classes/CreateOfflineClasses.jsx'
 import SingleClass from './Components/Admin-Dashboard/Classes/SingleClass.jsx'
+import AdminMedia from './Components/Admin-Dashboard/Media/AdminMedia.jsx'
+import AdminSingleMedia from './Components/Admin-Dashboard/Media/AdminSingleMedia.jsx'
+import CreateMedia from './Components/Admin-Dashboard/Media/CreateMedia.jsx'
 
 
 const router = createBrowserRouter(
@@ -63,6 +66,10 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/classes' element={<AdminClasses/>} />
         <Route path='/admin-dashboard/classes/create-classes' element={<CreateOfflineClasses/>} />
         <Route path='/admin-dashboard/classes/class/:id' element={<SingleClass/>} />
+        {/*  */}
+        <Route path='/admin-dashboard/media' element={<AdminMedia />} />
+        <Route path='/admin-dashboard/media/create-media' element={<CreateMedia />} />
+        <Route path='/admin-dashboard/media/single-media/:id' element={<AdminSingleMedia />} />
 
         <Route path="/shop" element={<ProductPage/>} />
         <Route path="/blogs" element={<BlogsPage/>} />
