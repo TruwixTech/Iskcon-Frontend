@@ -8,6 +8,8 @@ export default {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"], // Define a custom font family
+        prata: ['"Prata"', "serif"], 
+        nunito: ['"Nunito Sans"', 'sans-serif'], // Add Nunito Sans
       },
     },
   },
