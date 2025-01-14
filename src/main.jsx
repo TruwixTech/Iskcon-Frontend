@@ -25,6 +25,9 @@ import CreateService from './Components/Admin-Dashboard/Services/CreateService.j
 import AdminGuestHouse from './Components/Admin-Dashboard/GuestHouse/AdminGuestHouse.jsx'
 import AdminSingleGuestHouse from './Components/Admin-Dashboard/GuestHouse/AdminSingleGuestHouse.jsx'
 import CreateGuestHouse from './Components/Admin-Dashboard/GuestHouse/CreateGuestHouse.jsx'
+import AdminClasses from './Components/Admin-Dashboard/Classes/AdminClasses.jsx'
+import CreateOfflineClasses from './Components/Admin-Dashboard/Classes/CreateOfflineClasses.jsx'
+import SingleClass from './Components/Admin-Dashboard/Classes/SingleClass.jsx'
 
 
 const router = createBrowserRouter(
@@ -56,6 +59,11 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/guest-house' element={<AdminGuestHouse />} />
         <Route path='/admin-dashboard/guest-house/create-guest-house' element={<CreateGuestHouse />} />
         <Route path='/admin-dashboard/guest-house/guest-house/:id' element={<AdminSingleGuestHouse />} />
+         {/* Admin Offline classes Related Routes */}
+        <Route path='/admin-dashboard/classes' element={<AdminClasses/>} />
+        <Route path='/admin-dashboard/classes/create-classes' element={<CreateOfflineClasses/>} />
+        <Route path='/admin-dashboard/classes/class/:id' element={<SingleClass/>} />
+
         <Route path="/shop" element={<ProductPage/>} />
         <Route path="/blogs" element={<BlogsPage/>} />
         <Route path="/contacts" element={<ContactPage/>} />
