@@ -25,6 +25,9 @@ import CreateService from './Components/Admin-Dashboard/Services/CreateService.j
 import AdminGuestHouse from './Components/Admin-Dashboard/GuestHouse/AdminGuestHouse.jsx'
 import AdminSingleGuestHouse from './Components/Admin-Dashboard/GuestHouse/AdminSingleGuestHouse.jsx'
 import CreateGuestHouse from './Components/Admin-Dashboard/GuestHouse/CreateGuestHouse.jsx'
+import AdminMedia from './Components/Admin-Dashboard/Media/AdminMedia.jsx'
+import AdminSingleMedia from './Components/Admin-Dashboard/Media/AdminSingleMedia.jsx'
+import CreateMedia from './Components/Admin-Dashboard/Media/CreateMedia.jsx'
 
 
 const router = createBrowserRouter(
@@ -56,6 +59,11 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/guest-house' element={<AdminGuestHouse />} />
         <Route path='/admin-dashboard/guest-house/create-guest-house' element={<CreateGuestHouse />} />
         <Route path='/admin-dashboard/guest-house/guest-house/:id' element={<AdminSingleGuestHouse />} />
+        {/*  */}
+        <Route path='/admin-dashboard/media' element={<AdminMedia />} />
+        <Route path='/admin-dashboard/media/create-media' element={<CreateMedia />} />
+        <Route path='/admin-dashboard/media/single-media/:id' element={<AdminSingleMedia />} />
+
         <Route path="/shop" element={<ProductPage/>} />
         <Route path="/blogs" element={<BlogsPage/>} />
         <Route path="/contacts" element={<ContactPage/>} />
