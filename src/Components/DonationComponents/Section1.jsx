@@ -14,10 +14,10 @@ const Section1 = () => {
         backgroundPosition: 'right', 
       }}
     >
-      <div className="px-20 pt-10">
+      <div className="px-20 pt-10 relative z-50">
         <Navbar />
       </div>
-      <div className=' w-1/2 h-screen absolute top-0 left-0'
+      <div className=' w-1/2 h-screen absolute top-0 left-0 z-10'
         style={{
           backgroundImage: `url(${frame})`,
           backgroundSize: 'contain', 
