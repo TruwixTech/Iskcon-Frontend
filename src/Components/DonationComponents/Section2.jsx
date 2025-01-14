@@ -15,7 +15,7 @@ const Section2 = () => {
           <div className="absolute -left-10 -top-20 h-[630px]">
             <img src={krishnadonation} alt="" className="w-full h-full" />
           </div>
-          <div className="bg-white rounded-2xl  h-auto w-[80%]">
+          <div className="bg-white rounded-2xl  h-auto w-[80%] hidden">
           <h1 className="text-4xl text-[#3B2106] font-bold">
               Donation is a Maha Daan
             </h1>
