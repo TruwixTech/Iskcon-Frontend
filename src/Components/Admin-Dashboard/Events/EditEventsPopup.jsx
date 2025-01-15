@@ -4,6 +4,7 @@ import axios from "axios";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
+
 const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
     const [formData, setFormData] = useState({
         title: "",
@@ -47,25 +48,22 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
         data.append("location", formData.location);
 
         images.forEach((image, index) => {
-            if (image) data.append(`images[${index}]`, image); // Append each image
+            if (image) {
+                formPayload.append(`image`, image); // Append each image
+            }
         });
 
+
         try {
-            const url = event
-                ? `${backend}/api/v1/events/update/${event.id}`
-                : `${backend}/api/v1/events/create`;
 
-            const method = event ? "put" : "post";
-
-            const res = await axios({
-                method,
-                url,
-                data,
+            const res = await axios.put(`${backend}/admin/event/edit${event?._id}`, data, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     "Content-Type": "multipart/form-data",
                 },
-            });
+            })
+
+            console.log(res);
+            
 
             if (res.status === 200 || res.status === 201) {
                 alert(event ? "Event updated successfully!" : "Event created successfully!");
@@ -87,13 +85,13 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                 endDate: event.endDate?.split("T")[0] || "",
                 location: event.location,
             });
-            setImages(event.images || [null]); // Populate with existing images or a single null
+            setImages(event.image || [null]); // Populate with existing images or a single null
         }
     }, [event]);
 
     return (
         <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-800 bg-opacity-50 pt-20 font-marcellus">
-            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto">
+            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto relative z-50">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">
                         {event ? "Edit Event" : "Create Event"}
@@ -216,4 +214,3 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
 };
 
 export default EditEventsPopup;
- 
