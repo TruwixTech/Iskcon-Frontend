@@ -7,12 +7,12 @@ import leaf2 from "../../assets/leaf2.png";
 const Section2 = () => {
   return (
     <>
-      <div className="bg-[#fde3b6] w-full h-screen relative overflow-hidden font-prata flex justify-center items-center">
-        <div className="w-[1000px] absolute -top-52 left-1/2 -translate-x-1/2 opacity-20">
+      <div className="bg-[#fde3b6] w-full h-[1000px] md:h-screen relative overflow-hidden font-prata flex flex-col md:flex-row justify-center items-center py-20">
+        <div className="w-[1200px] absolute -top-52 left-1/2 -translate-x-1/2 opacity-20">
           <img src={circlebg} alt="" className="" />
         </div>
-        <div className="bg-white rounded-2xl relative h-[550px] w-[80%]">
-          <div className="absolute -left-10 -top-20 h-[630px]">
+        <div className="bg-white rounded-2xl relative  h-[550px]  w-[95%] md:w-[80%]">
+          <div className="absolute md:-left-10 left-1/2 -translate-x-1/2 md:-translate-x-0  -top-20  h-[325px] md:h-[630px]">
             <img src={krishnadonation} alt="" className="w-full h-full" />
           </div>
           <div className="bg-white rounded-2xl  h-auto w-[80%] hidden">
@@ -84,6 +84,40 @@ const Section2 = () => {
             </h1>
           </div>
         </div>
+        <div className="bg-white rounded-2xl w-[95%] h-auto flex flex-col justify-center items-center px-2 py-8 mt-6 md:hidden ">
+          <h1 className="text-2xl sm:text-4xl text-[#3B2106] font-bold text-center sm:text-left py-6">
+            Donation is a Maha Daan
+          </h1>
+          <div className="text-sm flex flex-col gap-2 sm:w-[85%] text-center md:text-start">
+            <p>
+              The offering teaches us to help others, especially those less
+              fortunate and without demanding anything in return.
+            </p>
+            <p>
+              All the charity is done without expecting anything in return.
+              This charity is mainly to create a world of abundance and
+              sustainability for the people who are a little less fortunate than
+              us.
+            </p>
+            <p>
+              The offering should connect us to our giving to Lord Krishna in
+              some way;
+              <br />
+              For example, when we provide to ISKCON programs, we support
+              Krishna’s wish that his education can be sow throughout. The
+              supreme Lord is atmarama, or self-satisfied. He does not need our
+              offerings; he is entirely whole in himself.
+            </p>
+            <p>
+              Yet he commands us to give in charity to him. Why? Because it
+              refines and helps us spiritually, providing in charity to Krishna
+              is one way we recognize that everything belongs to him.
+            </p>
+          </div>
+          <h1 className="text-lg sm:text-3xl text-[#EB852C] font-semibold text-center sm:text-left pt-4">
+            ~Let's donate to support the Temple~
+          </h1>
+        </div>
       </div>
 
        {/* next section */}
@@ -100,7 +134,7 @@ const Section2 = () => {
 
       {/* next section */}
 
-      <div className="bg-[#fde3b6] relative w-full h-[700px] md:h-[560px]">
+      <div className="bg-[#fde3b6] relative w-full h-[550px] md:h-[560px]">
         <div className="absolute left-0">
           <img src={leaf1} alt="" />
         </div>
@@ -109,7 +143,7 @@ const Section2 = () => {
         </div>
         <div className="absolute md:left-1/2 md:-translate-x-1/2 top-1/2 -translate-y-1/2">
           <div className="flex flex-col justify-center items-center">
-            <h1 className="text-center text-5xl my-10 text-[#3B2106] font-prata">
+            <h1 className="text-center text-3xl md:text-5xl my-10 text-[#3B2106] font-prata">
               Donation is a Maha Daan
             </h1>
             <div className="text-sm md:text-base flex flex-col gap-6 text-center items-center font-nunito px-2">
