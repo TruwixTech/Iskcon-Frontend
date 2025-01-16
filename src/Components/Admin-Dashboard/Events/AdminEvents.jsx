@@ -26,6 +26,16 @@ function AdminEvents() {
     }
   }
 
+  async function deleteEvent(id) {
+    try {
+      await axios.delete(`${backend}/admin/event/delete/${id}`)
+      fetchEvents();
+      alert("Event deleted successfully!");
+    } catch (error) {
+      console.log("Error while deleting event", error);
+    }
+  }
+
   const handleCreateEvents = () => {
     navigate('/admin-dashboard/events/create-event');
   };
@@ -78,7 +88,7 @@ function AdminEvents() {
               </NavLink>
               <div className='w-full h-auto flex justify-between items-center'>
                 <button onClick={() => handleOpenPopup(event)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
-                <button className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
+                <button onClick={()=> deleteEvent(event._id)} className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
               </div>
             </div>
           ))}
@@ -88,7 +98,7 @@ function AdminEvents() {
         <EditEventsPopup
           event={currentEvent}
           closePopup={() => setPopup(false)}
-          refreshProducts={fetchEvents}
+          refreshEvents={fetchEvents}
         />
       )}
     </div>

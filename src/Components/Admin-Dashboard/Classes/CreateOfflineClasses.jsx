@@ -63,23 +63,25 @@ function CreateOfflineClasses() {
         }
 
         const formPayload = new FormData();
-        Object.keys(formData).forEach((key) => {
-            formPayload.append(key, formData[key]);
-        });
+        formPayload.append("title", title);
+        formPayload.append("description", description);
+        formPayload.append("timings", timings);
+        formPayload.append("location", location);
+        formPayload.append("classesDays", classesDays);
 
         images.forEach((image, index) => {
             if (image) {
-                formPayload.append(`image${index}`, image);
+                formPayload.append(`image`, image);
             }
         });
 
         try {
-            const response = await axios.post(`${backend}/api/v1/admin/create-offline-class`, formPayload, {
+            const response = await axios.post(`${backend}/admin/offlineClasses/create`, formPayload, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            alert("Offline class details submitted successfully!");
+            alert("Offline class details Created successfully!");
             setPreviews([""]);
             setImages([null]);
             setFormData({

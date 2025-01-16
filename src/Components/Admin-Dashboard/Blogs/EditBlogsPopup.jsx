@@ -38,31 +38,22 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
 
         const data = new FormData();
         data.append("title", formData.title);
-        data.append("content", formData.content);
+        data.append("description", formData.content);
 
         images.forEach((image, index) => {
-            if (image) data.append(`images[${index}]`, image); // Append each image
+            if (image) data.append(`image`, image); // Append each image
         });
 
         try {
-            const url = blog
-                ? `${backend}/api/v1/blogs/update/${blog.id}`
-                : `${backend}/api/v1/blogs/create`;
-
-            const method = blog ? "put" : "post";
-
-            const res = await axios({
-                method,
-                url,
-                data,
+            const res = await axios.put(`${backend}/admin/blog/edit/${blog?._id}`, data, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     "Content-Type": "multipart/form-data",
                 },
-            });
+            })
+
 
             if (res.status === 200 || res.status === 201) {
-                alert(blog ? "Blog updated successfully!" : "Blog created successfully!");
+                alert("Blog updated successfully!");
                 refreshBlogs();
                 closePopup();
             }
@@ -76,9 +67,9 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
         if (blog) {
             setFormData({
                 title: blog.title,
-                content: blog.content,
+                content: blog.description,
             });
-            setImages(blog.images || [null]); // Populate with existing images or a single null
+            setImages(blog.image); // Populate with existing images or a single null
         }
     }, [blog]);
 

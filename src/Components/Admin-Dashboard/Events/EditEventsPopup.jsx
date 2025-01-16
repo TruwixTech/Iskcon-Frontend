@@ -14,7 +14,7 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
         location: "",
     });
 
-    const [images, setImages] = useState([null]); // Single image by default
+    const [images, setImages] = useState([]); // Single image by default
     const [error, setError] = useState("");
 
     const handleInputChange = (e) => {
@@ -49,24 +49,20 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
 
         images.forEach((image, index) => {
             if (image) {
-                formPayload.append(`image`, image); // Append each image
+                data.append(`image`, image); // Append each image
             }
         });
 
 
         try {
-
-            const res = await axios.put(`${backend}/admin/event/edit${event?._id}`, data, {
+            const res = await axios.put(`${backend}/admin/event/edit/${event?._id}`, data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             })
 
-            console.log(res);
-            
-
             if (res.status === 200 || res.status === 201) {
-                alert(event ? "Event updated successfully!" : "Event created successfully!");
+                alert("Event updated successfully!");
                 refreshEvents();
                 closePopup();
             }
@@ -85,7 +81,7 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                 endDate: event.endDate?.split("T")[0] || "",
                 location: event.location,
             });
-            setImages(event.image || [null]); // Populate with existing images or a single null
+            setImages(event.image); // Populate with existing images or a single null
         }
     }, [event]);
 

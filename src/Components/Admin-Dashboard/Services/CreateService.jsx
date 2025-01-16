@@ -61,22 +61,22 @@ function CreateService() {
         }
 
         const formPayload = new FormData();
-        formPayload.append("serviceTitle", serviceTitle);
-        formPayload.append("serviceContent", serviceContent);
+        formPayload.append("title", serviceTitle);
+        formPayload.append("description", serviceContent);
 
         images.forEach((image, index) => {
             if (image) {
-                formPayload.append(`image${index}`, image); // Append each image
+                formPayload.append(`image`, image); // Append each image
             }
         });
 
         try {
-            const response = await axios.post(`${backend}/api/v1/admin/create-event`, formPayload, {
+            const response = await axios.post(`${backend}/admin/service/create`, formPayload, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            alert("Service submitted successfully!");
+            alert("Service created successfully!");
             setPreviews([""]);
             setImages([null]);
             setFormData({
@@ -171,7 +171,7 @@ function CreateService() {
                     type="submit"
                     className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-8 rounded-lg mt-4"
                 >
-                    Submit Service
+                    Create Service
                 </button>
             </form>
         </div>
