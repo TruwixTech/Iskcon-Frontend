@@ -1,20 +1,49 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import EditServicesPopup from './EditServicesPopup';
+import { useEffect } from 'react';
+import axios from 'axios';
+
+const backend = import.meta.env.VITE_BACKEND_URL;
 
 function AdminServices() {
   const [popup, setPopup] = useState(false);
   const [currentService, setCurrentService] = useState(null);
+  const [services, setServices] = useState([]);
 
   function handleOpenPopup(service = null) {
     setCurrentService(service);
     setPopup(true);
   }
 
+
+  async function fetchServices() {
+    try {
+      const response = await axios.get(`${backend}/admin/service/get`);
+      setServices(response.data.data);
+    } catch (error) {
+      console.log("Error while fetching service", error);
+    }
+  }
+
+  async function deleteService(id) {
+    try {
+      await axios.delete(`${backend}/admin/service/delete/${id}`)
+      fetchServices();
+      alert("Service deleted successfully!");
+    } catch (error) {
+      console.log("Error while deleting service", error);
+    }
+  }
+
   const navigate = useNavigate();
   const handleCreateEvents = () => {
     navigate('/admin-dashboard/services/create-service');
   };
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
 
   return (
     <div className='w-full h-auto flex flex-col'>
@@ -26,17 +55,16 @@ function AdminServices() {
           </span>
         </div>
         <div className='w-full h-auto px-5 md:px-10 lg:px-20 gap-4 lg:gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center'>
-          {[{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }].map((event, index) => (
+          {services.map((service, index) => (
             <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
-              <NavLink to='/admin-dashboard/services/single-service/125366434'>
-
+              <NavLink to={`/admin-dashboard/services/single-service/${service._id}`} className='w-full h-auto flex flex-col gap-3 justify-between flex-1'>
+                <img src={service.image[0]} alt="" className='w-full h-40' />
+                <h1 className='text-xl font-semibold'>{service.title}</h1>
+                <p className='text-sm text-gray-500'>{service.description.length > 150 ? service.description.slice(0, 150) + "..." : service.description.slice(0, 150)}</p>
               </NavLink>
-              <img src={event.image} alt="" className='w-full h-40' />
-              <h1 className='text-xl font-semibold'>{event.title}</h1>
-              <p className='text-sm text-gray-500'>{event.content.length > 150 ? event.content.slice(0, 150) + "..." : event.content.slice(0, 150)}</p>
               <div className='w-full h-auto flex justify-between items-center'>
-                <button onClick={() => handleOpenPopup(event)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
-                <button className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
+                <button onClick={() => handleOpenPopup(service)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
+                <button onClick={() => deleteService(service._id)} className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
               </div>
             </div>
           ))}
@@ -44,9 +72,9 @@ function AdminServices() {
       </div>
       {popup && (
         <EditServicesPopup
-          product={currentService}
+          service={currentService}
           closePopup={() => setPopup(false)}
-        // refreshProducts={fetchProducts}
+          refreshServices={fetchServices}
         />
       )}
     </div>

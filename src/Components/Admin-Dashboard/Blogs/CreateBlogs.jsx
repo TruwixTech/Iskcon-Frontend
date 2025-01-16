@@ -61,22 +61,22 @@ function CreateBlogs() {
         }
 
         const formPayload = new FormData();
-        formPayload.append("blogTitle", blogTitle);
-        formPayload.append("blogContent", blogContent);
+        formPayload.append("title", blogTitle);
+        formPayload.append("description", blogContent);
 
         images.forEach((image, index) => {
             if (image) {
-                formPayload.append(`image${index}`, image); // Append each image
+                formPayload.append(`image`, image); // Append each image
             }
         });
 
         try {
-            const response = await axios.post(`${backend}/api/v1/admin/create-event`, formPayload, {
+            const response = await axios.post(`${backend}/admin/blog/create`, formPayload, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            alert("Blogs submitted successfully!");
+            alert("Blogs Created successfully!");
             setPreviews([""]);
             setImages([null]);
             setFormData({

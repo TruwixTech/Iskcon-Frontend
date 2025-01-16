@@ -68,15 +68,16 @@ function CreateEvents() {
         formPayload.append("location", location);
         formPayload.append("startDate", startDate);
         formPayload.append("endDate", endDate);
-
+        
         images.forEach((image, index) => {
             if (image) {
-                formPayload.append(`image${index}`, image); // Append each image
+                formPayload.append(`image`, image); // Append each image
             }
         });
 
         try {
-            const response = await axios.post(`${backend}/v1/admin/event/create`, formPayload, {
+            
+            const response = await axios.post(`${backend}/admin/event/create`, formPayload, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

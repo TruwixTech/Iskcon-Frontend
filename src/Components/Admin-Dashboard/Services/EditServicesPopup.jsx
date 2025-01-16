@@ -38,31 +38,21 @@ const EditServicesPopup = ({ service, closePopup, refreshServices }) => {
 
         const data = new FormData();
         data.append("title", formData.title);
-        data.append("content", formData.content);
+        data.append("description", formData.content);
 
         images.forEach((image, index) => {
-            if (image) data.append(`images[${index}]`, image); // Append each image
+            if (image) data.append(`image`, image); // Append each image
         });
 
         try {
-            const url = service
-                ? `${backend}/api/v1/services/update/${service.id}`
-                : `${backend}/api/v1/services/create`;
-
-            const method = service ? "put" : "post";
-
-            const res = await axios({
-                method,
-                url,
-                data,
+            const res = await axios.put(`${backend}/admin/service/edit/${service?._id}`, data, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     "Content-Type": "multipart/form-data",
                 },
-            });
+            })
 
             if (res.status === 200 || res.status === 201) {
-                alert(service ? "Service updated successfully!" : "Service created successfully!");
+                alert("Service updated successfully!");
                 refreshServices();
                 closePopup();
             }
@@ -76,9 +66,9 @@ const EditServicesPopup = ({ service, closePopup, refreshServices }) => {
         if (service) {
             setFormData({
                 title: service.title,
-                content: service.content,
+                content: service.description,
             });
-            setImages(service.images || [null]); // Populate with existing images or a single null
+            setImages(service.image); // Populate with existing images or a single null
         }
     }, [service]);
 
