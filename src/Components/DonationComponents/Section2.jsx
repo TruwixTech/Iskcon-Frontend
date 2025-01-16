@@ -3,6 +3,10 @@ import circlebg from "../../assets/circlebg.png";
 import krishnadonation from "../../assets/krishnadon.png";
 import leaf1 from "../../assets/leaf1.png";
 import leaf2 from "../../assets/leaf2.png";
+import DonationCircle from "../DonationCircle";
+import styleborder from "../../assets/styleborder.png";
+import pea from "../../assets/pea.png";
+import borderbg from "../../assets/borderbg.png";
 
 const Section2 = () => {
   return (
@@ -134,7 +138,7 @@ const Section2 = () => {
 
       {/* next section */}
 
-      <div className="bg-[#fde3b6] relative w-full h-[550px] md:h-[560px]">
+      <div className="bg-white relative w-full h-[550px] md:h-[560px]">
         <div className="absolute left-0">
           <img src={leaf1} alt="" />
         </div>
@@ -173,6 +177,25 @@ const Section2 = () => {
           </div>
         </div>
       </div>
+
+      {/* section4 */}
+
+      <div className="w-full h-[700px] md:h-[900px] py-20 flex justify-center items-center bg-[#fde3b6]">
+        <div className="relative h-[500px] md:h-[700px]">
+        <img src={styleborder} alt="" className="w-full h-full"/>
+        <img src={pea} alt="" className="absolute -top-12 left-1/2 -translate-x-1/2" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col gap-6 justify-center items-center">
+          <h1 className="text-2xl md:text-3xl text-[#3B2106] font-prata">Donation Privileges</h1>
+          <p className="text-sm md:text-base font-nunito text-center px-6">Each one of our respected contributors of at least one square  feet donation <br/> will receive below privileges:</p>
+          <img src={borderbg} alt="" className="px-10 md:px-32" />
+
+        </div>
+        </div>
+        
+      </div>
+
+      {/* section5 */}
+      <DonationCircle />
     </>
   );
 };

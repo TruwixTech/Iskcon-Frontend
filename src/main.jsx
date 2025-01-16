@@ -32,6 +32,7 @@ import AdminMedia from './Components/Admin-Dashboard/Media/AdminMedia.jsx'
 import AdminSingleMedia from './Components/Admin-Dashboard/Media/AdminSingleMedia.jsx'
 import CreateMedia from './Components/Admin-Dashboard/Media/CreateMedia.jsx'
 import DonationPage from './Pages/DonationPage.jsx'
+import DonationForm from './Components/DonationForm.jsx'
 
 
 const router = createBrowserRouter(
@@ -77,6 +78,7 @@ const router = createBrowserRouter(
         <Route path="/contacts" element={<ContactPage/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/donation" element={<DonationPage />} />
+        <Route path="/donate" element={<DonationForm />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
     </>
