@@ -9,7 +9,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 function Section3() {
     return (
-        <div className='w-full h-auto flex flex-col bg-[#FDE3B6] px-5 md:px-10 lg:flex-row-reverse 2xl:h-screen' style={
+        <div className='w-full h-auto flex flex-col bg-[#FDE3B6] overflow-hidden px-5 md:px-10 lg:flex-row-reverse 2xl:h-screen' style={
             {
                 backgroundImage: `url(${BgOne})`,
                 backgroundPosition: 'bottom',

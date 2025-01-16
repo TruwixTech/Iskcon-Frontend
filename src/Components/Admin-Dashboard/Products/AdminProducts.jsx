@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CreateProductPopup from './AdminCreateProductPopup';
+import CreateProducts from './AdminCreateProductPopup';
 import { NavLink } from 'react-router-dom';
 
 function AdminProducts() {
@@ -48,7 +48,7 @@ function AdminProducts() {
           ))}
         </div>
         {isPopupOpen && (
-          <CreateProductPopup
+          <CreateProducts
             product={currentProduct}
             closePopup={closePopup}
             // refreshProducts={fetchProducts}

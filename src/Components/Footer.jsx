@@ -8,7 +8,7 @@ import twit from "../assets/twit.png"
 function Footer() {
   return (
     <div
-      className="relative w-full h-auto md:h-[580px] px-4 md:px-20"
+      className="relative w-full h-auto md:h-[580px] px-4 md:px-20 -z-10"
       style={{
         backgroundImage: `url(${footerbg})`,
         backgroundSize: "cover",

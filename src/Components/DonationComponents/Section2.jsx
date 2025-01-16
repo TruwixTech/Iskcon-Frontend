@@ -16,7 +16,7 @@ const Section2 = () => {
             <img src={krishnadonation} alt="" className="w-full h-full" />
           </div>
           <div className="bg-white rounded-2xl  h-auto w-[80%] hidden">
-          <h1 className="text-4xl text-[#3B2106] font-bold">
+            <h1 className="text-4xl text-[#3B2106] font-bold">
               Donation is a Maha Daan
             </h1>
             <div className="text-sm flex flex-col gap-4 w-[85%]">
@@ -120,7 +120,7 @@ const Section2 = () => {
         </div>
       </div>
 
-       {/* next section */}
+      {/* next section */}
 
       <div className="bg-gradient-to-r from-[#EB852C] to-[#854B19] w-full h-auto flex flex-col justify-center items-center text-center py-16 text-white font-nunito px-4 md:px-0 text-md md:text-lg">
         <h1>
