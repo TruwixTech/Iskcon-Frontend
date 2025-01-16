@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import CreateProductPopup from './AdminCreateProductPopup';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import CreateProducts from './AdminCreateProductPopup';
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -74,7 +74,7 @@ function AdminProducts() {
           ))}
         </div>
         {isPopupOpen && (
-          <CreateProductPopup
+          <CreateProducts
             product={currentProduct}
             closePopup={closePopup}
             refreshProducts={fetchProducts}

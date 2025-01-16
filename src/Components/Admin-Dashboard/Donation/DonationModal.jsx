@@ -8,8 +8,8 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 
 const CreateDonationForm = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     image: [],
     startDate: '',
     endDate: '',
@@ -23,7 +23,10 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, image: [...formData.image, ...Array.from(e.target.files)] });
+    setFormData({
+      ...formData,
+      image: [...formData.image, ...Array.from(e.target.files)],
+    });
   };
 
   const addCategory = () => {
@@ -31,13 +34,15 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
       ...formData,
       donationsCategory: [
         ...formData.donationsCategory,
-        { title: '', donationTypes: [] }
-      ]
+        { title: "", donationTypes: [] },
+      ],
     });
   };
 
   const deleteCategory = (index) => {
-    const updatedCategories = formData.donationsCategory.filter((_, i) => i !== index);
+    const updatedCategories = formData.donationsCategory.filter(
+      (_, i) => i !== index
+    );
     setFormData({ ...formData, donationsCategory: updatedCategories });
   };
 
@@ -49,13 +54,18 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
 
   const addDonationType = (categoryIndex) => {
     const updatedCategories = [...formData.donationsCategory];
-    updatedCategories[categoryIndex].donationTypes.push({ title: '', amount: '' });
+    updatedCategories[categoryIndex].donationTypes.push({
+      title: "",
+      amount: "",
+    });
     setFormData({ ...formData, donationsCategory: updatedCategories });
   };
 
   const deleteDonationType = (categoryIndex, typeIndex) => {
     const updatedCategories = [...formData.donationsCategory];
-    updatedCategories[categoryIndex].donationTypes = updatedCategories[categoryIndex].donationTypes.filter((_, i) => i !== typeIndex);
+    updatedCategories[categoryIndex].donationTypes = updatedCategories[
+      categoryIndex
+    ].donationTypes.filter((_, i) => i !== typeIndex);
     setFormData({ ...formData, donationsCategory: updatedCategories });
   };
 
@@ -99,16 +109,16 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
+    <div
       contentLabel="Create Donation Form"
       className="p-6 bg-white rounded shadow-md w-3/4 max-w-3xl h-[650px] mx-auto my-10 overflow-y-auto"
       overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
     >
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="title" className="block font-medium text-gray-700">Title</label>
+          <label htmlFor="title" className="block font-medium text-gray-700">
+            Title
+          </label>
           <input
             type="text"
             id="title"
@@ -121,7 +131,12 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="description" className="block font-medium text-gray-700">Description</label>
+          <label
+            htmlFor="description"
+            className="block font-medium text-gray-700"
+          >
+            Description
+          </label>
           <textarea
             id="description"
             name="description"
@@ -133,7 +148,9 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="image" className="block font-medium text-gray-700">Images</label>
+          <label htmlFor="image" className="block font-medium text-gray-700">
+            Images
+          </label>
           <input
             type="file"
             id="image"
@@ -144,9 +161,16 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
           />
           <div className="mt-2 flex flex-wrap gap-2">
             {formData.image.map((img, index) => (
-              <div key={index} className="flex items-center gap-2 border p-2 rounded">
-                <span className="text-sm">{img.name || 'Uploaded Image'}</span>
-                <button type="button" onClick={() => removeImage(index)} className="text-red-500">
+              <div
+                key={index}
+                className="flex items-center gap-2 border p-2 rounded"
+              >
+                <span className="text-sm">{img.name}</span>
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="text-red-500"
+                >
                   <FaTrash />
                 </button>
               </div>
@@ -155,7 +179,12 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="startDate" className="block font-medium text-gray-700">Start Date</label>
+          <label
+            htmlFor="startDate"
+            className="block font-medium text-gray-700"
+          >
+            Start Date
+          </label>
           <input
             type="date"
             id="startDate"
@@ -168,7 +197,9 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="endDate" className="block font-medium text-gray-700">End Date</label>
+          <label htmlFor="endDate" className="block font-medium text-gray-700">
+            End Date
+          </label>
           <input
             type="date"
             id="endDate"
@@ -193,7 +224,11 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
                   className="w-3/4 p-2 border rounded"
                   required
                 />
-                <button type="button" onClick={() => deleteCategory(index)} className="text-red-500">
+                <button
+                  type="button"
+                  onClick={() => deleteCategory(index)}
+                  className="text-red-500"
+                >
                   <FaTrash />
                 </button>
               </div>
@@ -206,7 +241,14 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
                       type="text"
                       placeholder="Donation Type Title"
                       value={type.title}
-                      onChange={(e) => handleDonationTypeChange(index, typeIndex, 'title', e.target.value)}
+                      onChange={(e) =>
+                        handleDonationTypeChange(
+                          index,
+                          typeIndex,
+                          "title",
+                          e.target.value
+                        )
+                      }
                       className="w-1/3 p-2 border rounded mr-2"
                       required
                     />
@@ -214,36 +256,61 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
                       type="number"
                       placeholder="Amount"
                       value={type.amount}
-                      onChange={(e) => handleDonationTypeChange(index, typeIndex, 'amount', e.target.value)}
+                      onChange={(e) =>
+                        handleDonationTypeChange(
+                          index,
+                          typeIndex,
+                          "amount",
+                          e.target.value
+                        )
+                      }
                       className="w-1/3 p-2 border rounded mr-2"
                       required
                     />
-                    <button type="button" onClick={() => deleteDonationType(index, typeIndex)} className="text-red-500">
+                    <button
+                      type="button"
+                      onClick={() => deleteDonationType(index, typeIndex)}
+                      className="text-red-500"
+                    >
                       <FaTrash />
                     </button>
                   </div>
                 ))}
-                <button type="button" onClick={() => addDonationType(index)} className="flex items-center text-blue-500 mt-2">
+                <button
+                  type="button"
+                  onClick={() => addDonationType(index)}
+                  className="flex items-center text-blue-500 mt-2"
+                >
                   <FaPlus className="mr-1" /> Add Donation Type
                 </button>
               </div>
             </div>
           ))}
-          <button type="button" onClick={addCategory} className="flex items-center text-blue-500 mt-4">
+          <button
+            type="button"
+            onClick={addCategory}
+            className="flex items-center text-blue-500 mt-4"
+          >
             <FaPlus className="mr-1" /> Add Category
           </button>
         </div>
 
         <div className="flex justify-end gap-4">
-          <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-400 text-white rounded">
+          <button
+            type="button"
+            className="px-4 py-2 bg-gray-400 text-white rounded"
+          >
             Cancel
           </button>
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+          >
             Submit
           </button>
         </div>
       </form>
-    </Modal>
+    </div>
   );
 };
 

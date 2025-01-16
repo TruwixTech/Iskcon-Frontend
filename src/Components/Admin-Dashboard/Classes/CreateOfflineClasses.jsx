@@ -69,6 +69,7 @@ function CreateOfflineClasses() {
         formPayload.append("location", location);
         formPayload.append("classesDays", classesDays);
 
+    
         images.forEach((image, index) => {
             if (image) {
                 formPayload.append(`image`, image);

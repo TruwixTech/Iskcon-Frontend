@@ -61,7 +61,7 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                 : `${backend}/admin/product/add`;
 
             const method = product ? "put" : "post";
-
+            
             const res = await axios({
                 method,
                 url,
@@ -72,7 +72,7 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
             });
 
             if (res.status === 200 || res.status === 201) {
-                alert( product ? "Product updated successfully!" : "Product created successfully!");
+                alert(product ? "Product updated successfully!" : "Product created successfully!");
                 refreshProducts();
                 closePopup();
             }
