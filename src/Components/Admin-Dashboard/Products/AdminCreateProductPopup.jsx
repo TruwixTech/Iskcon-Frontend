@@ -7,14 +7,14 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
     const [formData, setFormData] = useState({
         name: "",
-        product_id: "",
-        desc: "",
+        productId: "",
+        description: "",
         category: "",
-        countInStock: 0,
-        quantityPrices: [{ quantity: "", price: 0 }],
+        stock: 0,
+        price: 0,
+        images: [null], // Start with one empty image slot
     });
 
-    const [images, setImages] = useState([null]); // Single image by default
     const [error, setError] = useState("");
 
     const handleInputChange = (e) => {
@@ -22,37 +22,22 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleQuantityPriceChange = (index, field, value) => {
-        const updatedQuantityPrices = [...formData.quantityPrices];
-        updatedQuantityPrices[index][field] = value;
-        setFormData({ ...formData, quantityPrices: updatedQuantityPrices });
-    };
-
-    const handleAddQuantityPrice = () => {
+    const handleAddImage = () => {
         setFormData({
             ...formData,
-            quantityPrices: [...formData.quantityPrices, { quantity: "", price: 0 }],
+            images: [...formData.images, null],
         });
     };
 
-    const handleRemoveQuantityPrice = (index) => {
-        const updatedQuantityPrices = formData.quantityPrices.filter((_, i) => i !== index);
-        setFormData({ ...formData, quantityPrices: updatedQuantityPrices });
-    };
-
-    const handleAddImage = () => {
-        setImages([...images, null]); // Add a new null slot for another image
-    };
-
     const handleRemoveImage = (index) => {
-        const updatedImages = images.filter((_, i) => i !== index);
-        setImages(updatedImages);
+        const updatedImages = formData.images.filter((_, i) => i !== index);
+        setFormData({ ...formData, images: updatedImages });
     };
 
     const handleImageChange = (index, file) => {
-        const updatedImages = [...images];
+        const updatedImages = [...formData.images];
         updatedImages[index] = file;
-        setImages(updatedImages);
+        setFormData({ ...formData, images: updatedImages });
     };
 
     const handleSubmit = async (e) => {
@@ -60,20 +45,20 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
 
         const data = new FormData();
         data.append("name", formData.name);
-        data.append("product_id", formData.product_id);
-        data.append("desc", formData.desc);
+        data.append("productId", formData.productId || ""); // Use UUID generated in backend if needed
+        data.append("description", formData.description);
+        data.append("price", formData.price);
+        data.append("stock", formData.stock);
         data.append("category", formData.category);
-        data.append("countInStock", formData.countInStock);
-        data.append("quantityPrices", JSON.stringify(formData.quantityPrices));
 
-        images.forEach((image, index) => {
-            if (image) data.append(`images[${index}]`, image); // Append each image
+        formData.images.forEach((image, index) => {
+            if (image) data.append(`image`, image);
         });
 
         try {
             const url = product
-                ? `${backend}/api/v1/products/update-product/${product.product_id}`
-                : `${backend}/api/v1/products/create-product`;
+                ? `${backend}/admin/product/edit/${product._id}`
+                : `${backend}/admin/product/add`;
 
             const method = product ? "put" : "post";
 
@@ -82,13 +67,12 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                 url,
                 data,
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     "Content-Type": "multipart/form-data",
                 },
             });
 
             if (res.status === 200 || res.status === 201) {
-                alert(product ? "Product updated successfully!" : "Product created successfully!");
+                alert( product ? "Product updated successfully!" : "Product created successfully!");
                 refreshProducts();
                 closePopup();
             }
@@ -102,15 +86,13 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
         if (product) {
             setFormData({
                 name: product.name,
-                product_id: product.product_id,
-                desc: product.desc,
+                productId: product.productId,
+                description: product.description,
                 category: product.category,
-                countInStock: product.countInStock,
-                quantityPrices: product.quantityPrices?.length > 0
-                    ? product.quantityPrices
-                    : [{ quantity: "", price: 0 }],
+                stock: product.stock,
+                price: product.price,
+                images: product.images || [null],
             });
-            setImages(product.images || [null]); // Populate with existing images or a single null
         }
     }, [product]);
 
@@ -144,8 +126,8 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                             <label className="block text-sm font-medium text-gray-700 mb-1">Product ID</label>
                             <input
                                 type="text"
-                                name="product_id"
-                                value={formData.product_id}
+                                name="productId"
+                                value={formData.productId}
                                 onChange={handleInputChange}
                                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -155,14 +137,14 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                     {/* Images */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
-                        {images.map((image, index) => (
+                        {formData.images.map((image, index) => (
                             <div key={index} className="flex items-center mb-2 space-x-2">
                                 <input
                                     type="file"
                                     onChange={(e) => handleImageChange(index, e.target.files[0])}
                                     className="flex-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
-                                {images.length > 1 && (
+                                {formData.images.length > 1 && (
                                     <button
                                         type="button"
                                         onClick={() => handleRemoveImage(index)}
@@ -185,8 +167,8 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                         <textarea
-                            name="desc"
-                            value={formData.desc}
+                            name="description"
+                            value={formData.description}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                             rows="3"
@@ -205,55 +187,25 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                             required
                         />
                     </div>
-                    {/* Quantity and Prices */}
+                    {/* Price */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Quantity and Prices</label>
-                        {formData.quantityPrices.map((qp, index) => (
-                            <div key={index} className="flex items-center mb-2 space-x-2">
-                                <input
-                                    type="text"
-                                    value={qp.quantity}
-                                    placeholder="Quantity"
-                                    onChange={(e) =>
-                                        handleQuantityPriceChange(index, "quantity", e.target.value)
-                                    }
-                                    className="flex-1 w-[48%] p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    required
-                                />
-                                <input
-                                    type="number"
-                                    value={qp.price}
-                                    placeholder="Price"
-                                    onChange={(e) =>
-                                        handleQuantityPriceChange(index, "price", e.target.value)
-                                    }
-                                    className="flex-1 w-[48%] p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => handleRemoveQuantityPrice(index)}
-                                    className="text-red-500 hover:text-red-700"
-                                >
-                                    <Minus size={20} />
-                                </button>
-                            </div>
-                        ))}
-                        <button
-                            type="button"
-                            onClick={handleAddQuantityPrice}
-                            className="mt-2 flex items-center text-green-500 hover:text-green-700"
-                        >
-                            <Plus size={20} className="mr-1" /> Add Quantity/Price
-                        </button>
-                    </div>
-                    {/* Count in Stock */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Count in Stock</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
                         <input
                             type="number"
-                            name="countInStock"
-                            value={formData.countInStock}
+                            name="price"
+                            value={formData.price}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            required
+                        />
+                    </div>
+                    {/* Stock */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+                        <input
+                            type="number"
+                            name="stock"
+                            value={formData.stock}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             required

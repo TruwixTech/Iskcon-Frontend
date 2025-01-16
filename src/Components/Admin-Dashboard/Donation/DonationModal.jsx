@@ -1,7 +1,10 @@
-import  { useState } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa'; // Import delete icon
 import { FaPlus } from 'react-icons/fa'; // Import add icon
 import Modal from 'react-modal'; // Import modal
+
+const backend = import.meta.env.VITE_BACKEND_URL;
 
 const CreateDonationForm = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -10,7 +13,7 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
     image: [],
     startDate: '',
     endDate: '',
-    faqs: [],
+    // faqs: [],
     donationsCategory: []
   });
 
@@ -62,10 +65,32 @@ const CreateDonationForm = ({ isOpen, onClose }) => {
     setFormData({ ...formData, donationsCategory: updatedCategories });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    onClose(); // Close the modal on form submission
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const formData1 = new FormData();
+      formData1.append('title', formData.title);
+      formData1.append('description', formData.description);
+      formData1.append('startDate', formData.startDate);
+      formData1.append('endDate', formData.endDate);
+      formData.donationsCategory.forEach((category) => {
+        formData1.append('donationsCategory.title', category.title);
+        category.donationTypes.forEach((type) => {
+          formData1.append('donationsCategory.donationTypes.title', type.title);
+          formData1.append('donationsCategory.donationTypes.amount', type.amount);
+        });
+      });
+
+      formData.image.forEach((image, index) => {
+        formData1.append(`image`, image); // Append each image
+      });
+
+      const response = await axios.post(`${backend}/admin/donation/create`, formData1);
+
+      onClose(); // Close the modal on form submission
+    } catch (error) {
+      console.error("Error saving donation:", error);
+    }
   };
 
   const removeImage = (index) => {

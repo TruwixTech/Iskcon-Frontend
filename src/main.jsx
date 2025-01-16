@@ -32,6 +32,7 @@ import AdminMedia from './Components/Admin-Dashboard/Media/AdminMedia.jsx'
 import AdminSingleMedia from './Components/Admin-Dashboard/Media/AdminSingleMedia.jsx'
 import CreateMedia from './Components/Admin-Dashboard/Media/CreateMedia.jsx'
 import DonationPage from './Pages/DonationPage.jsx'
+import SinglePageDonation from './Components/Admin-Dashboard/Donation/SinglePageDonation.jsx'
 
 
 const router = createBrowserRouter(
@@ -57,6 +58,8 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/services/single-service/:id' element={<AdminSingleService />} />
         {/* Admin Donation Related Routes */}
         <Route path='/admin-dashboard/donation' element={<AdminDonation />} />
+        <Route path='/admin-dashboard/donation/single-donation/:id' element={<SinglePageDonation />} />
+
         {/* Admin Products Related Routes */}
         <Route path='/admin-dashboard/products' element={<AdminProducts />} />
         {/* Admin Guest House Related Routes */}

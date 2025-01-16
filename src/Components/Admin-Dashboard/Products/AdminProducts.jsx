@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CreateProductPopup from './AdminCreateProductPopup';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+
+const backend = import.meta.env.VITE_BACKEND_URL;
 
 function AdminProducts() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [products, setProducts] = useState([]);
 
   const openPopup = (product = null) => {
     setCurrentProduct(product);
@@ -15,6 +19,29 @@ function AdminProducts() {
     setIsPopupOpen(false);
     setCurrentProduct(null);
   }
+
+  async function fetchProducts() {
+    try {
+      const response = await axios.get(`${backend}/admin/product/all`);
+      setProducts(response.data.data);
+    } catch (error) {
+      console.log("Error while fetching products", error);
+    }
+  }
+
+  async function deleteProduct(id) {
+    try {
+      await axios.delete(`${backend}/admin/product/delete/${id}`)
+      fetchProducts();
+      alert("Product deleted successfully!");
+    } catch (error) {
+      console.log("Error while deleting product", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
 
   return (
     <div className='w-full h-auto flex flex-col'>
@@ -28,21 +55,20 @@ function AdminProducts() {
           </span>
         </div>
         <div className='w-full h-auto px-5 md:px-10 lg:px-20 gap-4 lg:gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center'>
-          {[{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }].map((event, index) => (
+          {products.map((product, index) => (
             <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
-              <img src={event.image} alt="" className='w-full h-40' />
-              <h1 className='text-xl font-semibold'>{event.title}</h1>
+              <img src={product?.images[0]} alt="product image" className='w-full h-40 object-cover' />
+              <h1 className='text-xl font-semibold'>{product?.name}</h1>
+              <p className='w-full h-auto text-gray-600 text-sm'>{product.description}</p>
+              <p className='w-full'><span className='font-semibold'>Category : </span><span className='text-gray-600'>{product.category}</span></p>
+              <p className='w-full'><span className='font-semibold'>Product-Id : </span><span className='text-gray-600'>{product.productId}</span></p>
               <div className='w-full h-auto flex justify-between items-center'>
-                <span>Category</span>
-                <span>Product_Id</span>
+                <p><span className='font-semibold'>Price : </span><span className='text-gray-600'>₹{product.price}</span></p>
+                <p><span className='font-semibold'>Stock : </span><span className='text-gray-600'>{product.stock}</span></p>
               </div>
               <div className='w-full h-auto flex justify-between items-center'>
-                <span>Stock</span>
-                <span>Price</span>
-              </div>
-              <div className='w-full h-auto flex justify-between items-center'>
-                <button onClick={() => openPopup()} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
-                <button className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
+                <button onClick={() => openPopup(product)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
+                <button onClick={() => deleteProduct(product._id)} className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
               </div>
             </div>
           ))}
@@ -51,7 +77,7 @@ function AdminProducts() {
           <CreateProductPopup
             product={currentProduct}
             closePopup={closePopup}
-            // refreshProducts={fetchProducts}
+            refreshProducts={fetchProducts}
           />
         )}
       </div>
