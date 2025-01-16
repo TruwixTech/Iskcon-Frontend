@@ -76,7 +76,7 @@ function CreateEvents() {
         });
 
         try {
-            const response = await axios.post(`${backend}/api/v1/admin/create-event`, formPayload, {
+            const response = await axios.post(`${backend}/v1/admin/event/create`, formPayload, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
