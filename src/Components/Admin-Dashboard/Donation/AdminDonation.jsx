@@ -101,7 +101,10 @@ function AdminDonation() {
           ))
         }
       </div>
-      <CreateDonationForm isOpen={isModalOpen} onClose={toggleModal} />
+      {
+        isModalOpen && <CreateDonationForm isOpen={isModalOpen} onClose={toggleModal} refreshDonations={fetchDonations} />
+      }
+      
       {popup && (
         <EditDonationsPopup
           donation={currentDonation}
