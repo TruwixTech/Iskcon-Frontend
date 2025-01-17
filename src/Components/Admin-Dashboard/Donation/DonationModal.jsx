@@ -6,7 +6,7 @@ import Modal from 'react-modal'; // Import modal
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
-const CreateDonationForm = ({ onClose , refreshDonations }) => {
+const CreateDonationForm = ({ onClose, refreshDonations }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -83,11 +83,18 @@ const CreateDonationForm = ({ onClose , refreshDonations }) => {
       formData1.append('description', formData.description);
       formData1.append('startDate', formData.startDate);
       formData1.append('endDate', formData.endDate);
-      formData.donationsCategory.forEach((category) => {
-        formData1.append('donationsCategory.title', category.title);
-        category.donationTypes.forEach((type) => {
-          formData1.append('donationsCategory.donationTypes.title', type.title);
-          formData1.append('donationsCategory.donationTypes.amount', type.amount);
+
+      formData.donationsCategory.forEach((category, categoryIndex) => {
+        formData1.append(`donationsCategory[${categoryIndex}][title]`, category.title);
+        category.donationTypes.forEach((type, typeIndex) => {
+          formData1.append(
+            `donationsCategory[${categoryIndex}][donationTypes][${typeIndex}][title]`,
+            type.title
+          );
+          formData1.append(
+            `donationsCategory[${categoryIndex}][donationTypes][${typeIndex}][amount]`,
+            type.amount
+          );
         });
       });
 
@@ -114,7 +121,7 @@ const CreateDonationForm = ({ onClose , refreshDonations }) => {
     <div className="fixed inset-0 h-screen flex items-center justify-center bg-gray-800 bg-opacity-50 font-marcellus">
       <div
         className="p-6 bg-white rounded shadow-md w-3/4 max-w-3xl h-[650px] mx-auto overflow-y-auto "
-        // className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      // className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
