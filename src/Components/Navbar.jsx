@@ -22,12 +22,12 @@ const Navbar = () => {
       }}
     >
       <div className="w-full h-full flex justify-between items-center">
-        <Link to="/" className="flex justify-center items-center">
+        <Link to="/" className="flex justify-center items-center flex-shrink-0">
           <img src={logo} alt="logo" className="w-full h-full object-contain" />
         </Link>
 
         {/* Desktop Navigation */}
-        <span className="hidden md:flex items-center gap-10">
+        <span className="hidden lg:flex items-center gap-10">
           <ul className="flex items-center gap-12 text-base font-medium">
             {[
               { path: "/about", label: "About Us" },
@@ -74,7 +74,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-black text-2xl"
+          className="lg:hidden text-black text-2xl"
           onClick={toggleMenu}
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
@@ -82,7 +82,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 md:hidden z-50 rounded-3xl mt-4">
+          <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 lg:hidden z-50 rounded-3xl mt-4">
             <ul className="flex flex-col items-center gap-6 text-base font-medium">
               {[
                 { path: "/about-us", label: "About Us" },
@@ -117,7 +117,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/donate"
-                className="px-8 py-3 bg-[#eb852c] text-white text-center rounded-[124px] hover:bg-orange-600 transition ease-in-out"
+                className="xl:px-8 py-3 bg-[#eb852c] text-white text-center rounded-[124px] hover:bg-orange-600 transition ease-in-out"
                 onClick={() => setMenuOpen(false)}
               >
                 Donate Now

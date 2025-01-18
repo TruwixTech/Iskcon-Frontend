@@ -14,7 +14,6 @@ import AdminBlogs from './Components/Admin-Dashboard/Blogs/AdminBlogs.jsx'
 import AdminProducts from './Components/Admin-Dashboard/Products/AdminProducts.jsx'
 import CreateEvents from './Components/Admin-Dashboard/Events/CreateEvents.jsx'
 import AdminSingleEvent from './Components/Admin-Dashboard/Events/AdminSingleEvent.jsx'
-import ProductPage from './Components/ProductPage.jsx'
 import BlogsPage from './Components/BlogPage.jsx'
 import ContactPage from './Components/ContactPage.jsx'
 import Cart from './Components/Cart.jsx'
@@ -34,6 +33,8 @@ import CreateMedia from './Components/Admin-Dashboard/Media/CreateMedia.jsx'
 import DonationPage from './Pages/DonationPage.jsx'
 import SinglePageDonation from './Components/Admin-Dashboard/Donation/SinglePageDonation.jsx'
 import DonationForm from './Components/DonationForm.jsx'
+import ShopPage from './Pages/ShopPage.jsx'
+import SingleProduct from './Components/ShopPageComponents/SingleProduct.jsx'
 import AboutUs from './Pages/AboutPage.jsx'
 import CardDetails from './Pages/CardDetails.jsx'
 import EventPage from './Pages/EventPage.jsx'
@@ -74,12 +75,13 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/classes' element={<AdminClasses/>} />
         <Route path='/admin-dashboard/classes/create-classes' element={<CreateOfflineClasses/>} />
         <Route path='/admin-dashboard/classes/class/:id' element={<SingleClass/>} />
-        {/*  */}
+        {/* Admin Media Related Routes */}
         <Route path='/admin-dashboard/media' element={<AdminMedia />} />
         <Route path='/admin-dashboard/media/create-media' element={<CreateMedia />} />
         <Route path='/admin-dashboard/media/single-media/:id' element={<AdminSingleMedia />} />
-
-        <Route path="/shop" element={<ProductPage/>} />
+        {/* Public Routes  */}
+        <Route path="/shop" element={<ShopPage/>} />
+        <Route path="/shop/single-product/:id" element={<SingleProduct />} />
         <Route path="/blogs" element={<BlogsPage/>} />
         <Route path="/contacts" element={<ContactPage/>} />
         <Route path="/cart" element={<Cart />} />

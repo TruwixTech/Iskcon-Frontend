@@ -14,7 +14,7 @@ const Section1 = () => {
         backgroundPosition: 'right', 
       }}
     >
-      <div className="px-20 pt-10 relative z-50">
+      <div className="px-4 md:px-20 pt-10 relative z-50">
         <Navbar />
       </div>
       <div className=' w-[70%] h-screen absolute top-0 left-0 z-10'
