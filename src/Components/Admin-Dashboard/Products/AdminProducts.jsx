@@ -59,7 +59,7 @@ function AdminProducts() {
             <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
               <img src={product?.images[0]} alt="product image" className='w-full h-40 object-cover' />
               <h1 className='text-xl font-semibold'>{product?.name}</h1>
-              <p className='w-full h-auto text-gray-600 text-sm'>{product.description}</p>
+              <p className='w-full h-auto text-gray-600 text-sm'>{product.subDesc}</p>
               <p className='w-full'><span className='font-semibold'>Category : </span><span className='text-gray-600'>{product.category}</span></p>
               <p className='w-full'><span className='font-semibold'>Product-Id : </span><span className='text-gray-600'>{product.productId}</span></p>
               <div className='w-full h-auto flex justify-between items-center'>

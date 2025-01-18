@@ -9,10 +9,12 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
         name: "",
         productId: "",
         description: "",
+        subDesc: "", // Added subDesc field
         category: "",
         stock: 0,
         price: 0,
         images: [null], // Start with one empty image slot
+        sizes: [], // Added sizes field
     });
 
     const [error, setError] = useState("");
@@ -40,6 +42,24 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
         setFormData({ ...formData, images: updatedImages });
     };
 
+    const handleAddSize = () => {
+        setFormData({
+            ...formData,
+            sizes: [...formData.sizes, { sizeType: "", amount: 0 }],
+        });
+    };
+
+    const handleRemoveSize = (index) => {
+        const updatedSizes = formData.sizes.filter((_, i) => i !== index);
+        setFormData({ ...formData, sizes: updatedSizes });
+    };
+
+    const handleSizeChange = (index, field, value) => {
+        const updatedSizes = [...formData.sizes];
+        updatedSizes[index][field] = value;
+        setFormData({ ...formData, sizes: updatedSizes });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -47,9 +67,11 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
         data.append("name", formData.name);
         data.append("productId", formData.productId || ""); // Use UUID generated in backend if needed
         data.append("description", formData.description);
+        data.append("subDesc", formData.subDesc); // Include subDesc
         data.append("price", formData.price);
         data.append("stock", formData.stock);
         data.append("category", formData.category);
+        data.append("sizes", JSON.stringify(formData.sizes)); // Send sizes as JSON
 
         formData.images.forEach((image, index) => {
             if (image) data.append(`image`, image);
@@ -88,10 +110,12 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                 name: product.name,
                 productId: product.productId,
                 description: product.description,
+                subDesc: product.subDesc, // Populate subDesc if editing
                 category: product.category,
                 stock: product.stock,
                 price: product.price,
                 images: product.images || [null],
+                sizes: product.sizes || [], // Populate sizes if editing
             });
         }
     }, [product]);
@@ -163,7 +187,7 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                             <Plus size={20} className="mr-1" /> Add Image
                         </button>
                     </div>
-                    {/* Description */}
+                    {/* Description and Sub Description */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                         <textarea
@@ -172,6 +196,17 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                             rows="3"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Sub Description</label>
+                        <textarea
+                            name="subDesc"
+                            value={formData.subDesc}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                            rows="2"
                             required
                         />
                     </div>
@@ -210,6 +245,42 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             required
                         />
+                    </div>
+                    {/* Sizes */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Sizes</label>
+                        {formData.sizes.map((size, index) => (
+                            <div key={index} className="flex items-center space-x-4 mb-2">
+                                <input
+                                    type="text"
+                                    placeholder="Size Type"
+                                    value={size.sizeType}
+                                    onChange={(e) => handleSizeChange(index, "sizeType", e.target.value)}
+                                    className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Amount"
+                                    value={size.amount}
+                                    onChange={(e) => handleSizeChange(index, "amount", e.target.value)}
+                                    className="w-24 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveSize(index)}
+                                    className="text-red-500 hover:text-red-700"
+                                >
+                                    <Minus size={20} />
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={handleAddSize}
+                            className="mt-2 flex items-center text-green-500 hover:text-green-700"
+                        >
+                            <Plus size={20} className="mr-1" /> Add Size
+                        </button>
                     </div>
                     {/* Submit and Cancel Buttons */}
                     <div className="flex justify-end space-x-4 mt-8">

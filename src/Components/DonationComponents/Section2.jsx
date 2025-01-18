@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import circlebg from "../../assets/circlebg.png";
 import krishnadonation from "../../assets/krishnadon.png";
 import leaf1 from "../../assets/leaf1.png";
@@ -9,6 +9,42 @@ import pea from "../../assets/pea.png";
 import borderbg from "../../assets/borderbg.png";
 
 const Section2 = () => {
+  const carousal = [
+    {
+      title: "Online pooja participation on the concluding day of Temple Inauguration",
+      id: '1'
+    },
+    {
+      title: "Online pooja participation on the concluding day of Temple Inauguration",
+      id: '2'
+    },
+    {
+      title: "Online pooja participation on the concluding day of Temple Inauguration",
+      id: '3'
+    },
+    {
+      title: "Online pooja participation on the concluding day of Temple Inauguration",
+      id: '4'
+    },
+  ]
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-slide logic
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === carousal.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000); // Change slides every 3 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [carousal.length]);
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
   return (
     <>
       <div className="bg-[#fde3b6] w-full h-[1000px] md:h-screen relative overflow-hidden font-prata flex flex-col md:flex-row justify-center items-center py-20">
@@ -131,7 +167,7 @@ const Section2 = () => {
           All Donations paid within India are Tax Exempted under the 80G Section
           of Income Tax Department, Govt. of India.
           <br />
-           AVAIL 80G BENEFITS ON THE DONATIONS MADE TO ISKCON AS PER INCOME TAX
+          AVAIL 80G BENEFITS ON THE DONATIONS MADE TO ISKCON AS PER INCOME TAX
           RULE
         </h1>
       </div>
@@ -180,18 +216,52 @@ const Section2 = () => {
 
       {/* section4 */}
 
-      <div className="w-full h-[700px] md:h-[900px] py-20 flex justify-center items-center bg-[#fde3b6]">
-        <div className="relative h-[500px] md:h-[700px]">
-        <img src={styleborder} alt="" className="w-full h-full"/>
-        <img src={pea} alt="" className="absolute -top-12 left-1/2 -translate-x-1/2" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col gap-6 justify-center items-center">
-          <h1 className="text-2xl md:text-3xl text-[#3B2106] font-prata">Donation Privileges</h1>
-          <p className="text-sm md:text-base font-nunito text-center px-6">Each one of our respected contributors of at least one square  feet donation <br/> will receive below privileges:</p>
-          <img src={borderbg} alt="" className="px-10 md:px-32" />
+      <div className='w-full h-auto flex justify-center items-center py-20 lg:pt-24'>
+        <div className="relative h-[450px] md:h-[500px] lg:h-[700px]">
+          <img src={styleborder} alt="border image" className="w-full h-full" />
+          <img src={pea} alt="peacock image" className="absolute -top-16 left-1/2 -translate-x-1/2 lg:-top-10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col gap-2 md:gap-6 justify-center items-center">
+            <h1 className="text-xl md:text-2xl text-center text-[#3B2106] font-prata lg:text-3xl xl:text-4xl">Donor Privileges</h1>
+            <p className="w-[80%] md:w-[50%] md:text-base h-auto text-xs text-[#444444] font-nunito text-center">Each one of our respected contributors of at least one square feet donation will receive below privileges:</p>
+            <div className='w-[80%] h-auto flex flex-col mx-auto'>
+              <div className="relative w-full max-w-2xl lg:max-w-4xl mx-auto">
+                {/* Carousel Content */}
+                <div className="overflow-hidden w-full">
+                  <div
+                    className="flex transition-transform duration-500 ease-in-out"
+                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                  >
+                    {carousal.map((item, index) => (
+                      <div
+                        key={item.id}
+                        className="flex-shrink-0 w-full md:px-8 h-48 rounded-l-2xl text-white flex items-end p-4 lg:h-60 xl:h-80"
+                        style={{
+                          backgroundImage: `url(${borderbg})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'right',
+                        }}
+                      >
+                        <h3 className="font-semibold text-sm font-prata md:text-lg lg:w-[45%] lg:mb-8 lg:text-xl" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>{item.title}</h3>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
+                {/* Bullets */}
+                <div className="flex justify-center mt-4">
+                  {carousal.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`h-3 w-3 rounded-full mx-1 ${currentIndex === index ? 'bg-[#EB852C]' : 'bg-gray-300'
+                        }`}
+                    ></button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-        
       </div>
 
       {/* section5 */}
