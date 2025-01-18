@@ -30,7 +30,7 @@ const Navbar = () => {
         <span className="hidden lg:flex items-center gap-10">
           <ul className="flex items-center gap-12 text-base font-medium">
             {[
-              { path: "/about-us", label: "About Us" },
+              { path: "/about", label: "About Us" },
               { path: "/donation", label: "Donation" },
               { path: "/events", label: "Events" },
               { path: "/blogs", label: "Blogs" },

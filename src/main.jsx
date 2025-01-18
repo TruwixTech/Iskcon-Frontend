@@ -35,6 +35,9 @@ import SinglePageDonation from './Components/Admin-Dashboard/Donation/SinglePage
 import DonationForm from './Components/DonationForm.jsx'
 import ShopPage from './Pages/ShopPage.jsx'
 import SingleProduct from './Components/ShopPageComponents/SingleProduct.jsx'
+import AboutUs from './Pages/AboutPage.jsx'
+import CardDetails from './Pages/CardDetails.jsx'
+import EventPage from './Pages/EventPage.jsx'
 
 
 const router = createBrowserRouter(
@@ -82,8 +85,12 @@ const router = createBrowserRouter(
         <Route path="/blogs" element={<BlogsPage/>} />
         <Route path="/contacts" element={<ContactPage/>} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/details/:id" element={<CardDetails />} />
         <Route path="/donation" element={<DonationPage />} />
         <Route path="/donate" element={<DonationForm />} />
+        <Route path="/events" element={<EventPage />} />
+        <Route path="/contacts" element={<ContactPage />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
     </>
