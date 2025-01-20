@@ -38,6 +38,7 @@ import SingleProduct from './Components/ShopPageComponents/SingleProduct.jsx'
 import AboutUs from './Pages/AboutPage.jsx'
 import CardDetails from './Pages/CardDetails.jsx'
 import EventPage from './Pages/EventPage.jsx'
+import CSRPage from './Pages/CSRPage.jsx'
 
 
 const router = createBrowserRouter(
@@ -91,6 +92,7 @@ const router = createBrowserRouter(
         <Route path="/donate" element={<DonationForm />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/contacts" element={<ContactPage />} />
+        <Route path="/csr" element={<CSRPage />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
     </>
