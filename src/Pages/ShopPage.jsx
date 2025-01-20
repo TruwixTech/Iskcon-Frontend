@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../Components/Navbar'
 import Image1 from '../assets/productPage1.svg'
 import Image2 from '../assets/freeDeliveryLogo.svg'
@@ -8,6 +8,9 @@ import Section3 from '../Components/ShopPageComponents/Section3'
 
 
 function ShopPage() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
     return (
         <>
             <div

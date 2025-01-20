@@ -12,12 +12,16 @@ import Icon1 from '../../assets/singleProductIcon1.png'
 import Icon2 from '../../assets/singleProductIcon2.png'
 import Icon3 from '../../assets/singleProductIcon3.png'
 import Icon4 from '../../assets/singleProductIcon4.png'
+import axios from 'axios'
+import ProductCard from './ProductCard'
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
 function SingleProduct() {
     const [singleProduct, setSingleProduct] = useState({});
+    const [relatedProducts, setRelatedProducts] = useState([]);
     const [images, setImages] = useState([]);
+    const [mainImage, setMainImage] = useState();
     const { id } = useParams()
     const sliderRef = useRef(null);
 
@@ -25,9 +29,19 @@ function SingleProduct() {
         try {
             const response = await axios.get(`${backend}/admin/product/${id}`);
             setSingleProduct(response.data.data);
-            setImages(response.data.data.image)
+            setImages(response.data.data.images)
+            setMainImage(response.data.data.images[0])
         } catch (error) {
             console.log("Error while fetching single product", error);
+        }
+    }
+
+    async function fetchProducts() {
+        try {
+            const response = await axios.get(`${backend}/admin/product/all`);
+            setRelatedProducts(response.data.data.slice(0, 4));
+        } catch (error) {
+            console.log("Error while fetching products", error);
         }
     }
 
@@ -41,9 +55,15 @@ function SingleProduct() {
         slider.scrollLeft -= slider.offsetWidth;
     }
 
+    console.log(singleProduct);
+    console.log(images);
+
+
+
     useEffect(() => {
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
         fetchSingleProduct();
+        fetchProducts()
     }, [])
 
     return (
@@ -63,32 +83,36 @@ function SingleProduct() {
                 <div className='w-full h-auto flex flex-col px-5 md:px-10 xl:px-20 md:flex-row md:justify-between'>
                     <div className='w-full h-auto flex flex-col gap-2 md:w-[45%] md:px-5 lg:w-[450px] xl:w-[550px]'>
                         <div className='w-full h-auto flex flex-col gap-2 pb-8 md:gap-4'>
-                            <div className='w-full h-full rounded-2xl overflow-hidden sm:w-[70%] sm:mx-auto md:w-full'>
-                                <img src={product} alt="product Image" className='w-full h-full rounded-2xl object-cover' />
+                            <div className='w-full h-auto rounded-2xl overflow-hidden sm:w-[70%] sm:mx-auto md:w-full'>
+                                <img src={mainImage} alt="product Image" className='w-full h-[500px] rounded-2xl object-cover' />
                             </div>
-                            <div className='w-full h-auto flex justify-between items-center sm:w-[70%] sm:mx-auto md:w-full'>
-                                <span><FaChevronLeft onClick={handleScrollLeft} size={20} className='text-black' /></span>
-                                <div ref={sliderRef} className='w-full flex-1 scroll-smooth h-auto overflow-x-scroll flex gap-1 md:gap-3' style={{
-                                    scrollbarWidth: 'none',
-                                }}>
-                                    {
-                                        Array.from({ length: 8 }).map((item, index) => (
-                                            <img src={product} alt="product image" className='w-24 h-20 object-cover rounded-xl md:h-24 xl:w-[107px] xl:h-[110px]' key={index} />
-                                        ))
-                                    }
-                                </div>
-                                <span><FaChevronRight onClick={handleScroll} size={20} className='text-black' /></span>
-                            </div>
+                            {
+                                images.length > 1 && (
+                                    <div className='w-full h-auto flex justify-between items-center sm:w-[70%] sm:mx-auto md:w-full'>
+                                        <span><FaChevronLeft onClick={handleScrollLeft} size={20} className='text-black cursor-pointer' /></span>
+                                        <div ref={sliderRef} className='w-full flex-1 scroll-smooth h-auto overflow-x-scroll flex gap-1 md:gap-3' style={{
+                                            scrollbarWidth: 'none',
+                                        }}>
+                                            {
+                                                images.map((item, index) => (
+                                                    <img src={item} onClick={() => setMainImage(item)} alt="product image" className={`${mainImage === item ? 'border-2 border-[#EB852C]' : ''} w-24 h-20 object-cover rounded-xl md:h-24 xl:w-[107px] xl:h-[110px]`} key={index} />
+                                                ))
+                                            }
+                                        </div>
+                                        <span><FaChevronRight onClick={handleScroll} size={20} className='text-black cursor-pointer' /></span>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                     <div className='w-full h-auto flex flex-col gap-1 md:gap-2 xl:gap-3 pb-8 md:w-[55%]'>
-                        <h1 className='text-[#1E1E1E] font-poppins md:text-3xl xl:text-4xl'>Herbal Tea - Product of Mayapur</h1>
+                        <h1 className='text-[#1E1E1E] font-poppins md:text-3xl xl:text-4xl'>{singleProduct?.name}</h1>
                         <h1 className='font-poppins flex gap-1 items-center md:text-lg xl:text-2xl'>
-                            <span className='text-[#111111] font-semibold'>₹ 10000</span>
+                            <span className='text-[#111111] font-semibold'>₹ {singleProduct?.price}</span>
                             <span className='text-sm md:text-base xl:text-lg'>60% off</span>
                         </h1>
-                        <p className='font-poppins text-[#00000080] line-through md:text-lg xl:text-2xl'>$ 5500.00</p>
-                        <p className='font-poopins text-[#686363] text-sm md:text-base'>Sleek and timeless. Titanium glasses with an innovative bridge. A frame to suit every face, Morgan is a classic ‘panto’ shape.</p>
+                        <p className='font-poppins text-[#00000080] line-through md:text-lg xl:text-2xl'>₹ 5500.00</p>
+                        <p className='font-poopins text-[#686363] text-sm md:text-base'>{singleProduct?.subDesc}</p>
                         <div className='w-full h-auto flex flex-col gap-3 items-center mt-5 sm:flex-row'>
                             <button className='w-60 py-1.5 bg-[#EB852C] text-white font-poppins rounded-3xl font-semibold sm:w-80 xl:py-3'>ADD TO CART</button>
                             <button className='w-40 py-1.5 bg-[#FDFDFD] text-[#999999] border border-[#ECA242] font-poppins rounded-3xl flex justify-center items-center gap-2 xl:py-3 xl:w-48'>
@@ -107,13 +131,13 @@ function SingleProduct() {
                                 <p className='font-poppins text-xs md:text-sm'>Enter Pincode for Estimated Delivery Date</p>
                             </div>
                             <div className='w-full h-auto flex gap-1 items-center xl:gap-3'>
-                                <FaRegCalendar size={20} className='md:size-6'/>
+                                <FaRegCalendar size={20} className='md:size-6' />
                                 <p className='font-poppins text-xs md:text-sm'>Estimated Delivery Time: 12 Aug - 15 Aug</p>
                             </div>
                         </div>
                         <div className='w-full h-auto flex flex-col gap-3 mt-5 font-poppins'>
                             <h1 className='text-[#344054] font-medium text-lg xl:text-2xl'>Product Description</h1>
-                            <p className='text-sm md:text-base xl:text-lg'>Lorem ipsum dolor sit amet consectetur. Sit blandit tristique pretium duis accumsan adipiscing elementum elementum. Leo viverra euismod lorem at pharetra odio faucibus. Mollis pharetra est imperdiet tortor sit. Sodales in odio convallis ut id elementum in. Elementum mauris ipsum integer mauris leo vel. Cras leo auctor nisl arcu posuere vel mauris lacus amet. Cursus odio et nunc gravida hendrerit eget nunc.</p>
+                            <p className='text-sm md:text-base xl:text-lg'>{singleProduct?.description}</p>
                         </div>
                     </div>
                 </div>
@@ -145,6 +169,14 @@ function SingleProduct() {
                             <span className='text-lg lg:text-xl'>24 / 7 Support</span>
                             <span className='text-sm lg:text-base'>Dedicated support</span>
                         </div>
+                    </div>
+                </div>
+                <div className='w-full h-auto flex flex-col px-5 md:px-10 xl:px-20 my-10'>
+                    <h1 className='font-prata font-semibold text-xl lg:text-2xl'>Related Products</h1>
+                    <div className='w-full h-auto mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 place-items-center'>
+                        {
+                            relatedProducts.map((product, index) => <ProductCard key={index} productImage={product.images[0]} productName={product.name} productPrice={product.price} productDesc={product.subDesc} />)
+                        }
                     </div>
                 </div>
             </div>

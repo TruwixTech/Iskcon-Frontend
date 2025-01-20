@@ -46,6 +46,8 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
         data.append("startDate", formData.startDate);
         data.append("endDate", formData.endDate);
         data.append("location", formData.location);
+        const stringArray = images.filter(item => typeof item === 'string');
+        data.append("previousImages", JSON.stringify(stringArray));
 
         images.forEach((image, index) => {
             if (image) {
