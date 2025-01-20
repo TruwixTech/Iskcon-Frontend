@@ -17,6 +17,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 const CSRPage = () => {
+     const [scrollY, setScrollY] = useState(0);
   const content = [
     {
       title: "Feeding the hungry",
