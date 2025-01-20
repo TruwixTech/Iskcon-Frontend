@@ -1,5 +1,5 @@
 import logo from "../assets/logo.svg";
-import { Link,NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import cart from "../assets/cart.svg";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
@@ -7,6 +7,8 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // For desktop
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -36,28 +38,58 @@ const Navbar = () => {
               { path: "/blogs", label: "Blogs" },
               { path: "/shop", label: "Shop" },
               { path: "/contacts", label: "Contacts" },
-            ].map(({ path, label }) => (
-              <li
-                key={path}
-                className="flex items-center group"
-              >
-                <NavLink
-                  to={path}
-                  className={({ isActive }) =>
-                    `group relative flex items-center gap-2 ${
-                      isActive ? "text-[#eb852c] underline underline-offset-8" : "text-black"
-                    } hover:text-[#eb852c]`
-                  }
+            ].map(({ path, label }) =>
+              label === "Donation" ? (
+                <li
+                  key={path}
+                  className="relative group flex items-center gap-2 cursor-pointer"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  // onMouseLeave={() => setDropdownOpen(false)}
                 >
-                  <span className="group-hover:underline group-hover:underline-offset-8">
+                  <span
+                    className="flex items-center gap-2 text-black group-hover:text-[#eb852c]"
+                  >
                     {label}
+                    <IoIosArrowDown />
                   </span>
-                  {["/about-us", "/donation", "/events"].includes(path) && (
-                    <IoIosArrowDown className="group-hover:fill-[#eb852c] transition-transform duration-300" />
+                  {dropdownOpen && (
+                    <div className="absolute top-8 left-0 w-48 bg-white shadow-md rounded-xl" onMouseLeave={() => setDropdownOpen(false)}>
+                      <ul className="flex flex-col p-2">
+                        <li>
+                          <NavLink
+                            to="/donation"
+                            className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                          >
+                            General Donation
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/csr"
+                            className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                          >
+                            CSR Donation
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </div>
                   )}
-                </NavLink>
-              </li>
-            ))}
+                </li>
+              ) : (
+                <li key={path}>
+                  <NavLink
+                    to={path}
+                    className={({ isActive }) =>
+                      `group relative flex items-center gap-2 ${
+                        isActive ? "text-[#eb852c] underline underline-offset-8" : "text-black"
+                      } hover:text-[#eb852c]`
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              )
+            )}
           </ul>
 
           <NavLink to="/cart" className="text-black hover:text-[#eb852c]">
@@ -85,27 +117,63 @@ const Navbar = () => {
           <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 lg:hidden z-50 rounded-3xl mt-4">
             <ul className="flex flex-col items-center gap-6 text-base font-medium">
               {[
-                { path: "/about-us", label: "About Us" },
+                { path: "/about", label: "About Us" },
                 { path: "/donation", label: "Donation" },
                 { path: "/events", label: "Events" },
                 { path: "/blogs", label: "Blogs" },
                 { path: "/shop", label: "Shop" },
                 { path: "/contacts", label: "Contacts" },
-              ].map(({ path, label }) => (
-                <li key={path}>
-                  <NavLink
-                    to={path}
-                    className={({ isActive }) =>
-                      `${
-                        isActive ? "text-[#eb852c] underline-[#eb852c]" : "text-black underline underline-offset-8"
-                      } hover:text-[#eb852c]`
-                    }
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {label}
-                  </NavLink>
-                </li>
-              ))}
+              ].map(({ path, label }) =>
+                label === "Donation" ? (
+                  <li key={path}>
+                    <div
+                      className="flex items-center justify-between w-full"
+                      onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                    >
+                      <span className="text-black hover:text-[#eb852c]">
+                        {label}
+                      </span>
+                      <IoIosArrowDown />
+                    </div>
+                    {mobileDropdownOpen && (
+                      <ul className="mt-2 bg-white shadow-md rounded-md">
+                        <li>
+                          <NavLink
+                            to="/donation"
+                            className="block px-4 py-2 hover:bg-[#eb852c] hover:text-white"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            General Donation
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/csr"
+                            className="block px-4 py-2 hover:bg-[#eb852c] hover:text-white"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            CSR Donation
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                ) : (
+                  <li key={path}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        `${
+                          isActive ? "text-[#eb852c] underline-[#eb852c]" : "text-black underline underline-offset-8"
+                        } hover:text-[#eb852c]`
+                      }
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                )
+              )}
             </ul>
             <div className="flex flex-col gap-4 mt-6">
               <NavLink

@@ -173,6 +173,9 @@ const Section2 = () => {
       </div>
 
       {/* next section */}
+      <DonationCircle />
+
+      {/* {another section} */}
 
       <div className="bg-white relative w-full h-[550px] md:h-[560px]">
         <div className="absolute left-0">
@@ -265,7 +268,7 @@ const Section2 = () => {
       </div>
 
       {/* section5 */}
-      <DonationCircle />
+     
     </>
   );
 };
