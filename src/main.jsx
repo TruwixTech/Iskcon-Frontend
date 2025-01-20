@@ -42,6 +42,7 @@ import SignUpPage from './Pages/SignUpPage.jsx'
 import SignInPage from './Pages/SignInPage.jsx'
 import ForgotPassword from './Pages/ForgotPassword.jsx'
 import ResetPassword from './Pages/ResetPassword.jsx'
+import CSRPage from './Pages/CSRPage.jsx'
 
 
 const router = createBrowserRouter(
@@ -95,6 +96,7 @@ const router = createBrowserRouter(
         <Route path="/donate" element={<DonationForm />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/contacts" element={<ContactPage />} />
+        <Route path="/csr" element={<CSRPage />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
       <Route path="/signup" element={<SignUpPage />} />

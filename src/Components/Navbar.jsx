@@ -9,6 +9,12 @@ import { IoMdClose } from "react-icons/io";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartSidebar, setCartSidebar] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // For desktop
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <>
@@ -25,18 +31,55 @@ const Navbar = () => {
             <img src={logo} alt="logo" className="w-full h-full object-contain" />
           </Link>
 
-          {/* Desktop Navigation */}
-          <span className="hidden lg:flex items-center gap-10">
-            <ul className="flex items-center gap-12 text-base font-medium">
-              {[
-                { path: "/about", label: "About Us" },
-                { path: "/donation", label: "Donation" },
-                { path: "/events", label: "Events" },
-                { path: "/blogs", label: "Blogs" },
-                { path: "/shop", label: "Shop" },
-                { path: "/contacts", label: "Contacts" },
-              ].map(({ path, label }) => (
-                <li key={path} className="flex items-center group">
+        {/* Desktop Navigation */}
+        <span className="hidden lg:flex items-center gap-10">
+          <ul className="flex items-center gap-12 text-base font-medium">
+            {[
+              { path: "/about", label: "About Us" },
+              { path: "/donation", label: "Donation" },
+              { path: "/events", label: "Events" },
+              { path: "/blogs", label: "Blogs" },
+              { path: "/shop", label: "Shop" },
+              { path: "/contacts", label: "Contacts" },
+            ].map(({ path, label }) =>
+              label === "Donation" ? (
+                <li
+                  key={path}
+                  className="relative group flex items-center gap-2 cursor-pointer"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  // onMouseLeave={() => setDropdownOpen(false)}
+                >
+                  <span
+                    className="flex items-center gap-2 text-black group-hover:text-[#eb852c]"
+                  >
+                    {label}
+                    <IoIosArrowDown />
+                  </span>
+                  {dropdownOpen && (
+                    <div className="absolute top-8 left-0 w-48 bg-white shadow-md rounded-xl" onMouseLeave={() => setDropdownOpen(false)}>
+                      <ul className="flex flex-col p-2">
+                        <li>
+                          <NavLink
+                            to="/donation"
+                            className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                          >
+                            General Donation
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/csr"
+                            className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                          >
+                            CSR Donation
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              ) : (
+                <li key={path}>
                   <NavLink
                     to={path}
                     className={({ isActive }) =>
@@ -45,16 +88,12 @@ const Navbar = () => {
                       } hover:text-[#eb852c]`
                     }
                   >
-                    <span className="group-hover:underline group-hover:underline-offset-8">
-                      {label}
-                    </span>
-                    {["/about-us", "/donation", "/events"].includes(path) && (
-                      <IoIosArrowDown className="group-hover:fill-[#eb852c] transition-transform duration-300" />
-                    )}
+                    {label}
                   </NavLink>
                 </li>
-              ))}
-            </ul>
+              )
+            )}
+          </ul>
 
             <button onClick={() => setCartSidebar(true)} className="text-black hover:text-[#eb852c]">
               <img src={cart} alt="cart" />
@@ -84,25 +123,63 @@ const Navbar = () => {
 
             <ul className="flex flex-col items-start gap-6 mt-12 text-base font-medium">
               {[
-                { path: "/about-us", label: "About Us" },
+                { path: "/about", label: "About Us" },
                 { path: "/donation", label: "Donation" },
                 { path: "/events", label: "Events" },
                 { path: "/blogs", label: "Blogs" },
                 { path: "/shop", label: "Shop" },
                 { path: "/contacts", label: "Contacts" },
-              ].map(({ path, label }) => (
-                <li key={path}>
-                  <NavLink
-                    to={path}
-                    className={({ isActive }) =>
-                      `${isActive ? "text-[#eb852c] underline-[#eb852c]" : "text-black underline underline-offset-8"} hover:text-[#eb852c]`
-                    }
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {label}
-                  </NavLink>
-                </li>
-              ))}
+              ].map(({ path, label }) =>
+                label === "Donation" ? (
+                  <li key={path}>
+                    <div
+                      className="flex items-center justify-between w-full"
+                      onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                    >
+                      <span className="text-black hover:text-[#eb852c]">
+                        {label}
+                      </span>
+                      <IoIosArrowDown />
+                    </div>
+                    {mobileDropdownOpen && (
+                      <ul className="mt-2 bg-white shadow-md rounded-md">
+                        <li>
+                          <NavLink
+                            to="/donation"
+                            className="block px-4 py-2 hover:bg-[#eb852c] hover:text-white"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            General Donation
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/csr"
+                            className="block px-4 py-2 hover:bg-[#eb852c] hover:text-white"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            CSR Donation
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                ) : (
+                  <li key={path}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        `${
+                          isActive ? "text-[#eb852c] underline-[#eb852c]" : "text-black underline underline-offset-8"
+                        } hover:text-[#eb852c]`
+                      }
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                )
+              )}
             </ul>
 
             <div className="flex flex-col gap-4 mt-6">
