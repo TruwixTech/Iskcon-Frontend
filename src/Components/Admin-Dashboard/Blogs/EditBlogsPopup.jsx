@@ -39,6 +39,8 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
         const data = new FormData();
         data.append("title", formData.title);
         data.append("description", formData.content);
+        const stringArray = images.filter(item => typeof item === 'string');
+        data.append("previousImages", JSON.stringify(stringArray));
 
         images.forEach((image, index) => {
             if (image) data.append(`image`, image); // Append each image

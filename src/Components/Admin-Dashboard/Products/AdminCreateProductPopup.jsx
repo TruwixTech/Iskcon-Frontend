@@ -72,6 +72,8 @@ const CreateProductPopup = ({ product, closePopup, refreshProducts }) => {
         data.append("stock", formData.stock);
         data.append("category", formData.category);
         data.append("sizes", JSON.stringify(formData.sizes)); // Send sizes as JSON
+        const stringArray = formData.images.filter(item => typeof item === 'string');
+        data.append("previousImages", JSON.stringify(stringArray));
 
         formData.images.forEach((image, index) => {
             if (image) data.append(`image`, image);
