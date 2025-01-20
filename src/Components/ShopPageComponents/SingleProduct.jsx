@@ -8,6 +8,10 @@ import { FaChevronRight } from "react-icons/fa6"
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiTruckLine } from "react-icons/ri";
 import { FaRegCalendar } from "react-icons/fa";
+import Icon1 from '../../assets/singleProductIcon1.png'
+import Icon2 from '../../assets/singleProductIcon2.png'
+import Icon3 from '../../assets/singleProductIcon3.png'
+import Icon4 from '../../assets/singleProductIcon4.png'
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -38,6 +42,7 @@ function SingleProduct() {
     }
 
     useEffect(() => {
+        // window.scrollTo(0, 0);
         fetchSingleProduct();
     }, [])
 
@@ -109,6 +114,36 @@ function SingleProduct() {
                         <div className='w-full h-auto flex flex-col gap-3 mt-5 font-poppins'>
                             <h1 className='text-[#344054] font-medium text-lg xl:text-2xl'>Product Description</h1>
                             <p className='text-sm md:text-base xl:text-lg'>Lorem ipsum dolor sit amet consectetur. Sit blandit tristique pretium duis accumsan adipiscing elementum elementum. Leo viverra euismod lorem at pharetra odio faucibus. Mollis pharetra est imperdiet tortor sit. Sodales in odio convallis ut id elementum in. Elementum mauris ipsum integer mauris leo vel. Cras leo auctor nisl arcu posuere vel mauris lacus amet. Cursus odio et nunc gravida hendrerit eget nunc.</p>
+                        </div>
+                    </div>
+                </div>
+                <div className='w-full h-auto flex flex-wrap bg-white px-5 md:px-10 lg:px-20 justify-center items-center gap-3 py-5 xl:gap-10 md:py-10'>
+                    <div className='w-[300px] flex gap-4 h-auto p-5'>
+                        <img src={Icon1} alt="icon1" className='w-10 h-10 object-cover flex-shrink-0' />
+                        <div className='w-full h-auto flex flex-col font-prata text-[#484848]'>
+                            <span className='text-lg lg:text-xl'>High Quality</span>
+                            <span className='text-sm lg:text-base'>crafted from top materials</span>
+                        </div>
+                    </div>
+                    <div className='w-[300px] flex gap-4 h-auto p-5'>
+                        <img src={Icon2} alt="icon2" className='w-10 h-10 object-cover flex-shrink-0' />
+                        <div className='w-full h-auto flex flex-col font-prata text-[#484848]'>
+                            <span className='text-lg lg:text-xl'>Warrany Protection</span>
+                            <span className='text-sm lg:text-base'>Over 2 years</span>
+                        </div>
+                    </div>
+                    <div className='w-[300px] flex gap-4 h-auto p-5'>
+                        <img src={Icon3} alt="icon3" className='w-10 h-10 object-cover flex-shrink-0' />
+                        <div className='w-full h-auto flex flex-col font-prata text-[#484848]'>
+                            <span className='text-lg lg:text-xl'>Free Shipping</span>
+                            <span className='text-sm lg:text-base'>Order over Rs 150</span>
+                        </div>
+                    </div>
+                    <div className='w-[300px] flex gap-4 h-auto p-5 '>
+                        <img src={Icon4} alt="icon4" className='w-10 h-10 object-cover flex-shrink-0' />
+                        <div className='w-full h-auto flex flex-col font-prata text-[#484848]'>
+                            <span className='text-lg lg:text-xl'>24 / 7 Support</span>
+                            <span className='text-sm lg:text-base'>Dedicated support</span>
                         </div>
                     </div>
                 </div>
