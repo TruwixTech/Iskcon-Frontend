@@ -21,7 +21,7 @@ const Navbar = () => {
       <div
         className="w-full h-[70px] rounded-[100px] px-6"
         style={{
-          backgroundColor: "rgba(211, 229, 224, 0.4)",
+          backgroundColor: "rgba(251,247,245,0.7)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
         }}
