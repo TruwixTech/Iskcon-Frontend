@@ -4,9 +4,11 @@ import cart from "../assets/cart.svg";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartSidebar, setCartSidebar] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false); // For desktop
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
 
@@ -15,18 +17,19 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className="w-full h-[70px] rounded-[100px] px-6"
-      style={{
-        backgroundColor: "rgba(211, 229, 224, 0.4)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-      }}
-    >
-      <div className="w-full h-full flex justify-between items-center">
-        <Link to="/" className="flex justify-center items-center flex-shrink-0">
-          <img src={logo} alt="logo" className="w-full h-full object-contain" />
-        </Link>
+    <>
+      <div
+        className="w-full h-[70px] rounded-[100px] px-6"
+        style={{
+          backgroundColor: "rgba(211, 229, 224, 0.4)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
+      >
+        <div className="w-full h-full flex justify-between items-center">
+          <Link to="/" className="flex justify-center items-center flex-shrink-0">
+            <img src={logo} alt="logo" className="w-full h-full object-contain" />
+          </Link>
 
         {/* Desktop Navigation */}
         <span className="hidden lg:flex items-center gap-10">
@@ -92,30 +95,33 @@ const Navbar = () => {
             )}
           </ul>
 
-          <NavLink to="/cart" className="text-black hover:text-[#eb852c]">
-            <img src={cart} alt="cart" />
-          </NavLink>
+            <button onClick={() => setCartSidebar(true)} className="text-black hover:text-[#eb852c]">
+              <img src={cart} alt="cart" />
+            </button>
 
-          <NavLink
-            to="/donate"
-            className="px-8 py-3 bg-[#eb852c] text-white rounded-[124px] hover:bg-orange-600 transition ease-in-out"
+            <NavLink
+              to="/donate"
+              className="px-8 py-3 bg-[#eb852c] text-white rounded-[124px] hover:bg-orange-600 transition ease-in-out"
+            >
+              Donate Now
+            </NavLink>
+          </span>
+
+          {/* Mobile Menu Button */}
+          <button className="lg:hidden text-black text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+
+          {/* Mobile Menu with Smooth Slide Animation */}
+          <div
+            className={`fixed top-0 left-0 w-[75%] max-w-xs h-full bg-[#ece4c7] shadow-lg p-6 z-50 rounded-r-3xl transform transition-transform duration-300 ease-in-out
+            ${menuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}
           >
-            Donate Now
-          </NavLink>
-        </span>
+            <button className="absolute top-5 right-5 text-2xl" onClick={() => setMenuOpen(false)}>
+              <IoMdClose />
+            </button>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden text-black text-2xl"
-          onClick={toggleMenu}
-        >
-          {menuOpen ? <FaTimes /> : <FaBars />}
-        </button>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 lg:hidden z-50 rounded-3xl mt-4">
-            <ul className="flex flex-col items-center gap-6 text-base font-medium">
+            <ul className="flex flex-col items-start gap-6 mt-12 text-base font-medium">
               {[
                 { path: "/about", label: "About Us" },
                 { path: "/donation", label: "Donation" },
@@ -175,14 +181,11 @@ const Navbar = () => {
                 )
               )}
             </ul>
+
             <div className="flex flex-col gap-4 mt-6">
-              <NavLink
-                to="/cart"
-                className="flex items-center justify-center text-black hover:text-[#eb852c]"
-                onClick={() => setMenuOpen(false)}
-              >
+              <button className="flex items-center justify-center text-black hover:text-[#eb852c]" onClick={() => setCartSidebar(true)}>
                 <img src={cart} alt="cart" />
-              </NavLink>
+              </button>
               <NavLink
                 to="/donate"
                 className="xl:px-8 py-3 bg-[#eb852c] text-white text-center rounded-[124px] hover:bg-orange-600 transition ease-in-out"
@@ -192,9 +195,29 @@ const Navbar = () => {
               </NavLink>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+
+      {/* Cart Sidebar with Smooth Animation */}
+      <div
+        className={`fixed inset-y-0 z-50 right-0 w-[85%] bg-white shadow-lg p-5 transform transition-transform duration-300 ease-in-out md:w-[35%] 
+        ${cartSidebar ? "translate-x-0" : "translate-x-full"}`}
+      >
+        <button className="absolute top-3 right-3 text-gray-600" onClick={() => setCartSidebar(false)}>
+          <IoMdClose size={40} />
+        </button>
+        <h2 className="text-lg font-bold">Your Cart</h2>
+        <p className="mt-2 text-gray-600">Cart is empty.</p>
+      </div>
+
+      {/* Backdrop for Cart Sidebar */}
+      {cartSidebar && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
+          onClick={() => setCartSidebar(false)}
+        ></div>
+      )}
+    </>
   );
 };
 
