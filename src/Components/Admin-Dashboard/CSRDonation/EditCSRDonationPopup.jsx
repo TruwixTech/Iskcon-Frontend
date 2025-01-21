@@ -52,6 +52,7 @@ const CreateCSRDonationPage = () => {
                     startDate: "",
                     endDate: "",
                 });
+                alert("CSR Donation created successfully!");
                 setImage(null);
             }
         } catch (err) {

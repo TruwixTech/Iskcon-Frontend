@@ -45,6 +45,7 @@ import ResetPassword from './Pages/ResetPassword.jsx'
 import CSRPage from './Pages/CSRPage.jsx'
 import CSRDonation from './Components/Admin-Dashboard/CSRDonation/CSRDonation.jsx'
 import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/EditCSRDonationPopup.jsx'
+import SingleDonation from './Components/DonationComponents/SingleDonation.jsx'
 
 
 const router = createBrowserRouter(
@@ -99,6 +100,7 @@ const router = createBrowserRouter(
         <Route path="/about" element={<AboutUs />} />
         <Route path="/details/:id" element={<CardDetails />} />
         <Route path="/donation" element={<DonationPage />} />
+        <Route path="/donation/single-donation/:id" element={<SingleDonation />} />
         <Route path="/donate" element={<DonationForm />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/contacts" element={<ContactPage />} />
