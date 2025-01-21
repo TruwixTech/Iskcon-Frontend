@@ -61,7 +61,7 @@ function SingleProduct() {
     function handleAddToCart() {
         setAddToCartText('Added to Cart');
         addToCart({
-            id: singleProduct.id,
+            id: singleProduct._id,
             name: singleProduct.name,
             price: singleProduct.price,
             image: singleProduct.images[0],

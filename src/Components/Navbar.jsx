@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { CartContext } from "../Context/CartContext";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,8 +15,6 @@ const Navbar = () => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
 
   const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } = useContext(CartContext)
-
-  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -165,16 +164,23 @@ const Navbar = () => {
 
       {/* Cart Sidebar with Smooth Animation */}
       <div
-        className={`fixed inset-y-0 z-50 right-0 w-[85%] bg-white shadow-lg p-5 transform transition-transform duration-300 ease-in-out md:w-[60%] lg:w-[50%] xl:w-[40%] 
+        className={`fixed inset-y-0 font-poppins z-50 h-auto overflow-y-scroll right-0 w-[85%] bg-white shadow-lg p-5 transform transition-transform duration-300 ease-in-out md:w-[60%] lg:w-[50%] xl:w-[40%] 
         ${cartSidebar ? "translate-x-0" : "translate-x-full"}`}
+        style={{
+          scrollbarWidth: 'none'
+        }}
       >
         <button className="absolute top-3 right-3 text-gray-600" onClick={() => setCartSidebar(false)}>
           <IoMdClose size={40} />
         </button>
         <h2 className="text-lg font-bold">Shopping Cart</h2>
-        <div className="w-full flex flex-col h-screen overflow-y-scroll gap-4 my-7" style={{
-          scrollbarWidth: 'none'
-        }}>
+        <div className="w-full h-auto flex justify-end items-center my-2">
+          <span className="flex gap-2 text-red-500 items-center text-sm md:text-base font-semibold cursor-pointer" onClick={clearCart}>
+            Clear Cart
+            <RiDeleteBin5Fill size={20} />
+          </span>
+        </div>
+        <div className="w-full flex flex-col h-auto gap-4 my-7">
           {
             cartItems.length > 0 ? (
               cartItems.map((item) => (
@@ -184,23 +190,65 @@ const Navbar = () => {
                     <div className="flex flex-col gap-1">
                       <h3 className="text-xs font-semibold sm:text-base xl:text-lg">{item.name}</h3>
                       <p className="text-xs text-gray-600 sm:text-sm xl:text-base">Category: {item.category}</p>
-                      <p className="text-xs font-semibold sm:text-sm xl:text-base">&#x20B9; {item.price}</p>
+                      <p className="text-xs font-semibold sm:text-sm xl:text-base">&#x20B9; {item.price * item.quantity}</p>
                     </div>
                     <div className="w-full h-auto flex">
                       <div className="px-2 py-1 flex gap-2 text-xs items-center justify-center bg-[#ECA242] rounded-lg text-white sm:px-3 sm:text-base sm:rounded-xl sm:gap-3 xl:px-4 xl:py-2">
-                        <span className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer">-</span>
+                        <span onClick={() => removeFromCart(item)} className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none">-</span>
                         <span className="font-semibold xl:text-lg">{item.quantity}</span>
-                        <span className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer">+</span>
+                        <span onClick={() => addToCart(item)} className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none">+</span>
                       </div>
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-center text-lg font-semibold">Cart is Empty</p>
+              <p className="text-center text-lg font-semibold h-80 flex justify-center items-center">Cart is Empty</p>
             )
           }
         </div>
+        {
+          cartItems.length > 0 && (
+            <div className="w-full h-auto flex flex-col">
+              <div className="w-full h-auto flex gap-2 items-center">
+                <input type="checkbox" className="w-3" id="checkout"/>
+                <label htmlFor="checkout" className="text-xs">
+                  Checkout as Guest
+                </label>
+              </div>
+              <div className="h-[1px] bg-black w-full mt-1"></div>
+              <div className="w-full h-auto flex flex-col mt-4 gap-1.5 md:gap-2">
+                <h1 className="font-semibold lg:text-lg xl:text-2xl">Order Summary</h1>
+                <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                  <span>Total MRP</span>
+                  <span>&#x20B9; {getCartTotal()}</span>
+                </div>
+                <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                  <span>MRP Discount</span>
+                  <span>&#x20B9; 0000</span>
+                </div>
+                <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                  <span>Coupon Discount</span>
+                  <span>&#x20B9; 0000</span>
+                </div>
+                <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                  <span>Shipping Fee</span>
+                  <span>&#x20B9; 0000</span>
+                </div>
+                <div className="w-full h-[1px] bg-black"></div>
+                <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                  <span className="font-semibold">Total Amount</span>
+                  <span>&#x20B9; {getCartTotal()}</span>
+                </div>
+              </div>
+              <div className="w-full h-auto flex mt-5 lg:mt-7">
+                <button className="w-full bg-[#EB852C] rounded-3xl text-white h-auto flex justify-center items-center py-2 md:hover:bg-[#ffab62]">
+                  Checkout
+                </button>
+              </div>
+            </div>
+          )
+        }
       </div>
 
       {/* Backdrop for Cart Sidebar */}
