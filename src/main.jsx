@@ -43,6 +43,8 @@ import SignInPage from './Pages/SignInPage.jsx'
 import ForgotPassword from './Pages/ForgotPassword.jsx'
 import ResetPassword from './Pages/ResetPassword.jsx'
 import CSRPage from './Pages/CSRPage.jsx'
+import CSRDonation from './Components/Admin-Dashboard/CSRDonation/CSRDonation.jsx'
+import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/EditCSRDonationPopup.jsx'
 
 
 const router = createBrowserRouter(
@@ -84,6 +86,10 @@ const router = createBrowserRouter(
         <Route path='/admin-dashboard/media' element={<AdminMedia />} />
         <Route path='/admin-dashboard/media/create-media' element={<CreateMedia />} />
         <Route path='/admin-dashboard/media/single-media/:id' element={<AdminSingleMedia />} />
+
+        {/* Admin CSR Donation Routes */}
+        <Route path='/admin-dashboard/csrdonation' element={<CSRDonation />} />
+        <Route path='/admin-dashboard/csr-donation/create-csr-donation' element={<CreateCSRDonationPage />} />
         {/* Public Routes  */}
         <Route path="/shop" element={<ShopPage/>} />
         <Route path="/shop/single-product/:id" element={<SingleProduct />} />
