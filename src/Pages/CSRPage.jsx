@@ -258,10 +258,15 @@ const CSRPage = () => {
 
                 {/* Amount Raised */}
                 <div className="mt-4 flex items-center justify-between">
-                  <p className="text-gray-900 font-bold">
-                    ₹{donation.amountRaised.toLocaleString()}
+                  <p className="text-gray-900 font-bold flex items-center">
+                    ₹{donation.amountRaised.toLocaleString()}<p className="text-gray-600 text-sm pl-2">Raised</p>
                   </p>
-                  <p className="text-gray-600 text-sm">Raised</p>
+                  <div className="flex justify-end mt-1 text-sm text-gray-600">
+                  {Math.round(
+                    ( donation.amountRaised / donation.totalAmount) * 100
+                  )}
+                  %
+                </div>
                 </div>
 
                 {/* Progress Bar */}
@@ -277,12 +282,9 @@ const CSRPage = () => {
                 </div>
                 {/* <h1>{donation.totalAmount}</h1> */}
                 {/* Progress Percentage */}
-                <div className="flex justify-end mt-1 text-sm text-gray-600">
-                  {Math.round(
-                    ( donation.amountRaised / donation.totalAmount) * 100
-                  )}
-                  %
-                </div>
+               
+
+                <div className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">Donate Now</div>
               </div>
             ))}
           </div>
