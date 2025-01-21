@@ -23,15 +23,17 @@ const CSRDonation = () => {
       async function fetchCSRDonation() {
         try {
           const response = await axios.get(`${backend}/admin/csrdonation`);
-          setCsrDonation(response.data.data);
+          setCsrDonation(response.data);
         } catch (error) {
           console.log("Error while fetching CSRDonation", error);
         }
       }
 
+      console.log(csrDonation);
+
       async function deletecsrDonation(id) {
         try {
-          await axios.delete(`${backend}/admin/csrdonation/delete/${id}`);
+          await axios.delete(`${backend}/admin/csrdonation/${id}`);
           fetchCSRDonation();
           alert("CSRDonation deleted successfully!");
         } catch (error) {
@@ -57,7 +59,7 @@ const CSRDonation = () => {
           {csrDonation?.map((csrDonation, index) => (
             <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
               <NavLink to={`/admin-dashboard/csr-donation/${csrDonation._id}`} className='w-full h-auto flex flex-col'>
-                <img src={csrDonation.image[0]} alt="" className='w-full h-40' />
+                <img src={csrDonation.image} alt="" className='w-full h-40' />
                 <h1 className='text-xl font-semibold'>{csrDonation.title}</h1>
                 <p className='text-sm text-gray-500'>{csrDonation.description.length > 150 ? csrDonation.description.slice(0, 150) + "..." : csrDonation.description.slice(0, 150)}</p>
               </NavLink>
@@ -71,9 +73,9 @@ const CSRDonation = () => {
       </div>
       {popup && (
         <EditCSRDonationPopup
-          csrDonation={currentcsrDonation}
+          csrDonation={currentCSRDonation}
           closePopup={() => setPopup(false)}
-          refreshcsrDonations={fetchcsrDonations}
+          refreshcsrDonations={fetchCSRDonation}
         />
       )}
     </div>

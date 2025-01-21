@@ -15,9 +15,12 @@ import leaf1 from "../assets/leaf1.png";
 import leaf2 from "../assets/leaf2.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import axios from "axios";
 
 const CSRPage = () => {
-     const [scrollY, setScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const backend = import.meta.env.VITE_BACKEND_URL;
+
   const content = [
     {
       title: "Feeding the hungry",
@@ -45,6 +48,8 @@ const CSRPage = () => {
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [state, setState] = useState("");
+
+  const [csrDonation, setCsrDonation] = useState([]);
 
   const states = [
     "Andhra Pradesh",
@@ -76,6 +81,20 @@ const CSRPage = () => {
     "Uttarakhand",
     "West Bengal",
   ];
+
+  async function fetchCSRDonation() {
+    try {
+      const response = await axios.get(`${backend}/admin/csrdonation`);
+      setCsrDonation(response.data);
+    } catch (error) {
+      console.log("Error while fetching CSRDonation", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCSRDonation();
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -220,10 +239,53 @@ const CSRPage = () => {
 
       {/* fourht section */}
       <div className="w-full h-screen bg-white py-20">
-        <div className="w-full flex justify-center items-center">
+        <div className="w-full flex flex-col  justify-center items-center">
           <h1 className="w-full text-center text-5xl font-semibold font-prata">
             Joining our mission is the most <br /> impactful way to give
           </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-4 md:px-20">
+            {csrDonation.map((donation, index) => (
+              <div key={index} className="w-full h-full flex flex-col">
+                {/* Image */}
+                <img
+                  src={donation.image}
+                  alt="Donation Image"
+                  className="w-full h-[300px] object-cover rounded-xl border border-gray-600"
+                />
+
+                {/* Title */}
+                <h1 className="text-lg font-nunito mt-2">{donation.title}</h1>
+
+                {/* Amount Raised */}
+                <div className="mt-4 flex items-center justify-between">
+                  <p className="text-gray-900 font-bold">
+                    ₹{donation.amountRaised.toLocaleString()}
+                  </p>
+                  <p className="text-gray-600 text-sm">Raised</p>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="relative w-full h-2 mt-2 bg-gray-200 rounded-full">
+                  <div
+                    className="absolute top-0 left-0 h-2 bg-orange-500 rounded-full"
+                    style={{
+                      width: `${
+                        ( donation.amountRaised / donation.totalAmount) * 100
+                      }%`,
+                    }}
+                  ></div>
+                </div>
+                {/* <h1>{donation.totalAmount}</h1> */}
+                {/* Progress Percentage */}
+                <div className="flex justify-end mt-1 text-sm text-gray-600">
+                  {Math.round(
+                    ( donation.amountRaised / donation.totalAmount) * 100
+                  )}
+                  %
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

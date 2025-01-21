@@ -60,9 +60,9 @@ const CreateCSRDonationPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center font-marcellus">
-            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-3xl">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Create CSR Donation</h2>
+        <div className="pt-10 pb-20 flex items-center justify-center font-marcellus">
+            <div className="bg-white p-8  w-full max-w-7xl">
+                <h2 className="w-full text-center text-5xl font-bold text-gray-800 mb-6">Create CSR Donation</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
                 <form className="space-y-6" onSubmit={handleSubmit}>

@@ -15,8 +15,7 @@ const Navbar = () => {
 
   const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } = useContext(CartContext)
 
-  console.log(cartItems);
-
+  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
