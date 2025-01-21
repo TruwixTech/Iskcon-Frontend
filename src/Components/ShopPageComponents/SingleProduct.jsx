@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BgOne from '../../assets/bg2.png'
 import Navbar from '../Navbar'
@@ -14,13 +14,16 @@ import Icon3 from '../../assets/singleProductIcon3.png'
 import Icon4 from '../../assets/singleProductIcon4.png'
 import axios from 'axios'
 import ProductCard from './ProductCard'
+import { CartContext } from '../../Context/CartContext'
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
 function SingleProduct() {
     const [singleProduct, setSingleProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [addToCartText, setAddToCartText] = useState('Add to Cart');
     const [images, setImages] = useState([]);
+    const { addToCart } = useContext(CartContext);
     const [mainImage, setMainImage] = useState();
     const { id } = useParams()
     const sliderRef = useRef(null);
@@ -55,10 +58,22 @@ function SingleProduct() {
         slider.scrollLeft -= slider.offsetWidth;
     }
 
-    console.log(singleProduct);
-    console.log(images);
+    function handleAddToCart() {
+        setAddToCartText('Added to Cart');
+        addToCart({
+            id: singleProduct.id,
+            name: singleProduct.name,
+            price: singleProduct.price,
+            image: singleProduct.images[0],
+            category: singleProduct.category,
+            quantity: 1
 
-
+        })
+        alert("Pruduct Added to cart Successfully !!")
+        setTimeout(() => {
+            setAddToCartText('Add to Cart');
+        }, 2000);
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -114,7 +129,9 @@ function SingleProduct() {
                         <p className='font-poppins text-[#00000080] line-through md:text-lg xl:text-2xl'>₹ 5500.00</p>
                         <p className='font-poopins text-[#686363] text-sm md:text-base'>{singleProduct?.subDesc}</p>
                         <div className='w-full h-auto flex flex-col gap-3 items-center mt-5 sm:flex-row'>
-                            <button className='w-60 py-1.5 bg-[#EB852C] text-white font-poppins rounded-3xl font-semibold sm:w-80 xl:py-3'>ADD TO CART</button>
+                            <button onClick={handleAddToCart} className='w-60 py-1.5 bg-[#EB852C] text-white font-poppins rounded-3xl font-semibold sm:w-80 xl:py-3'>
+                                {addToCartText}
+                            </button>
                             <button className='w-40 py-1.5 bg-[#FDFDFD] text-[#999999] border border-[#ECA242] font-poppins rounded-3xl flex justify-center items-center gap-2 xl:py-3 xl:w-48'>
                                 <MdKeyboardArrowDown size={20} />
                                 <span>Wishlist</span>
