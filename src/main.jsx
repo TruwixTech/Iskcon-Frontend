@@ -14,7 +14,7 @@ import AdminBlogs from './Components/Admin-Dashboard/Blogs/AdminBlogs.jsx'
 import AdminProducts from './Components/Admin-Dashboard/Products/AdminProducts.jsx'
 import CreateEvents from './Components/Admin-Dashboard/Events/CreateEvents.jsx'
 import AdminSingleEvent from './Components/Admin-Dashboard/Events/AdminSingleEvent.jsx'
-import BlogsPage from './Components/BlogPage.jsx'
+import BlogsPage from './Components/BlogPageComponent/BlogPage.jsx'
 import ContactPage from './Components/ContactPage.jsx'
 import Cart from './Components/Cart.jsx'
 import CreateBlogs from './Components/Admin-Dashboard/Blogs/CreateBlogs.jsx'
@@ -46,6 +46,7 @@ import CSRPage from './Pages/CSRPage.jsx'
 import CSRDonation from './Components/Admin-Dashboard/CSRDonation/CSRDonation.jsx'
 import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/EditCSRDonationPopup.jsx'
 import SingleDonation from './Components/DonationComponents/SingleDonation.jsx'
+import SingleBlog from './Components/BlogPageComponent/SingleBlog.jsx'
 
 
 const router = createBrowserRouter(
@@ -95,6 +96,7 @@ const router = createBrowserRouter(
         <Route path="/shop" element={<ShopPage/>} />
         <Route path="/shop/single-product/:id" element={<SingleProduct />} />
         <Route path="/blogs" element={<BlogsPage/>} />
+        <Route path="/blogs/single-blog/:id" element={<SingleBlog/>} />
         <Route path="/contacts" element={<ContactPage/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />

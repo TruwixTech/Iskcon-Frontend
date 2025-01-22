@@ -15,24 +15,6 @@ function DonationCircle() {
   const [scrollY, setScrollY] = useState(0);
   const [donation, setDonation] = useState([]);
 
-  const content = [
-    {
-      title: "Anna Daan",
-      icon: c4,
-    },
-    {
-      title: "Gau seva",
-      icon: c3,
-    },
-    {
-      title: "Sadhu Bhojan",
-      icon: c2,
-    },
-    {
-      title: "Donate as Choice",
-      icon: c1,
-    },
-  ];
   const location = useLocation();
 
   async function fetchDonation() {
@@ -48,7 +30,7 @@ function DonationCircle() {
   const getBackgroundColor = () => {
     if (location.pathname === "/donation") {
       return "bg-white"; // Tailwind class for red background
-    } else if (location.pathname === "/blogs") {
+    } else if (location.pathname === "/blogs" || location.pathname.includes("/blogs/single-blog")) {
       return "bg-[#FDE3B6]"; // Tailwind class for black background
     }
     return "bg-white";
