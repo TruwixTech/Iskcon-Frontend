@@ -145,7 +145,7 @@ const CSRPage = () => {
       </div>
 
       {/* second section */}
-      <div className="w-full h-auto flex flex-col  px-4 md:px-10 lg:flex-row-reverse 2xl:h-[600px] ">
+      <div className="w-full h-auto flex flex-col  px-4 md:px-10 lg:flex-row-reverse 2xl:h-auto py-20 ">
         <div className="w-full h-auto flex flex-col justify-center mt-10 md:mt-0 relative">
           <div className="absolute left-0">
             <img src={leaf1} alt="" />
@@ -200,7 +200,7 @@ const CSRPage = () => {
       </div>
 
       {/* third section */}
-      <div className="bg-[#fde3b6] w-full h-full py-20 flex flex-col gap-10 items-center justify-center">
+      <div className="bg-[#fde3b6] w-full h-auto py-28 flex flex-col gap-10 items-center justify-center">
         <h1 className="text-3xl md:text-4xl text-center md:text-started font-prata">
           Giving you can trust
         </h1>
@@ -238,53 +238,53 @@ const CSRPage = () => {
       </div>
 
       {/* fourht section */}
-      <div className="w-full h-screen bg-white py-20">
+      <div className="w-full h-auto bg-white py-20">
         <div className="w-full flex flex-col  justify-center items-center">
-          <h1 className="w-full text-center text-5xl font-semibold font-prata">
+          <h1 className="w-full text-center text-5xl font-semibold font-prata mb-10">
             Joining our mission is the most <br /> impactful way to give
           </h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-4 md:px-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 mt-10 px-4 md:px-20">
             {csrDonation.map((donation, index) => (
               <div key={index} className="w-full h-full flex flex-col">
                 {/* Image */}
                 <img
                   src={donation.image}
                   alt="Donation Image"
-                  className="w-full h-[300px] object-cover rounded-xl border border-gray-600"
+                  className="w-[380px] h-[330px] object-cover rounded-xl "
                 />
 
                 {/* Title */}
-                <h1 className="text-lg font-nunito mt-2">{donation.title}</h1>
+                <h1 className="text-[16px] font-[400px] font-nunito mt-2">{donation.title}</h1>
 
                 {/* Amount Raised */}
-                <div className="mt-4 flex items-center justify-between">
+                <div className="mt-2 flex items-center justify-between">
                   <p className="text-gray-900 font-bold flex items-center">
-                    ₹{donation.amountRaised.toLocaleString()}<p className="text-gray-600 text-sm pl-2">Raised</p>
+                    ₹{donation.amountRaised.toLocaleString()}
+                    <p className="text-gray-600 text-sm pl-2">Raised</p>
                   </p>
                   <div className="flex justify-end mt-1 text-sm text-gray-600">
-                  {Math.round(
-                    ( donation.amountRaised / donation.totalAmount) * 100
-                  )}
-                  %
-                </div>
+                    {Math.round(
+                      (donation.amountRaised / donation.totalAmount) * 100
+                    )}
+                    %
+                  </div>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="relative w-full h-2 mt-2 bg-gray-200 rounded-full">
+                <div className="relative w-full h-1.5 mt-2 bg-gray-200 rounded-full">
                   <div
-                    className="absolute top-0 left-0 h-2 bg-orange-500 rounded-full"
+                    className="absolute top-0 left-0 h-1.5 bg-orange-500 rounded-full"
                     style={{
                       width: `${
-                        ( donation.amountRaised / donation.totalAmount) * 100
+                        (donation.amountRaised / donation.totalAmount) * 100
                       }%`,
                     }}
                   ></div>
                 </div>
-                {/* <h1>{donation.totalAmount}</h1> */}
-                {/* Progress Percentage */}
-               
 
-                <div className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">Donate Now</div>
+                <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
+                  Donate Now
+                </button>
               </div>
             ))}
           </div>

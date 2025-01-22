@@ -34,8 +34,8 @@ const CSRDonation = () => {
       async function deletecsrDonation(id) {
         try {
           await axios.delete(`${backend}/admin/csrdonation/${id}`);
-          fetchCSRDonation();
           alert("CSRDonation deleted successfully!");
+          fetchCSRDonation();
         } catch (error) {
           console.log("Error while deleting CSRDonation", error);
         }

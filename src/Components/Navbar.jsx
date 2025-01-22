@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className="w-full h-[70px] rounded-[100px] px-6"
+        className="w-full h-[70px] rounded-[100px] pl-6 pr-4"
         style={{
           backgroundColor: "rgba(251,247,245,0.7)",
           backdropFilter: "blur(8px)",
@@ -108,6 +108,13 @@ const Navbar = () => {
             >
               Donate Now
             </NavLink>
+            <NavLink
+              to="/membership"
+              className="px-8 py-3 bg-[#eb852c] text-white rounded-[124px] hover:bg-orange-600 transition ease-in-out"
+            >
+              Become a Member
+            </NavLink>
+
           </span>
 
           {/* Mobile Menu Button */}
