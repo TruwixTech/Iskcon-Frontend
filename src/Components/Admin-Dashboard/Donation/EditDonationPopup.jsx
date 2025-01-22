@@ -80,27 +80,31 @@ const EditDonationsPopup = ({ donation, closePopup, refreshDonations }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validation: Check if donationsCategory is not empty and all categories have a title and donation types
+        const isValidCategory = donationsCategory.every(category => {
+            return category.title && category.donationTypes.length > 0 && category.donationTypes.every(type => type.title && type.amount);
+        });
+
+        if (!isValidCategory) {
+            setError("Please ensure all categories and donation types have titles and amounts.");
+            return;
+        }
+
         const data = new FormData();
         data.append("title", formData.title);
         data.append("description", formData.description);
         data.append("startDate", formData.startDate);
         data.append("endDate", formData.endDate);
-
+        const stringArray = images.filter(item => typeof item === 'string');
+        data.append("previousImages", JSON.stringify(stringArray));
         // Handle images
         images.forEach((image, index) => {
             if (image) {
-                data.append(`image_${index}`, image); // Append each image with unique keys
+                data.append(`image`, image); // Append each image with unique keys
             }
         });
-
         // Flatten donationsCategory to append each nested field with unique keys
-        donationsCategory.forEach((category, categoryIndex) => {
-            data.append(`donationsCategory[${categoryIndex}].title`, category.title);
-            category.donationTypes.forEach((type, typeIndex) => {
-                data.append(`donationsCategory[${categoryIndex}].donationTypes[${typeIndex}].title`, type.title);
-                data.append(`donationsCategory[${categoryIndex}].donationTypes[${typeIndex}].amount`, type.amount);
-            });
-        });
+        data.append("donationsCategory", JSON.stringify(donationsCategory));
 
         try {
             const res = await axios.put(`${backend}/admin/donation/edit/${donation?._id}`, data, {

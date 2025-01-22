@@ -7,7 +7,7 @@ const DonationForm = () => {
   return (
     <div className='bg-transparent w-full h-full' style={{
       backgroundImage: `url(${BgOne})`,
-      backgroundPosition: 'center',
+      backgroundPosition: 'top',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'contain'
     }}>

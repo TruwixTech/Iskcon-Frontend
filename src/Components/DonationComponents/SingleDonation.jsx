@@ -21,7 +21,7 @@ function SingleDonation() {
             const response = await axios.get(`${backend}/admin/donation/get/${id}`)
             setSingleDonation(response.data.data)
             setImages(response.data.data.image)
-            console.log(response.data.data);
+            // console.log(response.data.data);
         } catch (error) {
             console.log("Error while sending request to fetch single donation", error);
         }
@@ -132,8 +132,15 @@ function SingleDonation() {
             </div>
             <div className='w-full h-auto flex flex-col px-5 items-center justify-center py-10 lg:py-20 bg-gradient-to-r from-[#EB852C] to-[#854B19]'>
                 <div className='w-full h-auto flex flex-col gap-5 md:w-[70%] xl:w-[50%]'>
-                    <h1 className='w-full h-auto text-center font-prata md:text-xl lg:text-2xl xl:text-4xl text-white'>Any Donation for Temple Seva</h1>
-                    <p className='font-nunito font-semibold text-white text-center px-10 xl:px-20 text-sm xl:text-base'>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknow</p>
+                    <h1 className='w-full h-auto text-center font-prata md:text-xl lg:text-2xl xl:text-4xl text-white'>Any Donation for {singleDonation?.title}</h1>
+                    <p className='font-nunito font-semibold text-white text-center px-10 xl:px-20 text-sm xl:text-base'>{singleDonation?.description?.length > 100 ? singleDonation?.description?.slice(0, 100) + '...' : singleDonation?.description}</p>
+                    <div className='w-full h-auto flex rounded-lg border-2 border-[#ba9676] py-3 bg-[#e9bb93] px-4 gap-2 font-poppins'>
+                        <span className='text-black fonr-semibold'>&#8377;</span>
+                        <input type="text" className='flex-1 px-2 text-black h-full bg-transparent placeholder-black outline-none' placeholder='Enter Amount' />
+                    </div>
+                    <button className='w-full h-auto flex rounded-3xl py-3 bg-white text-[#EB852C] md:hover:text-white md:hover:bg-[#EB852C] duration-300 ease-in-out border border-white font-nunito justify-center items-center'>
+                        Donate Now
+                    </button>
                 </div>
             </div>
         </>
