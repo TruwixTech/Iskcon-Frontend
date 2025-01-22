@@ -1,51 +1,50 @@
 import React from 'react'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { use } from 'react';
 import EditCSRDonationPopup from './EditCSRDonationPopup';
+
 const backend = import.meta.env.VITE_BACKEND_URL;
+
 const CSRDonation = () => {
-     const [popup, setPopup] = useState(false);
-     const [currentCSRDonation, setCurrentCSRDonation] = useState(null);
-     const [csrDonation, setCsrDonation] = useState([]);
+  const [popup, setPopup] = useState(false);
+  const [currentCSRDonation, setCurrentCSRDonation] = useState(null);
+  const [csrDonation, setCsrDonation] = useState([]);
 
-     function handleOpenPopup(currentCSRDonation = null) {
-        setCurrentcsrDonation(csrDonation);
-        setPopup(true);
-      }
+  function handleOpenPopup(currentCSRDonation = null) {
+    setCurrentCSRDonation(currentCSRDonation);
+    setPopup(true);
+  }
 
-      const navigate = useNavigate();
-      const handleCreateEvents = () => {
-        navigate('/admin-dashboard/csr-donation/create-csr-donation');
-      };
+  const navigate = useNavigate();
+  const handleCreateEvents = () => {
+    navigate('/admin-dashboard/csr-donation/create-csr-donation');
+  };
 
-      async function fetchCSRDonation() {
-        try {
-          const response = await axios.get(`${backend}/admin/csrdonation`);
-          setCsrDonation(response.data);
-        } catch (error) {
-          console.log("Error while fetching CSRDonation", error);
-        }
-      }
+  async function fetchCSRDonation() {
+    try {
+      const response = await axios.get(`${backend}/admin/csrdonation`);
+      setCsrDonation(response.data);
+    } catch (error) {
+      console.log("Error while fetching CSRDonation", error);
+    }
+  }
 
-      console.log(csrDonation);
+  async function deletecsrDonation(id) {
+    try {
+      await axios.delete(`${backend}/admin/csrdonation/${id}`);
+      alert("CSRDonation deleted successfully!");
+      fetchCSRDonation();
+    } catch (error) {
+      console.log("Error while deleting CSRDonation", error);
+    }
+  }
 
-      async function deletecsrDonation(id) {
-        try {
-          await axios.delete(`${backend}/admin/csrdonation/${id}`);
-          alert("CSRDonation deleted successfully!");
-          fetchCSRDonation();
-        } catch (error) {
-          console.log("Error while deleting CSRDonation", error);
-        }
-      }
+  useEffect(() => {
+    fetchCSRDonation()
+  }, [])
 
-      useEffect(() => {
-        fetchCSRDonation()
-      }, [])
 
-    
   return (
     <div className='w-full h-auto flex flex-col'>
       <h1 className='text-center text-4xl font-semibold my-3'>CSR-DONATION-SECTION</h1>
