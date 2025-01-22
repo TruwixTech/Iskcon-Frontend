@@ -11,6 +11,7 @@ import Sun from "../assets/sun.png";
 import Section1 from "../Components/HomePageComponents/Section1";
 import Section2 from "../Components/HomePageComponents/Section2";
 import Section3 from "../Components/HomePageComponents/Section3";
+import { NavLink } from "react-router-dom";
 
 const Homepage = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
@@ -57,11 +58,21 @@ const Homepage = () => {
   };
 
   const sunStyle = {
-    transform: `translateY(${Math.min(-animationProgress * 4, 500)}px) translateX(${Math.min(animationProgress * 3.4, 800)}px) scale(${1 + animationProgress * 0.040})`, // Move up and right diagonally and scale
+    transform: `translateY(${Math.min(
+      -animationProgress * 4,
+      500
+    )}px) translateX(${Math.min(animationProgress * 3.4, 800)}px) scale(${
+      1 + animationProgress * 0.04
+    })`, // Move up and right diagonally and scale
   };
 
   const sunStyle2 = {
-    transform: `translateY(${Math.min(-animationProgress * 3.2, 500)}px) translateX(${Math.min(animationProgress * 0.6, 400)}px) scale(${1 + animationProgress * 0.020})`, // Move up and right diagonally and scale
+    transform: `translateY(${Math.min(
+      -animationProgress * 3.2,
+      500
+    )}px) translateX(${Math.min(animationProgress * 0.6, 400)}px) scale(${
+      1 + animationProgress * 0.02
+    })`, // Move up and right diagonally and scale
   };
 
   const textStyle = {
@@ -81,29 +92,35 @@ const Homepage = () => {
             <Navbar />
           </div>
 
-
           <div className="hidden md:block">
-
             <div
               className="w-full h-full absolute top-[35%] z-50 -left-60"
               style={textStyle}
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 relative z-[999]">
                 <h3 className="text-xl">
                   Connect to SHRI SHRI RADHA MADAN MOHAN JI
                 </h3>
                 <h2 className="text-4xl">Welcome to</h2>
                 <h1 className="text-6xl font-[500]">ISCKON Ghaziabad</h1>
-                <button className="w-[180px] rounded-full bg-white text-[#eb852c] py-2 px-4 cursor-pointer">
-                  Donate
-                </button>
+                <div className="flex gap-4 items-center">
+                  <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
+                    Donate
+                  </button>
+                  <NavLink
+                    to="/membership"
+                    className="px-8 py-3 bg-[#eb852c] text-white hover:border-2 hover:border-white rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    Become a Member
+                  </NavLink>
+                </div>
               </div>
             </div>
 
             <div className="w-full h-full absolute -top-32 " style={grassStyle}>
               <img src={grass} alt="grass" className="w-full" />
             </div>
-            <div className="w-full min-h-screen relative -right-48 z-50">
+            <div className="w-full min-h-screen relative -right-48 z-10">
               <img
                 src={tree}
                 alt="tree"
@@ -113,7 +130,7 @@ const Homepage = () => {
               <img
                 src={krishna}
                 alt="krishna"
-                className="absolute top-1/3 left-[45%] "
+                className="absolute top-1/3 left-[45%] z-20 "
                 style={krishnaStyle}
               />
               <img
@@ -124,30 +141,29 @@ const Homepage = () => {
               />
             </div>
             <div
-              className="w-full h-full absolute -bottom-10 "
+              className="w-full h-full absolute -bottom-10 z-0 "
               style={mandirStyle}
             >
               <img src={mandir} alt="mandir" className="w-full h-full " />
             </div>
             <div
-              className="w-full h-full absolute bottom-0 z-50"
+              className="w-full h-full absolute bottom-0 z-30"
               style={cloudStyle}
             >
               <img src={cloud} alt="cloud" className="w-full h-full" />
             </div>
             <div
-              className="w-full h-full absolute bottom-0 z-50"
+              className="w-full h-full absolute bottom-0 z-30"
               style={cloud2Style}
             >
               <img src={cloud2} alt="cloud2" className="w-full h-full" />
             </div>
             <div
-              className="w-[100px] h-auto absolute bottom-10 left-[40%] z-40"
+              className="w-[100px] h-auto absolute bottom-10 left-[40%] z-0"
               style={sunStyle}
             >
               <img src={Sun} alt="" className="" />
             </div>
-
           </div>
 
           <div className="md:hidden block">
@@ -160,17 +176,21 @@ const Homepage = () => {
                   Connect to SHRI SHRI RADHA MADAN MOHAN JI
                 </h3>
                 <h2 className="text-xl text-center">Welcome to</h2>
-                <h1 className="text-3xl font-[500] text-center">ISCKON Ghaziabad</h1>
+                <h1 className="text-3xl font-[500] text-center">
+                  ISCKON Ghaziabad
+                </h1>
                 <div className="flex justify-center">
                   <button className="w-[180px] rounded-full bg-white text-[#eb852c] py-2 px-4 cursor-pointer">
                     Donate
                   </button>
                 </div>
-
               </div>
             </div>
 
-            <div className="w-full h-full absolute -top-[7.5%] z-50 " style={grassStyle}>
+            <div
+              className="w-full h-full absolute -top-[7.5%] z-50 "
+              style={grassStyle}
+            >
               <img src={grass} alt="grass" className="w-full h-[200px]" />
             </div>
             <div className="w-[150%] h-[750px] relative top-0 right-0 z-50">
@@ -218,10 +238,7 @@ const Homepage = () => {
               <img src={Sun} alt="" className="" />
             </div>
           </div>
-
-
         </div>
-
 
         {/* Next Section */}
         <Section1 />

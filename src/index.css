@@ -7,3 +7,76 @@ img {
   transition: transform 0.2s ease-out;
 }
 
+/* Base styles for all cards */
+.membership-card {
+  background-size: 200% 200%;
+  animation: shine 3s linear infinite;
+}
+
+/* Shiny Bronze */
+.shiny-bronze {
+  background: linear-gradient(45deg, #cd7f32, #b87333, #cd7f32);
+}
+
+/* Shiny Silver */
+.shiny-silver {
+  background: linear-gradient(45deg, #c0c0c0, #a9a9a9, #c0c0c0);
+}
+
+/* Shiny Gold */
+.shiny-gold {
+  background: linear-gradient(45deg, #ffd700, #daa520, #ffd700);
+}
+
+/* Shiny Diamond */
+.shiny-diamond {
+  background: linear-gradient(45deg, #e0e0e0, #f0f0f0, #e0e0e0);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Shiny Platinum */
+.shiny-platinum {
+  background: linear-gradient(45deg, #e5e4e2, #d1d1d1, #e5e4e2);
+}
+
+/* Super Shiny Gold */
+.shiny-super-gold {
+  background: linear-gradient(45deg, #ffdf00, #ffd700, #ffdf00);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* Animation for the shine effect */
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Button text colors for consistency */
+.text-bronze {
+  color: #cd7f32;
+}
+
+.text-silver {
+  color: #c0c0c0;
+}
+
+.text-gold {
+  color: #ffd700;
+}
+
+.text-diamond {
+  color: #e0e0e0;
+}
+
+.text-platinum {
+  color: #e5e4e2;
+}
+
+.text-super-gold {
+  color: #ffd700;
+}
+
