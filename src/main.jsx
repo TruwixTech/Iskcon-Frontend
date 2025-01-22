@@ -46,6 +46,7 @@ import CSRPage from './Pages/CSRPage.jsx'
 import CSRDonation from './Components/Admin-Dashboard/CSRDonation/CSRDonation.jsx'
 import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/EditCSRDonationPopup.jsx'
 import SingleDonation from './Components/DonationComponents/SingleDonation.jsx'
+import MembershipPage from './Pages/MembershipPage.jsx'
 
 
 const router = createBrowserRouter(
@@ -105,6 +106,7 @@ const router = createBrowserRouter(
         <Route path="/events" element={<EventPage />} />
         <Route path="/contacts" element={<ContactPage />} />
         <Route path="/csr" element={<CSRPage />} />
+        <Route path="/membership" element={<MembershipPage />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
       <Route path="/signup" element={<SignUpPage />} />

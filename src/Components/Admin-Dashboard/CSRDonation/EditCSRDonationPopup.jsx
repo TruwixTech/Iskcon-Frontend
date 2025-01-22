@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { X, Plus, Minus } from "lucide-react";
 import axios from "axios";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
-const CreateCSRDonationPage = () => {
+const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -12,17 +13,27 @@ const CreateCSRDonationPage = () => {
         endDate: "",
     });
 
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]); // Existing and new images
     const [error, setError] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleImageChange = (file) => {
-        setImage(file);
+    const handleAddImage = () => {
+        setImages([...images, null]); // Add a new null slot for another image
+    };
+
+    const handleRemoveImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+    };
+
+    const handleImageChange = (index, file) => {
+        const updatedImages = [...images];
+        updatedImages[index] = file;
+        setImages(updatedImages);
     };
 
     const handleSubmit = async (e) => {
@@ -34,38 +45,62 @@ const CreateCSRDonationPage = () => {
         data.append("totalAmount", formData.totalAmount);
         data.append("startDate", formData.startDate);
         data.append("endDate", formData.endDate);
-        data.append("image", image);
+
+        // Separate previous image URLs and new files
+        const existingImageURLs = images.filter((image) => typeof image === "string");
+        const newImageFiles = images.filter((image) => image instanceof File);
+
+        data.append("previousImages", JSON.stringify(existingImageURLs));
+
+        newImageFiles.forEach((image, index) => {
+            data.append("image", image);
+        });
 
         try {
-            const res = await axios.post(`${backend}/admin/csrdonation/create`, data, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            const res = await axios.put(
+                `${backend}/admin/csrdonation/update/${csrDonation?._id}`,
+                data,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
 
             if (res.status === 200 || res.status === 201) {
-                setSuccessMessage("CSR Donation created successfully!");
-                setFormData({
-                    title: "",
-                    description: "",
-                    totalAmount: "",
-                    startDate: "",
-                    endDate: "",
-                });
-                alert("CSR Donation created successfully!");
-                setImage(null);
+                alert("CSR Donation updated successfully!");
+                refreshDonations();
+                closePopup();
             }
-        } catch (err) {
-            setError(err.response?.data?.message || "Something went wrong. Please try again.");
+        } catch (error) {
+            console.error("Error updating CSR Donation:", error);
+            setError(error?.response?.data?.message ?? "Failed to update donation");
         }
     };
 
+    useEffect(() => {
+        if (csrDonation) {
+            setFormData({
+                title: csrDonation.title,
+                description: csrDonation.description,
+                totalAmount: csrDonation.totalAmount,
+                startDate: csrDonation.startDate,
+                endDate: csrDonation.endDate,
+            });
+            setImages(csrDonation.images || []); // Existing images or empty array
+        }
+    }, [csrDonation]);
+
     return (
-        <div className="pt-10 pb-20 flex items-center justify-center font-marcellus">
-            <div className="bg-white p-8  w-full max-w-7xl">
-                <h2 className="w-full text-center text-5xl font-bold text-gray-800 mb-6">Create CSR Donation</h2>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-800 bg-opacity-50 pt-20 font-marcellus">
+            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl font-bold text-gray-800">Edit CSR Donation</h2>
+                    <button onClick={closePopup} className="text-gray-500 hover:text-gray-700">
+                        <X size={24} />
+                    </button>
+                </div>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
-                {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Title */}
                     <div>
@@ -127,24 +162,49 @@ const CreateCSRDonationPage = () => {
                             required
                         />
                     </div>
-                    {/* Image */}
+                    {/* Images */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
-                        <input
-                            type="file"
-                            name="image"
-                            onChange={(e) => handleImageChange(e.target.files[0])}
-                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        />
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
+                        {images.map((image, index) => (
+                            <div key={index} className="flex items-center mb-2 space-x-2">
+                                <input
+                                    type="file"
+                                    onChange={(e) => handleImageChange(index, e.target.files[0])}
+                                    className="flex-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                                {images.length > 1 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveImage(index)}
+                                        className="text-red-500 hover:text-red-700"
+                                    >
+                                        <Minus size={20} />
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={handleAddImage}
+                            className="mt-2 flex items-center text-green-500 hover:text-green-700"
+                        >
+                            <Plus size={20} className="mr-1" /> Add Image
+                        </button>
                     </div>
-                    {/* Submit Button */}
-                    <div className="flex justify-end mt-8">
+                    {/* Submit and Cancel Buttons */}
+                    <div className="flex justify-end space-x-4 mt-8">
+                        <button
+                            type="button"
+                            onClick={closePopup}
+                            className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition duration-300"
+                        >
+                            Cancel
+                        </button>
                         <button
                             type="submit"
                             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
                         >
-                            Create Donation
+                            Save Changes
                         </button>
                     </div>
                 </form>
@@ -153,4 +213,4 @@ const CreateCSRDonationPage = () => {
     );
 };
 
-export default CreateCSRDonationPage;
+export default EditCSRDonationPopup;
