@@ -20,8 +20,7 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } =
-    useContext(CartContext);
+  const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } = useContext(CartContext);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -65,7 +64,7 @@ const Navbar = () => {
                     key={path}
                     className="relative group flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setDropdownOpen(true)}
-                    // onMouseLeave={() => setDropdownOpen(false)}
+                  // onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <span className="flex items-center gap-2 text-black group-hover:text-[#eb852c]">
                       {label}
@@ -102,10 +101,9 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `group relative flex items-center gap-2 ${
-                          isActive
-                            ? "text-[#eb852c] underline underline-offset-8"
-                            : "text-black"
+                        `group relative flex items-center gap-2 ${isActive
+                          ? "text-[#eb852c] underline underline-offset-8"
+                          : "text-black"
                         } hover:text-[#eb852c]`
                       }
                     >
@@ -118,9 +116,14 @@ const Navbar = () => {
 
             <button
               onClick={() => setCartSidebar(true)}
-              className="text-black hover:text-[#eb852c]"
+              className="text-black hover:text-[#eb852c] relative"
             >
               <img src={cart} alt="cart" />
+              {
+                cartItems.length > 0 && (
+                  <span className="text-[#eb852c] absolute font-semibold -top-1 text-xs -right-2 w-4 h-4 flex justify-center items-center bg-white rounded-full border border-gray-400">{cartItems.length}</span>
+                )
+              }
             </button>
             <div className="flex gap-4">
               <NavLink
@@ -176,10 +179,9 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `${
-                          isActive
-                            ? "text-[#eb852c] underline-[#eb852c]"
-                            : "text-black underline underline-offset-8"
+                        `${isActive
+                          ? "text-[#eb852c] underline-[#eb852c]"
+                          : "text-black underline underline-offset-8"
                         } hover:text-[#eb852c]`
                       }
                       onClick={() => setMenuOpen(false)}
