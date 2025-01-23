@@ -18,7 +18,7 @@ const CSRDonation = () => {
 
   const navigate = useNavigate();
   const handleCreateEvents = () => {
-    navigate('/admin-dashboard/csr-donation/create-csr-donation');
+    navigate('/admin-dashboard/csrdonation/create-csr-donation');
   };
 
   async function fetchCSRDonation() {
@@ -63,7 +63,7 @@ const CSRDonation = () => {
                 <p className='text-sm text-gray-500'>{csrDonation.description.length > 150 ? csrDonation.description.slice(0, 150) + "..." : csrDonation.description.slice(0, 150)}</p>
               </NavLink>
               <div className='w-full h-auto flex justify-between items-center'>
-                <button onClick={() => handleOpenPopup(csrDonation._id)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
+                <button onClick={() => handleOpenPopup(csrDonation)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
                 <button onClick={() => deletecsrDonation(csrDonation._id)} className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
               </div>
             </div>
@@ -74,7 +74,7 @@ const CSRDonation = () => {
         <EditCSRDonationPopup
           csrDonation={currentCSRDonation}
           closePopup={() => setPopup(false)}
-          refreshcsrDonations={fetchCSRDonation}
+          refreshCsrDonations={fetchCSRDonation}
         />
       )}
     </div>

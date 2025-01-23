@@ -44,10 +44,10 @@ import ForgotPassword from './Pages/ForgotPassword.jsx'
 import ResetPassword from './Pages/ResetPassword.jsx'
 import CSRPage from './Pages/CSRPage.jsx'
 import CSRDonation from './Components/Admin-Dashboard/CSRDonation/CSRDonation.jsx'
-import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/EditCSRDonationPopup.jsx'
 import SingleDonation from './Components/DonationComponents/SingleDonation.jsx'
 import SingleBlog from './Components/BlogPageComponent/SingleBlog.jsx'
 import MembershipPage from './Pages/MembershipPage.jsx'
+import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/CreateCSRDonation.jsx'
 
 
 const router = createBrowserRouter(
@@ -92,7 +92,7 @@ const router = createBrowserRouter(
 
         {/* Admin CSR Donation Routes */}
         <Route path='/admin-dashboard/csrdonation' element={<CSRDonation />} />
-        <Route path='/admin-dashboard/csr-donation/create-csr-donation' element={<CreateCSRDonationPage />} />
+        <Route path='/admin-dashboard/csrdonation/create-csr-donation' element={<CreateCSRDonationPage />} />
         {/* Public Routes  */}
         <Route path="/shop" element={<ShopPage/>} />
         <Route path="/shop/single-product/:id" element={<SingleProduct />} />

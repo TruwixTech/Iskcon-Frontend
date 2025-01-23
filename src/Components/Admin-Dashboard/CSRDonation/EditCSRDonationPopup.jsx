@@ -4,7 +4,7 @@ import axios from "axios";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
-const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => {
+const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshCsrDonations }) => {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -13,7 +13,7 @@ const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => 
         endDate: "",
     });
 
-    const [images, setImages] = useState([]); // Existing and new images
+    const [image, setImage] = useState("");
     const [error, setError] = useState("");
 
     const handleInputChange = (e) => {
@@ -21,19 +21,9 @@ const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => 
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleAddImage = () => {
-        setImages([...images, null]); // Add a new null slot for another image
-    };
 
-    const handleRemoveImage = (index) => {
-        const updatedImages = images.filter((_, i) => i !== index);
-        setImages(updatedImages);
-    };
-
-    const handleImageChange = (index, file) => {
-        const updatedImages = [...images];
-        updatedImages[index] = file;
-        setImages(updatedImages);
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]); // Store the selected file
     };
 
     const handleSubmit = async (e) => {
@@ -45,20 +35,13 @@ const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => 
         data.append("totalAmount", formData.totalAmount);
         data.append("startDate", formData.startDate);
         data.append("endDate", formData.endDate);
-
-        // Separate previous image URLs and new files
-        const existingImageURLs = images.filter((image) => typeof image === "string");
-        const newImageFiles = images.filter((image) => image instanceof File);
-
-        data.append("previousImages", JSON.stringify(existingImageURLs));
-
-        newImageFiles.forEach((image, index) => {
+        if (image) {
             data.append("image", image);
-        });
+        }
 
         try {
             const res = await axios.put(
-                `${backend}/admin/csrdonation/update/${csrDonation?._id}`,
+                `${backend}/admin/csrdonation/${csrDonation?._id}`,
                 data,
                 {
                     headers: {
@@ -69,7 +52,7 @@ const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => 
 
             if (res.status === 200 || res.status === 201) {
                 alert("CSR Donation updated successfully!");
-                refreshDonations();
+                refreshCsrDonations();
                 closePopup();
             }
         } catch (error) {
@@ -84,10 +67,10 @@ const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => 
                 title: csrDonation.title,
                 description: csrDonation.description,
                 totalAmount: csrDonation.totalAmount,
-                startDate: csrDonation.startDate,
-                endDate: csrDonation.endDate,
+                startDate: csrDonation.startDate?.split("T")[0] || "",
+                endDate: csrDonation.endDate?.split("T")[0] || "",
             });
-            setImages(csrDonation.images || []); // Existing images or empty array
+            setImage(csrDonation.image || '');
         }
     }, [csrDonation]);
 
@@ -162,34 +145,19 @@ const EditCSRDonationPopup = ({ csrDonation, closePopup, refreshDonations }) => 
                             required
                         />
                     </div>
-                    {/* Images */}
+                    {/* Image */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
-                        {images.map((image, index) => (
-                            <div key={index} className="flex items-center mb-2 space-x-2">
-                                <input
-                                    type="file"
-                                    onChange={(e) => handleImageChange(index, e.target.files[0])}
-                                    className="flex-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                />
-                                {images.length > 1 && (
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemoveImage(index)}
-                                        className="text-red-500 hover:text-red-700"
-                                    >
-                                        <Minus size={20} />
-                                    </button>
-                                )}
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Image</label>
+                        {image && typeof image === "string" && (
+                            <div className="mb-4">
+                                <img src={image} alt="Current" className="w-48 h-32 object-cover rounded-md" />
                             </div>
-                        ))}
-                        <button
-                            type="button"
-                            onClick={handleAddImage}
-                            className="mt-2 flex items-center text-green-500 hover:text-green-700"
-                        >
-                            <Plus size={20} className="mr-1" /> Add Image
-                        </button>
+                        )}
+                        <input
+                            type="file"
+                            onChange={handleImageChange}
+                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
                     </div>
                     {/* Submit and Cancel Buttons */}
                     <div className="flex justify-end space-x-4 mt-8">
