@@ -48,6 +48,7 @@ import SingleDonation from './Components/DonationComponents/SingleDonation.jsx'
 import SingleBlog from './Components/BlogPageComponent/SingleBlog.jsx'
 import MembershipPage from './Pages/MembershipPage.jsx'
 import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/CreateCSRDonation.jsx'
+import SingleEventPage from './Components/EventPageComponents/SingleEventPage.jsx'
 
 
 const router = createBrowserRouter(
@@ -106,6 +107,7 @@ const router = createBrowserRouter(
         <Route path="/donation/single-donation/:id" element={<SingleDonation />} />
         <Route path="/donate" element={<DonationForm />} />
         <Route path="/events" element={<EventPage />} />
+        <Route path="/events/single-event/:id" element={<SingleEventPage />} />
         <Route path="/contacts" element={<ContactPage />} />
         <Route path="/csr" element={<CSRPage />} />
         <Route path="/membership" element={<MembershipPage />} />
