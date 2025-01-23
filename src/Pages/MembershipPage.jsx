@@ -18,9 +18,16 @@ const MembershipPage = () => {
       title: "Bronze",
       price: "₹ 2,25,555/-",
       facilities: [
-        "Access to community events",
-        "Monthly newsletters",
-        "Basic membership discounts",
+        "Name Encriptions On Wall Of Fame",
+        "Certificate Of Appreciation",
+        "Pandav Sadasyata Card",
+        "Prasadam On Your Special Occasions Like Birthday, Anniversary, Etc.",
+        "Special Aarti On Special Occasions",
+        "ISKCON Life Membership",
+        "Dham Yatra Once In A Year (10% Dsicount On Package)",
+        "Govinda's Meal Discounts",
+        "Festivals Mahaprasadam",
+        "Special Invitation For Vigrah Installation",
       ],
       img: bronge,
     },
@@ -29,9 +36,22 @@ const MembershipPage = () => {
       title: "Silver",
       price: "₹ 5,55,555/-",
       facilities: [
-        "All Bronze benefits",
-        "Priority support",
-        "Exclusive event invitations",
+        "Name Encriptions On Wall Of Fame",
+        "Certificate Of Appreciation",
+        "Token Of Appreciation (In Form Of Silver Coin Encripted With Deities Pics)",
+        "Pandav Sadasyata Card",
+        "Prasadam On Your Special Occasions Like Birthday, Anniversary, Etc.",
+        "Special Aarti On Special Occasions",
+        "ISKCON Life Membership",
+        "Dham Yatra Once In A Year (15% Dsicount On Package)",
+        "VIP Entries During Larged Gathering Festivals",
+        "Special Aarti During Rath Yatra For Entire Family",
+        "Special Yearly Kirtan At Home",
+        "Govinda's Meal Discounts",
+        "Festivals Mahaprasadam ( 5% for a Year & Once in a month)",
+        "Priority Banquet Hall Booking",
+        "Special Invitation For Vigrah Installation",
+        "Valet Parking During Festivals"
       ],
       img: silver,
     },
@@ -40,9 +60,23 @@ const MembershipPage = () => {
       title: "Gold",
       price: "₹ 11,00,000/-",
       facilities: [
-        "All Silver benefits",
-        "Annual premium gifts",
-        "Free access to premium workshops",
+        "Name Encriptions On Wall Of Fame",
+        "Certificate Of Appreciation",
+        "Token Of Appreciation (In Form Of Silver Coin Encripted With Deities Pics)",
+        "Pandav Sadasyata Card",
+        "Prasadam On Your Special Occasions Like Birthday, Anniversary, Etc.",
+        "Special Aarti On Special Occasions",
+        "ISKCON Life Membership",
+        "Dham Yatra Once In A Year ( 25% Dsicount On Package)",
+        "VIP Entries During Larged Gathering Festivals",
+        "Special Aarti During Rath Yatra For Entire Family",
+        "Complimentary Stay In ISKCON Wave City Guest House ( 7 Days Stay In A Year)",
+        "Special Yearly Kirtan At Home",
+        "Govinda's Meal Discounts ( 10% for a Year & Once in a month)",
+        "Festivals Mahaprasadam",
+        "Priority Banquet Hall Booking ( Priority with 5% Discount)",
+        "Special Invitation For Vigrah Installation",
+        "Valet Parking During Festivals"
       ],
       img: gold,
     },
@@ -51,9 +85,26 @@ const MembershipPage = () => {
       title: "Diamond",
       price: "₹ 21,00,000/-",
       facilities: [
-        "All Gold benefits",
-        "Lifetime membership",
-        "Personalized consultations",
+        "Name Encriptions On Wall Of Fame",
+        "Certificate Of Appreciation",
+        "Token Of Appreciation (In Form Of Silver Coin Encripted With Deities Pics)",
+        "Pandav Sadasyata Card",
+        "Prasadam On Your Special Occasions Like Birthday, Anniversary, Etc.",
+        "Special Aarti On Special Occasions",
+        "ISKCON Life Membership",
+        "Dham Yatra Once In A Year (30% Dsicount On Package)",
+        "VIP Entries During Larged Gathering Festivals",
+        "Special Aarti During Rath Yatra For Entire Family",
+        "Complimentary Stay In ISKCON Wave City Guest House ( 15 Days Stay In A Year)",
+        "Special Yearly Kirtan At Home",
+        "Govinda's Meal Discounts ( 20% for a Year & Once in a month)",
+        "Festivals Mahaprasadam",
+        "Priority Banquet Hall Booking ( Priority with 7% Discount)",
+        "Special Invitation For Vigrah Installation",
+        "Guest of Honors For Vigrah Installation",
+        "Special Deities Paraphernalias Like Garlands, Dresses, Etc.",
+        "Reserved Seats On Priority In Temple Hall During Grand Festive Ceremony",
+        "Valet Parking During Festivals"
       ],
       img: diamond,
     },
@@ -62,9 +113,26 @@ const MembershipPage = () => {
       title: "Platinum",
       price: "₹ 31,00,000/-",
       facilities: [
-        "All Diamond benefits",
-        "Exclusive retreat invitations",
-        "Unlimited event access",
+        "Name Encriptions On Wall Of Fame",
+        "Certificate Of Appreciation",
+        "Token Of Appreciation (In Form Of Silver Coin Encripted With Deities Pics)",
+        "Pandav Sadasyata Card",
+        "Prasadam On Your Special Occasions Like Birthday, Anniversary, Etc.",
+        "Special Aarti On Special Occasions",
+        "ISKCON Life Membership",
+        "Dham Yatra Once In A Year (50% Dsicount On Package)",
+        "VIP Entries During Larged Gathering Festivals",
+        "Special Aarti During Rath Yatra For Entire Family",
+        "Complimentary Stay In ISKCON Wave City Guest House ( 21 Days Stay In A Year)",
+        "Special Yearly Kirtan At Home",
+        "Govinda's Meal Discounts ( 30% for a Year & Once in a month)",
+        "Festivals Mahaprasadam",
+        "Priority Banquet Hall Booking ( Priority with 10% Discount)",
+        "Special Invitation For Vigrah Installation",
+        "Guest of Honors For Vigrah Installation",
+        "Special Deities Paraphernalias Like Garlands, Dresses, Etc.",
+        "Reserved Seats On Priority In Temple Hall During Grand Festive Ceremony",
+        "Valet Parking During Festivals"
       ],
       img: platinum,
     },
@@ -73,10 +141,29 @@ const MembershipPage = () => {
       title: "Steering Committee Member",
       price: "₹ 51,00,000/-",
       facilities: [
-        "All Platinum benefits",
-        "VIP access to all events",
-        "Special recognition and awards",
+        "Name Encriptions On Wall Of Fame",
+        "Certificate Of Appreciation",
+        "Token Of Appreciation (In Form Of Silver Coin Encripted With Deities Pics)",
+        "Pandav Sadasyata Card",
+        "Prasadam On Your Special Occasions Like Birthday, Anniversary, Etc.",
+        "Special Aarti On Special Occasions",
+        "ISKCON Life Membership",
+        "Dham Yatra Once In A Year (50% Dsicount On Package)",
+        "VIP Entries During Larged Gathering Festivals",
+        "Special Aarti During Rath Yatra For Entire Family",
+        "Complimentary Stay In ISKCON Wave City Guest House ( 21 Days Stay In A Year)",
+        "Special Yearly Kirtan At Home",
+        "Govinda's Meal Discounts ( 30% for a Year & Once in a month)",
+        "Festivals Mahaprasadam",
+        "Priority Banquet Hall Booking ( Priority with 10% Discount)",
+        "Special Invitation For Vigrah Installation",
+        "Guest of Honors For Vigrah Installation",
+        "Special Deities Paraphernalias Like Garlands, Dresses, Etc.",
+        "Reserved Seats On Priority In Temple Hall During Grand Festive Ceremony",
+        "Valet Parking During Festivals"
+        
       ],
+      note: "Note: This is a special category in which member will become Internal Part of Management for Major Festivities and Events.",
       img: Super,
     },
   ];
@@ -95,7 +182,7 @@ const MembershipPage = () => {
 
   return (
     <div className="bg-[#fde3b6] w-full h-auto relative py-20">
-      <div className="w-full h-[70px] z-[100] absolute top-10 px-4 md:px-20">
+      <div className="w-full h-[70px] z-40 absolute top-10 px-4 md:px-20">
         <Navbar />
       </div>
       <div className="w-full absolute top-0 left-1/2 -translate-x-1/2">
@@ -130,7 +217,7 @@ const MembershipPage = () => {
       {/* Popup */}
       {isPopupOpen && selectedCard && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-5xl w-full">
             <h2 className="text-2xl font-bold mb-4">{selectedCard.title}</h2>
             <p className="text-lg mb-4">{selectedCard.price}</p>
             <ul className="list-disc pl-5 mb-4">
@@ -140,6 +227,9 @@ const MembershipPage = () => {
                 </li>
               ))}
             </ul>
+            {selectedCard.note && (
+              <p className="text-xl text-gray-500 font-bold text-center mb-4">{selectedCard.note}</p>
+            )}
             <button
               onClick={handleClosePopup}
               className="bg-red-500 text-white font-semibold py-2 px-4 rounded-md"

@@ -11,6 +11,15 @@ export default {
         prata: ['"Prata"', "serif"], 
         nunito: ['"Nunito Sans"', 'sans-serif'], // Add Nunito Sans
       },
+      keyframes: {
+        shine: {
+          '0%': { '-webkit-mask-position': '150%' },
+          '100%': { '-webkit-mask-position': '-50%' },
+        },
+      },
+      animation: {
+        shine: 'shine 2s infinite',
+      },
     },
   },
   plugins: [],
