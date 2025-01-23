@@ -73,7 +73,7 @@ function SingleEventPage() {
                             <div className="space-y-4">
                                 {relatedEvents?.map((event) => (
                                     <NavLink
-                                        to={`/blogs/single-blog/${event._id}`}
+                                        to={`/events/single-event/${event._id}`}
                                         key={event._id}
                                         className="flex items-center cursor-pointer space-x-4 font-prata"
                                     >

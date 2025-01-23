@@ -30,7 +30,12 @@ function DonationCircle() {
   const getBackgroundColor = () => {
     if (location.pathname === "/donation") {
       return "bg-white"; // Tailwind class for red background
-    } else if (location.pathname === "/blogs" || location.pathname.includes("/blogs/single-blog")) {
+    } else if (
+      location.pathname === "/blogs" ||
+      location.pathname.includes("/blogs/single-blog") ||
+      location.pathname === "/events" ||
+      location.pathname.includes("/events/single-event")
+    ) {
       return "bg-[#FDE3B6]"; // Tailwind class for black background
     }
     return "bg-white";
@@ -50,8 +55,8 @@ function DonationCircle() {
   }, []);
 
   useEffect(() => {
-    fetchDonation()
-  }, [])
+    fetchDonation();
+  }, []);
 
   return (
     <div
@@ -83,7 +88,10 @@ function DonationCircle() {
                       {item.title}
                     </h1>
                     <div className="w-full h-auto flex justify-center items-center">
-                      <NavLink to={`/donation/single-donation/${item._id}`} className="px-4 py-2 bg-[#EB852C] md:hover:bg-[#f6ab69] font-nunito rounded-3xl text-white">
+                      <NavLink
+                        to={`/donation/single-donation/${item._id}`}
+                        className="px-4 py-2 bg-[#EB852C] md:hover:bg-[#f6ab69] font-nunito rounded-3xl text-white"
+                      >
                         View More
                       </NavLink>
                     </div>
