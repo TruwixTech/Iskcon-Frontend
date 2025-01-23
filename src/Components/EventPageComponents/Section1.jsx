@@ -62,6 +62,7 @@ const EventPage = () => {
             className="w-full h-full rounded-3xl object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 rounded-3xl mx-4 md:mx-20  "></div>
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-5xl font-prata text-white font-semibold">Events</div>
         </div>
 
         <div>
