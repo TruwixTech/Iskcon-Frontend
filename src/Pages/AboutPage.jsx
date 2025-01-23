@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import about1 from "../assets/about1.jpg";
@@ -40,9 +40,13 @@ const AboutUs = () => {
     navigate(`/details/${id}`);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="bg-[#fde3b6] w-full h-full">
-        <div className="px-20 pt-10 relative z-50">
+      <div className="px-20 pt-10 relative z-50">
         <Navbar />
       </div>
       <h1 className="text-3xl font-bold text-center mb-8 mt-20">

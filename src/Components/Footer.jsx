@@ -4,11 +4,12 @@ import logof from "../assets/logofooter.svg";
 import fb from "../assets/fb.png"
 import insta from "../assets/insta.png"
 import twit from "../assets/twit.png"
+import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
     <div
-      className="relative w-full h-auto md:h-[580px] px-4 md:px-20 -z-10"
+      className="relative w-full h-auto md:h-[580px] px-4 md:px-20 z-0"
       style={{
         backgroundImage: `url(${footerbg})`,
         backgroundSize: "cover",
@@ -52,13 +53,12 @@ function Footer() {
               <h1 className="text-white font-bold tracking-wider mb-4">
                 Quick Links
               </h1>
-              <div className="text-gray-300 space-y-1 md:space-y-2 ">
-                <p>About Us</p>
-                <p>Donation</p>
-                <p>Events</p>
-                <p>Blogs</p>
-                <p>Shop</p>
-                <p>Shop</p>
+              <div className="text-gray-300 flex flex-col space-y-1 md:space-y-2 ">
+                <NavLink to='/about' className=''>About Us</NavLink>
+                <NavLink to='/events' className=''>Events</NavLink>
+                <NavLink to='/blogs' className=''>Blogs</NavLink>
+                <NavLink to='/shop' className=''>Shop</NavLink>
+                <NavLink to='/contacts' className=''>Contact</NavLink>
               </div>
             </div>
 

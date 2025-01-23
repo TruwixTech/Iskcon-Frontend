@@ -118,7 +118,7 @@ const CreateDonationForm = ({ onClose, refreshDonations }) => {
   };
 
   return (
-    <div className="fixed inset-0 h-screen flex items-center justify-center bg-gray-800 bg-opacity-50 font-marcellus">
+    <div className="fixed inset-0 h-screen flex items-center justify-center bg-gray-800 bg-opacity-50 font-marcellus z-10">
       <div
         className="p-6 bg-white rounded shadow-md w-3/4 max-w-3xl h-[650px] mx-auto overflow-y-auto "
       // className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
