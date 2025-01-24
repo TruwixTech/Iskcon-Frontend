@@ -51,6 +51,7 @@ import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/Crea
 import SingleEventPage from './Components/EventPageComponents/SingleEventPage.jsx'
 import Profile from './Components/UserProfile/Profile.jsx'
 import DonatePage from './Components/DonatePage.jsx'
+import DonationHistory from './Components/UserProfile/DonationHistory.jsx'
 
 
 const router = createBrowserRouter(
@@ -59,6 +60,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route path="/" element={<Homepage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/donation-history" element={<DonationHistory />} />
         <Route path="/donate" element={<DonatePage />} />
         {/* Admin Related routes */}
         <Route path="/admin-login" element={<AdminLogin />} />

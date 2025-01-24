@@ -140,10 +140,13 @@ const Navbar = () => {
                   onClick={toggleDropdown}
                 />
                 {isDropdownOpen && (
-                  <div className="absolute top-12 right-0 mt-2 w-44 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
+                  <div className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
                     <ul className="flex flex-col text-md space-y-1 m-2">
                       <Link to='/profile' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
                         My Profile
+                      </Link>
+                      <Link to='/donation-history' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
+                        Donation History
                       </Link>
                       <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
                         Logout
@@ -171,10 +174,13 @@ const Navbar = () => {
                 onClick={toggleDropdown}
               />
               {isDropdownOpen && (
-                <div className="absolute top-12 right-0 mt-2 w-44 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
+                <div className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
                   <ul className="flex flex-col text-md space-y-1 m-2">
                     <Link to='/profile' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
                       My Profile
+                    </Link>
+                    <Link to='/donation-history' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
+                      Donation History
                     </Link>
                     <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
                       Logout
