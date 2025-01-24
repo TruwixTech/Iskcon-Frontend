@@ -8,22 +8,21 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCartItems((prevCartItems) => {
-      // Check if an exact item (including variations) exists in the cart
-      const existingItem = prevCartItems.find(
+      const existingItemIndex = prevCartItems.findIndex(
         (cartItem) =>
           cartItem.id === item.id &&
-          JSON.stringify(cartItem) === JSON.stringify(item) // Ensures exact match
+          JSON.stringify(cartItem.variations) === JSON.stringify(item.variations) // Ensure variations match
       );
 
-      if (existingItem) {
-        // If an exact match is found, increase its quantity
-        return prevCartItems.map((cartItem) =>
-          cartItem.id === item.id && JSON.stringify(cartItem) === JSON.stringify(item)
+      if (existingItemIndex !== -1) {
+        // If item exists, increase its quantity
+        return prevCartItems.map((cartItem, index) =>
+          index === existingItemIndex
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
       } else {
-        // If the item is not found, add it as a new entry
+        // Add the new item with quantity 1
         return [...prevCartItems, { ...item, quantity: 1 }];
       }
     });

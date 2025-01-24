@@ -142,9 +142,9 @@ const Navbar = () => {
                 {isDropdownOpen && (
                   <div className="absolute top-12 right-0 mt-2 w-44 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
                     <ul className="flex flex-col text-md space-y-1 m-2">
-                      <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
+                      <Link to='/profile' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
                         My Profile
-                      </li>
+                      </Link>
                       <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
                         Logout
                       </li>
@@ -156,16 +156,38 @@ const Navbar = () => {
           </span>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-black text-2xl"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
+          <div className="w-auto h-auto flex gap-2 items-center lg:hidden">
+            <button
+              className="lg:hidden text-black text-2xl"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+            <div className="relative flex items-center gap-4">
+              <FaUserCircle
+                size={50}
+                color="#eb852c"
+                className="cursor-pointer border-2 border-white rounded-full"
+                onClick={toggleDropdown}
+              />
+              {isDropdownOpen && (
+                <div className="absolute top-12 right-0 mt-2 w-44 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
+                  <ul className="flex flex-col text-md space-y-1 m-2">
+                    <Link to='/profile' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
+                      My Profile
+                    </Link>
+                    <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
+                      Logout
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
 
           {/* Mobile Menu */}
           {menuOpen && (
-            <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 md:hidden z-50 rounded-3xl mt-4">
+            <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 lg:hidden z-50 rounded-3xl mt-4">
               <ul className="flex flex-col items-center gap-6 text-base font-medium">
                 {[
                   { path: "/about-us", label: "About Us" },

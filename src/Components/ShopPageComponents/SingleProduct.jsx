@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BgOne from '../../assets/bg2.png'
 import Navbar from '../Navbar'
-import product from '../../assets/singleProductThali.png'
 import { FaChevronLeft } from "react-icons/fa6"
 import { FaChevronRight } from "react-icons/fa6"
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -21,9 +20,8 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 function SingleProduct() {
     const [singleProduct, setSingleProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [addToCartText, setAddToCartText] = useState('Add to Cart');
     const [images, setImages] = useState([]);
-    const { addToCart } = useContext(CartContext);
+    const { addToCart, cartItems, removeFromCart } = useContext(CartContext);
     const [mainImage, setMainImage] = useState();
     const { id } = useParams()
     const sliderRef = useRef(null);
@@ -59,7 +57,6 @@ function SingleProduct() {
     }
 
     function handleAddToCart() {
-        setAddToCartText('Added to Cart');
         addToCart({
             id: singleProduct._id,
             name: singleProduct.name,
@@ -70,9 +67,6 @@ function SingleProduct() {
 
         })
         alert("Pruduct Added to cart Successfully !!")
-        setTimeout(() => {
-            setAddToCartText('Add to Cart');
-        }, 2000);
     }
 
     useEffect(() => {
@@ -130,7 +124,50 @@ function SingleProduct() {
                         <p className='font-poopins text-[#686363] text-sm md:text-base'>{singleProduct?.subDesc}</p>
                         <div className='w-full h-auto flex flex-col gap-3 items-center mt-5 sm:flex-row'>
                             <button onClick={handleAddToCart} className='w-60 py-1.5 bg-[#EB852C] text-white font-poppins rounded-3xl font-semibold sm:w-80 xl:py-3'>
-                                {addToCartText}
+                                {
+                                    cartItems.find(item => item.id === singleProduct._id)
+                                        ? (
+                                            <div className='w-full h-full flex justify-center items-center gap-3'>
+                                                <span
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        removeFromCart({
+                                                            id: singleProduct._id,
+                                                            name: singleProduct.name,
+                                                            price: singleProduct.price,
+                                                            image: singleProduct.images[0],
+                                                            category: singleProduct.category,
+                                                            quantity: 1
+                                                        });
+                                                    }}
+                                                    className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
+                                                >
+                                                    -
+                                                </span>
+                                                <span className="font-semibold xl:text-lg">
+                                                    {cartItems.find(item => item.id === singleProduct._id).quantity}
+                                                </span>
+                                                <span
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        addToCart({
+                                                            id: singleProduct._id,
+                                                            name: singleProduct.name,
+                                                            price: singleProduct.price,
+                                                            image: singleProduct.images[0],
+                                                            category: singleProduct.category,
+                                                            quantity: 1
+
+                                                        })
+                                                    }}
+                                                    className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
+                                                >
+                                                    +
+                                                </span>
+                                            </div>
+                                        )
+                                        : 'Add to Cart'
+                                }
                             </button>
                             <button className='w-40 py-1.5 bg-[#FDFDFD] text-[#999999] border border-[#ECA242] font-poppins rounded-3xl flex justify-center items-center gap-2 xl:py-3 xl:w-48'>
                                 <MdKeyboardArrowDown size={20} />

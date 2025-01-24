@@ -49,6 +49,7 @@ import SingleBlog from './Components/BlogPageComponent/SingleBlog.jsx'
 import MembershipPage from './Pages/MembershipPage.jsx'
 import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/CreateCSRDonation.jsx'
 import SingleEventPage from './Components/EventPageComponents/SingleEventPage.jsx'
+import Profile from './Components/UserProfile/Profile.jsx'
 
 
 const router = createBrowserRouter(
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<App />}>
         <Route path="/" element={<Homepage />} />
+        <Route path="/profile" element={<Profile />} />
         {/* Admin Related routes */}
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
