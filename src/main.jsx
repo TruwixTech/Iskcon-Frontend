@@ -50,6 +50,7 @@ import MembershipPage from './Pages/MembershipPage.jsx'
 import CreateCSRDonationPage from './Components/Admin-Dashboard/CSRDonation/CreateCSRDonation.jsx'
 import SingleEventPage from './Components/EventPageComponents/SingleEventPage.jsx'
 import Profile from './Components/UserProfile/Profile.jsx'
+import DonatePage from './Components/DonatePage.jsx'
 
 
 const router = createBrowserRouter(
@@ -58,6 +59,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route path="/" element={<Homepage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/donate" element={<DonatePage />} />
         {/* Admin Related routes */}
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -107,7 +109,7 @@ const router = createBrowserRouter(
         <Route path="/details/:id" element={<CardDetails />} />
         <Route path="/donation" element={<DonationPage />} />
         <Route path="/donation/single-donation/:id" element={<SingleDonation />} />
-        <Route path="/donate" element={<DonationForm />} />
+        <Route path="/donate-form" element={<DonationForm />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/events/single-event/:id" element={<SingleEventPage />} />
         <Route path="/contacts" element={<ContactPage />} />

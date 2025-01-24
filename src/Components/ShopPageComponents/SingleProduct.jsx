@@ -57,16 +57,20 @@ function SingleProduct() {
     }
 
     function handleAddToCart() {
-        addToCart({
-            id: singleProduct._id,
-            name: singleProduct.name,
-            price: singleProduct.price,
-            image: singleProduct.images[0],
-            category: singleProduct.category,
-            quantity: 1
+        const isInCart = cartItems.find(item => item.id === singleProduct._id);
+        if (!isInCart) {
+            addToCart({
+                id: singleProduct._id,
+                name: singleProduct.name,
+                price: singleProduct.price,
+                image: singleProduct.images[0],
+                category: singleProduct.category,
+                quantity: 1
 
-        })
-        alert("Pruduct Added to cart Successfully !!")
+            })
+            alert("Pruduct Added to cart Successfully !!")
+        }
+
     }
 
     useEffect(() => {
