@@ -6,14 +6,18 @@ import 'react-phone-input-2/lib/style.css'; // Import the library's CSS
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const backend = import.meta.env.VITE_BACKEND_URL;
 
 function SignInPage() {
     const [signInWay, setSignInWay] = useState('email')
     const [showPassword, setShowPassword] = useState(false);
     const [userDetails, setUserDetails] = useState({
+        name: '',
         email: '',
-        phone: '',
+        phone_no: '',
         password: '',
     })
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,6 +56,8 @@ function SignInPage() {
         },
     ];
 
+    const navigate = useNavigate()
+
     // Auto-slide logic
     useEffect(() => {
         const interval = setInterval(() => {
@@ -62,6 +68,51 @@ function SignInPage() {
 
         return () => clearInterval(interval); // Cleanup interval on unmount
     }, [carousal.length]);
+
+    async function handleSignIn() {
+        // Validation
+        if (!userDetails.name.trim()) {
+            alert("Name is required");
+            return;
+        }
+
+        if (signInWay === 'email') {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!userDetails.email || !emailRegex.test(userDetails.email)) {
+                alert("Please enter a valid email address");
+                return;
+            }
+        } else if (signInWay === 'phone') {
+            // If using phone, check if the phone number is not empty and properly formatted
+            if (!userDetails.phone_no || userDetails.phone_no.length < 10) {
+                alert("Please enter a valid phone number");
+                return;
+            }
+        }
+
+        if (!userDetails.password) {
+            alert("Password is required");
+            return;
+        }
+
+        try {
+
+            const response = await axios.post(`${backend}/secure/login`, userDetails, { withCredentials: true })
+            if (response.status === 200 || response.status === 201) {
+                alert('User successfully logged in');
+                setUserDetails({
+                    name: '',
+                    email: '',
+                    phone_no: '',
+                    password: '',
+                })
+                navigate('/')
+            }
+        } catch (error) {
+            console.log("Error while Login user", error);
+            alert(error.response.data.message)
+        }
+    }
 
     const goToSlide = (index) => {
         setCurrentIndex(index);
@@ -84,13 +135,14 @@ function SignInPage() {
                         </button>
                     </div>
                     <div className='w-full h-auto flex flex-col my-5 gap-4 lg:my-7 lg:gap-6'>
-                        <input type="text" placeholder='Name' value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />
+                        <input type="text" placeholder='Name' onChange={(e) => setUserDetails({ ...userDetails, name: e.target.value })} value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />
                         {
                             signInWay === 'email'
-                                ? (<input type="email" placeholder='Email Address' value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
+                                ? (<input type="email" placeholder='Email Address' value={userDetails.email} onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
                                 : (<PhoneInput
                                     country={'us'} // Default country
-                                    value={userDetails.phone}
+                                    value={userDetails.phone_no}
+                                    onChange={(phone) => setUserDetails({ ...userDetails, phone_no: phone })}
                                     placeholder='Phone Number'
                                     inputClass="!w-full !h-10 !pl-[60px] !rounded-3xl !border !border-black" // Tailwind styles
                                     dropdownClass="!rounded-lg !shadow-lg !ml-60 !mt-72" // Tailwind styles for dropdown
@@ -101,6 +153,8 @@ function SignInPage() {
                         <div className="relative w-full">
                             <input
                                 type={showPassword ? "text" : "password"}
+                                value={userDetails.password}
+                                onChange={(e) => setUserDetails({ ...userDetails, password: e.target.value })}
                                 placeholder="Password"
                                 className="w-full px-4 py-2 rounded-full border border-black "
                             />
@@ -112,7 +166,7 @@ function SignInPage() {
                                 {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
                             </button>
                         </div>
-                        <button className='w-full h-auto py-2 bg-[#EB852C] flex justify-center items-center text-white rounded-3xl'>
+                        <button onClick={handleSignIn} className='w-full h-auto py-2 bg-[#EB852C] flex justify-center items-center text-white rounded-3xl'>
                             Sign In
                         </button>
                         <p className='w-full h-auto flex justify-end'>
@@ -140,7 +194,7 @@ function SignInPage() {
                         style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                         {
                             carousal.map((item, index) => (
-                                <div className='min-w-full h-auto relative flex md:h-[750px] lg:h-[840px]'>
+                                <div key={index} className='min-w-full h-auto relative flex md:h-[750px] lg:h-[840px]'>
                                     <img src={item.image} key={index} alt="item image" className='w-full h-full object-cover' />
                                     <p className='text-[#ECA242] font-poppins text-center px-10 absolute bottom-20 text-lg'>{item.title}</p>
                                 </div>

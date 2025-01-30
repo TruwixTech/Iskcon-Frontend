@@ -6,36 +6,168 @@ import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { FaGoogle } from "react-icons/fa";
 import Image from '../assets/signUpImage.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa";
+import axios from 'axios';
+
+const backend = import.meta.env.VITE_BACKEND_URL;
 
 function SignUpPage() {
     const [signUpWay, setSignUpWay] = useState('email')
     const [otpPopUp, setOtpPopUp] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
+    const [termsCheck, setTermsCheck] = useState(false)
     const [userDetails, setUserDetails] = useState({
         name: '',
         email: '',
-        phone: '',
+        phone_no: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        user_role: "iskcon-user"
     })
     const [currentIndex, setCurrentIndex] = useState(0);
     const [otp, setOtp] = useState(["", "", "", ""]);
     const [timer, setTimer] = useState(179); // Timer in seconds (2:59)
     const [isResendDisabled, setIsResendDisabled] = useState(true);
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (timer > 0) {
-            const countdown = setInterval(() => {
+        let countdown;
+
+        if (otpPopUp && timer > 0) {
+            countdown = setInterval(() => {
                 setTimer((prevTimer) => prevTimer - 1);
             }, 1000);
-            return () => clearInterval(countdown);
-        } else {
-            setIsResendDisabled(false);
+        } else if (timer === 0) {
+            setIsResendDisabled(false); // Enable resend when timer hits 0
         }
-    }, [timer]);
+
+        return () => clearInterval(countdown); // Cleanup when component unmounts or OTP pop-up closes
+    }, [otpPopUp, timer]);
+
+
+    async function handleVerifyOtp() {
+        try {
+            if (userDetails.email) {
+                const simpleOtp = otp.join('');
+
+                const response = await axios.post(`${backend}/secure/verify-otp`, {
+                    email: userDetails.email,
+                    otp: simpleOtp
+                })
+                if (response.status === 200 || response.status === 201) {
+                    alert('Email Verified successfully');
+                    setUserDetails({
+                        name: '',
+                        email: '',
+                        phone_no: '',
+                        password: '',
+                        confirmPassword: '',
+                        user_role: "iskcon-user"
+                    })
+                    setTermsCheck(false)
+                    setOtpPopUp(false)
+                    navigate('/signin')
+                }
+            } else {
+                // Handle phone number verification here
+            }
+        } catch (error) {
+            console.log("Error while verifying otp", error);
+        }
+    }
+
+    async function removeUserWithoutVerification() {
+        try {
+            const response = await axios.delete(`${backend}/secure/user-delete`, {
+                data: { email: userDetails.email, phone_no: userDetails.phone_no }
+            });
+
+            if (response.status === 200 || response.status === 201) {
+                setUserDetails({
+                    name: '',
+                    email: '',
+                    phone_no: '',
+                    password: '',
+                    confirmPassword: '',
+                    user_role: "iskcon-user"
+                })
+                setTermsCheck(false)
+                setOtpPopUp(false)
+            }
+        } catch (error) {
+            console.log("Error while verifying otp", error);
+        }
+    }
+
+    async function handleSignUp() {
+        // Validation
+        if (!userDetails.name.trim()) {
+            alert("Name is required");
+            return;
+        }
+
+        if (signUpWay === 'email') {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!userDetails.email || !emailRegex.test(userDetails.email)) {
+                alert("Please enter a valid email address");
+                return;
+            }
+        } else if (signUpWay === 'phone') {
+            // If using phone, check if the phone number is not empty and properly formatted
+            if (!userDetails.phone_no || userDetails.phone_no.length < 10) {
+                alert("Please enter a valid phone number");
+                return;
+            }
+        }
+
+        if (!userDetails.password) {
+            alert("Password is required");
+            return;
+        }
+
+        if (userDetails.password.length < 6) {
+            alert("Password must be at least 6 characters long");
+            return;
+        }
+
+        if (userDetails.password !== userDetails.confirmPassword) {
+            alert("Password and Confirm Password do not match");
+            return;
+        }
+
+        // If validation passes, proceed with the signup
+        try {
+            const response = await axios.post(`${backend}/secure/signup`, userDetails)
+
+            if (response.status === 200 || response.status === 201) {
+                if (userDetails.email) {
+                    setOtpPopUp(true);
+                    setTimer(179); // Reset timer when OTP popup opens
+                    setIsResendDisabled(true); // Disable resend initially
+                } else {
+                    alert('Account created successfully');
+                    setUserDetails({
+                        name: '',
+                        email: '',
+                        phone_no: '',
+                        password: '',
+                        confirmPassword: '',
+                        user_role: "iskcon-user"
+                    })
+                    setTermsCheck(false)
+                    navigate('/signin')
+                }
+            }
+            // console.log(response);
+            // You can redirect the user or show a success message here
+        } catch (error) {
+            console.log("Error while registering user", error);
+            alert(error.response.data.message)
+        }
+    }
+
 
     const handleChange = (e, index) => {
         const value = e.target.value;
@@ -130,14 +262,15 @@ function SignUpPage() {
                         </button>
                     </div>
                     <div className='w-full h-auto flex flex-col my-5 gap-4 lg:my-7 lg:gap-6'>
-                        <input type="text" placeholder='Name' value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />
+                        <input type="text" placeholder='Name' value={userDetails.name} onChange={(e) => setUserDetails({ ...userDetails, name: e.target.value })} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />
                         {
                             signUpWay === 'email'
-                                ? (<input type="email" placeholder='Email Address' value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
+                                ? (<input type="email" placeholder='Email Address' value={userDetails.email} onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
                                 : (<PhoneInput
                                     country={'us'} // Default country
-                                    value={userDetails.phone}
+                                    value={userDetails.phone_no}
                                     placeholder='Phone Number'
+                                    onChange={(phone) => setUserDetails({ ...userDetails, phone_no: phone })}
                                     inputClass="!w-full !h-10 !pl-[60px] !rounded-3xl !border !border-black" // Tailwind styles
                                     dropdownClass="!rounded-lg !shadow-lg !ml-60 !mt-72" // Tailwind styles for dropdown
                                     containerClass="!w-full !rounded-l-3xl" // Tailwind styles for container
@@ -147,6 +280,8 @@ function SignUpPage() {
                         <div className="relative w-full">
                             <input
                                 type={showPassword ? "text" : "password"}
+                                value={userDetails.password}
+                                onChange={(e) => setUserDetails({ ...userDetails, password: e.target.value })}
                                 placeholder="Password"
                                 className="w-full px-4 py-2 rounded-full border border-black "
                             />
@@ -161,6 +296,8 @@ function SignUpPage() {
                         <div className="relative w-full">
                             <input
                                 type={showPassword2 ? "text" : "password"}
+                                value={userDetails.confirmPassword}
+                                onChange={(e) => setUserDetails({ ...userDetails, confirmPassword: e.target.value })}
                                 placeholder="Confirm Password"
                                 className="w-full px-4 py-2 rounded-full border border-black "
                             />
@@ -173,10 +310,11 @@ function SignUpPage() {
                             </button>
                         </div>
                         <p className='w-full h-auto flex gap-2 items-center text-sm xl:text-base'>
-                            <input type="checkbox" placeholder='' id='termsCondition' />
+                            <input type="checkbox" placeholder='' checked={termsCheck} onChange={(e) => setTermsCheck(e.target.checked)} id='termsCondition' />
                             <label htmlFor="termsCondition">I agree to the Terms and Conditions</label>
                         </p>
-                        <button onClick={() => setOtpPopUp(!otpPopUp)} className='w-full h-auto py-2 bg-[#EB852C] flex justify-center items-center text-white rounded-3xl'>
+                        <button onClick={termsCheck ? handleSignUp : null}
+                            className={`${termsCheck ? '' : 'cursor-not-allowed bg-gray-500'} w-full h-auto py-2 bg-[#EB852C] flex justify-center items-center text-white rounded-3xl`}>
                             Sign Up
                         </button>
                         <div className='w-full h-auto flex justify-center items-center gap-1'>
@@ -198,11 +336,11 @@ function SignUpPage() {
             <div className={`${otpPopUp ? 'block' : 'hidden'} w-full h-auto font-nunito flex py-48 bg-white px-5 lg:px-10 xl:px-20 sm:w-[70%] sm:mx-auto md:mx-0 md:w-[50%]`}>
                 <div className='w-[90%] h-auto flex flex-col gap-2'>
                     <div className='w-full h-auto mb-5'>
-                        <FaArrowLeft size={25} onClick={()=> setOtpPopUp(false)} className='text-black cursor-pointer' />
+                        <FaArrowLeft size={25} onClick={() => { setOtpPopUp(false); removeUserWithoutVerification(); }} className='text-black cursor-pointer' />
                     </div>
                     <h2 className="text-xl font-semibold">OTP Verification</h2>
                     <p className="text-gray-600 text-center mt-2">
-                        We have sent a message to <span className="font-bold">+61-6374849494</span>. Please enter the code to activate your account.
+                        We have sent a message to <span className="font-bold">{userDetails.email || userDetails.phone_no}</span>. Please enter the code to activate your account.
                     </p>
 
                     {/* Timer */}
@@ -228,6 +366,7 @@ function SignUpPage() {
 
                     {/* Submit Button */}
                     <button
+                        onClick={handleVerifyOtp}
                         className="w-full py-3 bg-orange-500 text-white font-semibold rounded-3xl hover:bg-orange-600 transition"
                     >
                         Submit
