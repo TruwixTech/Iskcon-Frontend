@@ -11,7 +11,7 @@ import Sun from "../assets/sun.png";
 import Section1 from "../Components/HomePageComponents/Section1";
 import Section2 from "../Components/HomePageComponents/Section2";
 import Section3 from "../Components/HomePageComponents/Section3";
-import { NavLink } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
 const Homepage = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
@@ -104,9 +104,11 @@ const Homepage = () => {
                 <h2 className="text-4xl">Welcome to</h2>
                 <h1 className="text-6xl font-[500]">ISCKON Ghaziabad</h1>
                 <div className="flex gap-4 items-center">
+                  <Link to="/donate">
                   <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
                     Donate
                   </button>
+                  </Link>
                   <NavLink
                     to="/membership"
                     className="px-8 py-3 bg-[#eb852c] text-white hover:border-2 hover:border-white rounded-full transition duration-300 ease-in-out transform hover:scale-105"

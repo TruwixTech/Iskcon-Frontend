@@ -1,10 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BgOne from '../../assets/bg2.png'
 import BgTwo from '../../assets/bg1.png'
 import Navbar from '../Navbar'
 import TextField from '@mui/material/TextField';
 import { FormControl, MenuItem, Select } from '@mui/material';
 import { FormLabel, Radio, RadioGroup, FormControlLabel } from '@mui/material';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
+
+
+const getUserDetailsFromToken = () => {
+    // Retrieve the access token from cookies
+    const accessToken = Cookies.get('AuthToken'); 
+    if (!accessToken) {
+        // console.error('Access token not found in cookies');
+        return null;
+    }
+    try {
+        // Decode the JWT token
+        const decodedToken = jwtDecode(accessToken);
+        // Extract user details from the decoded token
+        const userDetails = decodedToken.info; 
+        return userDetails;
+    } catch (error) {
+        // console.error('Failed to decode the token:', error);
+        return null;
+    }
+};
+
 
 function Profile() {
     const countries = [
@@ -56,6 +79,15 @@ function Profile() {
         }
     };
 
+    useEffect(() => {
+        const userDetails = getUserDetailsFromToken();
+        if (userDetails) {
+            // console.log('User Details:', userDetails);
+        } else {
+            // console.log('No user details found or an error occurred.');
+        }
+    }, []); 
+
     // Handle changes in any occasion field
     const handleOccasionChange = (index, event) => {
         const { name, value } = event.target;
@@ -94,6 +126,10 @@ function Profile() {
         });
         setRelationships(updatedRelationships);
     };
+   
+
+
+    
 
 
     return (

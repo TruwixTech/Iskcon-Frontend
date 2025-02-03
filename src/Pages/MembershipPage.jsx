@@ -51,7 +51,7 @@ const MembershipPage = () => {
         "Festivals Mahaprasadam ( 5% for a Year & Once in a month)",
         "Priority Banquet Hall Booking",
         "Special Invitation For Vigrah Installation",
-        "Valet Parking During Festivals"
+        "Valet Parking During Festivals",
       ],
       img: silver,
     },
@@ -76,7 +76,7 @@ const MembershipPage = () => {
         "Festivals Mahaprasadam",
         "Priority Banquet Hall Booking ( Priority with 5% Discount)",
         "Special Invitation For Vigrah Installation",
-        "Valet Parking During Festivals"
+        "Valet Parking During Festivals",
       ],
       img: gold,
     },
@@ -104,7 +104,7 @@ const MembershipPage = () => {
         "Guest of Honors For Vigrah Installation",
         "Special Deities Paraphernalias Like Garlands, Dresses, Etc.",
         "Reserved Seats On Priority In Temple Hall During Grand Festive Ceremony",
-        "Valet Parking During Festivals"
+        "Valet Parking During Festivals",
       ],
       img: diamond,
     },
@@ -132,7 +132,7 @@ const MembershipPage = () => {
         "Guest of Honors For Vigrah Installation",
         "Special Deities Paraphernalias Like Garlands, Dresses, Etc.",
         "Reserved Seats On Priority In Temple Hall During Grand Festive Ceremony",
-        "Valet Parking During Festivals"
+        "Valet Parking During Festivals",
       ],
       img: platinum,
     },
@@ -160,8 +160,7 @@ const MembershipPage = () => {
         "Guest of Honors For Vigrah Installation",
         "Special Deities Paraphernalias Like Garlands, Dresses, Etc.",
         "Reserved Seats On Priority In Temple Hall During Grand Festive Ceremony",
-        "Valet Parking During Festivals"
-        
+        "Valet Parking During Festivals",
       ],
       note: "Note: This is a special category in which member will become Internal Part of Management for Major Festivities and Events.",
       img: Super,
@@ -197,19 +196,54 @@ const MembershipPage = () => {
         {cardData.map((card) => (
           <div
             key={card.id}
-            className={`membership-card shiny-${card.id} p-6 rounded-lg text-center font-bold shadow-md h-[250px] flex flex-col justify-between`}
+            className={`membership-card shiny-${card.id} p-6 rounded-lg text-center font-bold shadow-md h-[300px] flex flex-col justify-between`}
           >
             <div className="flex justify-center items-center mb-4">
               <img src={card.img} alt={card.title} className="w-20 h-20" />
             </div>
             <h1 className="text-2xl">{card.title}</h1>
             <p className="text-xl tracking-wider">{card.price}</p>
-            <button
-              onClick={() => handleButtonClick(card)}
-              className="bg-white text-black font-semibold py-2 px-4 rounded-md"
-            >
-              See Facilities
-            </button>
+            <div className="my-2 flex flex-col gap-4">
+              <button
+                onClick={() => handleButtonClick(card)}
+                className="bg-white text-black font-semibold py-2 px-4 rounded-full"
+              >
+                See Facilities
+              </button>
+              <div class="flex justify-center">
+                <a
+                  href="#"
+                  class="w-full relative flex justify-center items-center px-8 py-1.5 text-xl font-semibold text-white bg-orange-500 rounded-full shadow-md hover:shadow-lg hover:outline hover:outline-offset-4 hover:outline-orange-600 transition-all duration-500"
+                >
+                  <span class="mr-4">Buy Membership</span>
+                  <span class="relative flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      class="w-6 h-6 animate-slide-arrow"
+                    >
+                      <path
+                        d="M12 2L21 12L12 22"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M3 12H20"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -228,7 +262,9 @@ const MembershipPage = () => {
               ))}
             </ul>
             {selectedCard.note && (
-              <p className="text-xl text-gray-500 font-bold text-center mb-4">{selectedCard.note}</p>
+              <p className="text-xl text-gray-500 font-bold text-center mb-4">
+                {selectedCard.note}
+              </p>
             )}
             <button
               onClick={handleClosePopup}

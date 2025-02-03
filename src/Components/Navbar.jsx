@@ -8,6 +8,9 @@ import { IoMdClose } from "react-icons/io";
 import { CartContext } from "../Context/CartContext";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import logicon from "../assets/enter.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,15 +18,39 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false); // For desktop
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+  const [hasAccessToken, setHasAccessToken] = useState(false);
+
+  useEffect(() => {
+    // Get the 'AuthToken' cookie
+    const accessToken = Cookies.get("AuthToken");
+    // console.log(accessToken);
+
+    // If the cookie exists, set the state to true
+    if (accessToken && accessToken !== "undefined") {
+      setHasAccessToken(true);
+    }
+  }, []);
+
+  // console.log(hasAccessToken);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const toggleDropdown2 = () => {
+    setIsDropdownOpen2(!isDropdownOpen2);
+  };
 
-  const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } = useContext(CartContext);
+  const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } =
+    useContext(CartContext);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove("AuthToken");
+    setHasAccessToken(false);
   };
 
   return (
@@ -64,7 +91,7 @@ const Navbar = () => {
                     key={path}
                     className="relative group flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setDropdownOpen(true)}
-                  // onMouseLeave={() => setDropdownOpen(false)}
+                    // onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <span className="flex items-center gap-2 text-black group-hover:text-[#eb852c]">
                       {label}
@@ -101,9 +128,10 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `group relative flex items-center gap-2 ${isActive
-                          ? "text-[#eb852c] underline underline-offset-8"
-                          : "text-black"
+                        `group relative flex items-center gap-2 ${
+                          isActive
+                            ? "text-[#eb852c] underline underline-offset-8"
+                            : "text-black"
                         } hover:text-[#eb852c]`
                       }
                     >
@@ -119,11 +147,11 @@ const Navbar = () => {
               className="text-black hover:text-[#eb852c] relative"
             >
               <img src={cart} alt="cart" />
-              {
-                cartItems.length > 0 && (
-                  <span className="text-[#eb852c] absolute font-semibold -top-1 text-xs -right-2 w-4 h-4 flex justify-center items-center bg-white rounded-full border border-gray-400">{cartItems.length}</span>
-                )
-              }
+              {cartItems.length > 0 && (
+                <span className="text-[#eb852c] absolute font-semibold -top-1 text-xs -right-2 w-4 h-4 flex justify-center items-center bg-white rounded-full border border-gray-400">
+                  {cartItems.length}
+                </span>
+              )}
             </button>
             <div className="flex gap-4">
               <NavLink
@@ -132,29 +160,71 @@ const Navbar = () => {
               >
                 Donate Now
               </NavLink>
-              <div className="relative flex items-center gap-4">
-                <FaUserCircle
-                  size={50}
-                  color="#eb852c"
-                  className="cursor-pointer border-2 border-white rounded-full"
-                  onClick={toggleDropdown}
-                />
-                {isDropdownOpen && (
-                  <div className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
-                    <ul className="flex flex-col text-md space-y-1 m-2">
-                      <Link to='/profile' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
-                        My Profile
-                      </Link>
-                      <Link to='/donation-history' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
-                        Donation History
-                      </Link>
-                      <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
-                        Logout
-                      </li>
-                    </ul>
+              {hasAccessToken ? (
+                <>
+                  <div className="relative flex items-center gap-4">
+                    <FaUserCircle
+                      size={50}
+                      color="#eb852c"
+                      className="cursor-pointer border-2 border-white rounded-full"
+                      onClick={toggleDropdown}
+                    />
+                    {isDropdownOpen && (
+                      <div
+                        className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
+                        onMouseLeave={toggleDropdown}
+                      >
+                        <ul className="flex flex-col text-md space-y-1 m-2">
+                          <Link
+                            to="/profile"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            My Profile
+                          </Link>
+                          <Link
+                            to="/donation-history"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            Donation History
+                          </Link>
+                          <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300" onClick={handleLogout}>
+                            Logout
+                          </li>
+                        </ul>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </>
+              ) : (
+                <>
+                  <div className="relative flex items-center gap-4">
+                    <div className="mr-2" onMouseEnter={toggleDropdown2}>
+                      <img src={logicon} alt="" className="w-10 h-10 " />
+                    </div>
+                    {isDropdownOpen2 && (
+                      <div
+                        className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
+                        onMouseLeave={toggleDropdown2}
+                      >
+                        <ul className="flex flex-col text-md space-y-1 m-2">
+                          <Link
+                            to="/signup"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            SignUp
+                          </Link>
+                          <Link
+                            to="/signin"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            SignIn
+                          </Link>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </span>
 
@@ -167,26 +237,48 @@ const Navbar = () => {
               {menuOpen ? <FaTimes /> : <FaBars />}
             </button>
             <div className="relative flex items-center gap-4">
-              <FaUserCircle
-                size={50}
-                color="#eb852c"
-                className="cursor-pointer border-2 border-white rounded-full"
-                onClick={toggleDropdown}
-              />
-              {isDropdownOpen && (
-                <div className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border" onMouseLeave={toggleDropdown}>
-                  <ul className="flex flex-col text-md space-y-1 m-2">
-                    <Link to='/profile' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
-                      My Profile
-                    </Link>
-                    <Link to='/donation-history' className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
-                      Donation History
-                    </Link>
-                    <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300">
-                      Logout
-                    </li>
-                  </ul>
-                </div>
+              {hasAccessToken ? (
+                <>
+                  <FaUserCircle
+                    size={50}
+                    color="#eb852c"
+                    className="cursor-pointer border-2 border-white rounded-full"
+                    onClick={toggleDropdown}
+                  />
+                  {isDropdownOpen && (
+                    <div
+                      className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
+                      onMouseLeave={toggleDropdown}
+                    >
+                      <ul className="flex flex-col text-md space-y-1 m-2">
+                        <Link
+                          to="/profile"
+                          className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                        >
+                          My Profile
+                        </Link>
+                        <Link
+                          to="/donation-history"
+                          className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                        >
+                          Donation History
+                        </Link>
+                        <li
+                          className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          onClick={() => {
+                            // Clear the AccessToken on logout
+                            Cookies.remove("AccessToken");
+                            setHasAccessToken(false);
+                          }}
+                        >
+                          Logout
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </>
+              ) : (
+                ""
               )}
             </div>
           </div>
@@ -207,9 +299,10 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `${isActive
-                          ? "text-[#eb852c] underline-[#eb852c]"
-                          : "text-black underline underline-offset-8"
+                        `${
+                          isActive
+                            ? "text-[#eb852c] underline-[#eb852c]"
+                            : "text-black underline underline-offset-8"
                         } hover:text-[#eb852c]`
                       }
                       onClick={() => setMenuOpen(false)}
