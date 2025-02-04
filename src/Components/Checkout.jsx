@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import formbg from '../assets/formbg.png'
 import BgOne from '../assets/bg2.png'
 
-const DonationForm = () => {
+const Checkout = () => {
   return (
     <div className='bg-transparent w-full h-full' style={{
       backgroundImage: `url(${BgOne})`,
@@ -14,13 +14,13 @@ const DonationForm = () => {
       <div className="px-4 md:px-20 pt-10 z-10 relative">
         <Navbar />
       </div>
-      <div className='w-full px-4 md:px-20 h-[400px] roudned-3xl my-10 relative'>
+      {/* <div className='w-full px-4 md:px-20 h-[400px] roudned-3xl my-10 relative'>
         <img src={formbg} alt="" className='w-full h-full object-cover rounded-3xl' />
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center'>
           <h1 className='w-full text-2xl text-center md:text-6xl text-white font-semibold font-prata'>Donated Us Before ?</h1>
           <button className='bg-[#eb852c] text-white px-4 py-2 rounded-full w-[150px] mt-4 flex justify-center items-center'>Sign In</button>
         </div>
-      </div>
+      </div> */}
       <div>
         <div className="w-full min-h-screen flex items-center justify-center p-10 font-nunito">
           <div className="bg-trasnparent w-full  p-8">
@@ -170,4 +170,4 @@ const DonationForm = () => {
   )
 }
 
-export default DonationForm
+export default Checkout

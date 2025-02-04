@@ -37,7 +37,7 @@ import AdminSingleMedia from "./Components/Admin-Dashboard/Media/AdminSingleMedi
 import CreateMedia from "./Components/Admin-Dashboard/Media/CreateMedia.jsx";
 import DonationPage from "./Pages/DonationPage.jsx";
 import SinglePageDonation from "./Components/Admin-Dashboard/Donation/SinglePageDonation.jsx";
-import DonationForm from "./Components/DonationForm.jsx";
+// import DonationForm from "./Components/DonationForm.jsx";
 import ShopPage from "./Pages/ShopPage.jsx";
 import SingleProduct from "./Components/ShopPageComponents/SingleProduct.jsx";
 import AboutUs from "./Pages/AboutPage.jsx";
@@ -58,6 +58,7 @@ import Profile from "./Components/UserProfile/Profile.jsx";
 import DonatePage from "./Components/DonatePage.jsx";
 import DonationHistory from "./Components/UserProfile/DonationHistory.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Ensure you have a ProtectedRoute component
+import Checkout from "./Components/Checkout.jsx";
 
 const MainApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -162,11 +163,12 @@ const MainApp = () => {
             path="/donation/single-donation/:id"
             element={<SingleDonation />}
           />
-          <Route path="/donate-form" element={<DonationForm />} />
+          {/* <Route path="/donate-form" element={<DonationForm />} /> */}
           <Route path="/events" element={<EventPage />} />
           <Route path="/events/single-event/:id" element={<SingleEventPage />} />
           <Route path="/csr" element={<CSRPage />} />
           <Route path="/membership" element={<MembershipPage />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Route>
 

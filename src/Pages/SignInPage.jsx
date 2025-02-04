@@ -98,6 +98,7 @@ function SignInPage() {
         try {
 
             const response = await axios.post(`${backend}/secure/login`, userDetails, { withCredentials: true })
+            console.log("response",response.data)
             if (response.status === 200 || response.status === 201) {
                 alert('User successfully logged in');
                 setUserDetails({
@@ -106,6 +107,7 @@ function SignInPage() {
                     phone_no: '',
                     password: '',
                 })
+                localStorage.setItem('token', JSON.stringify(response.data.token));
                 navigate('/')
             }
         } catch (error) {

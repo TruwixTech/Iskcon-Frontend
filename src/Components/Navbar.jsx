@@ -8,7 +8,6 @@ import { IoMdClose } from "react-icons/io";
 import { CartContext } from "../Context/CartContext";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
-import Cookies from "js-cookie";
 import { useEffect } from "react";
 import logicon from "../assets/enter.png";
 
@@ -19,15 +18,15 @@ const Navbar = () => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+  const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
   const [hasAccessToken, setHasAccessToken] = useState(false);
 
   useEffect(() => {
-    // Get the 'AuthToken' cookie
-    const accessToken = Cookies.get("AuthToken");
-    // console.log(accessToken);
-
-    // If the cookie exists, set the state to true
-    if (accessToken && accessToken !== "undefined") {
+    // Get the token from localStorage
+    const accessToken = localStorage.getItem("token");
+  
+    // If the token exists and is not null, set the state to true
+    if (accessToken) {
       setHasAccessToken(true);
     }
   }, []);
@@ -40,6 +39,9 @@ const Navbar = () => {
   const toggleDropdown2 = () => {
     setIsDropdownOpen2(!isDropdownOpen2);
   };
+  const toggleDropdown3 = () => {
+    setIsDropdownOpen3(!isDropdownOpen3);
+  };
 
   const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } =
     useContext(CartContext);
@@ -49,7 +51,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    Cookies.remove("AuthToken");
+    localStorage.removeItem("token");
     setHasAccessToken(false);
   };
 
@@ -243,12 +245,12 @@ const Navbar = () => {
                     size={50}
                     color="#eb852c"
                     className="cursor-pointer border-2 border-white rounded-full"
-                    onClick={toggleDropdown}
+                    onClick={toggleDropdown3}
                   />
-                  {isDropdownOpen && (
+                  {isDropdownOpen3 && (
                     <div
                       className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
-                      onMouseLeave={toggleDropdown}
+                      onMouseLeave={toggleDropdown3}
                     >
                       <ul className="flex flex-col text-md space-y-1 m-2">
                         <Link
@@ -278,7 +280,34 @@ const Navbar = () => {
                   )}
                 </>
               ) : (
-                ""
+                <>
+                  <div className="relative flex items-center gap-4">
+                    <div className="mr-2" onMouseEnter={toggleDropdown3}>
+                      <img src={logicon} alt="" className="w-10 h-10 " />
+                    </div>
+                    {isDropdownOpen3 && (
+                      <div
+                        className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
+                        onMouseLeave={toggleDropdown3}
+                      >
+                        <ul className="flex flex-col text-md space-y-1 m-2">
+                          <Link
+                            to="/signup"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            SignUp
+                          </Link>
+                          <Link
+                            to="/signin"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            SignIn
+                          </Link>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -444,11 +473,13 @@ const Navbar = () => {
                 <span>&#x20B9; {getCartTotal()}</span>
               </div>
             </div>
-            <div className="w-full h-auto flex mt-5 lg:mt-7">
+            <div>
+              <Link to="/checkout" className="w-full h-auto flex mt-5 lg:mt-7">
               <button className="w-full bg-[#EB852C] rounded-3xl text-white h-auto flex justify-center items-center py-2 md:hover:bg-[#ffab62]">
                 Checkout
               </button>
-            </div>
+              </Link>
+              </div>
           </div>
         )}
       </div>
