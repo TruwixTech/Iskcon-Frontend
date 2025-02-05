@@ -4,6 +4,8 @@ import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { MdPhoneCallback } from "react-icons/md";
 import { RiMailSendLine } from "react-icons/ri";
 import { FaChildReaching } from "react-icons/fa6";
+
+const backend = import.meta.env.VITE_BACKEND_URL;
  
 const ContactPage = () => {
   useEffect(() => {
@@ -50,12 +52,31 @@ const ContactPage = () => {
   };
  
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (validateForm()) {
-      console.log("Form Data:", formData);
-      alert("Form submitted successfully!");
-      setFormData({ name: "", email: "", mobile: "", subject: "", message: "" });
+      try {
+        const response = await fetch(`${backend}/admin/contact`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const result = await response.json();
+  
+        if (response.ok) {
+          alert("Message sent successfully!");
+          setFormData({ name: "", email: "", mobile: "", subject: "", message: "" });
+        } else {
+          alert(result.error || "Failed to send message. Please try again.");
+        }
+      } catch (error) {
+        console.error("❌ Error submitting form:", error);
+        alert("An error occurred. Please try again.");
+      }
     }
   };
  
