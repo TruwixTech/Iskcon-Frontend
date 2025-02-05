@@ -1,7 +1,7 @@
 import React from 'react'
 import BgOne from '../../assets/bg2.png'
 import KrishnaJiClouds from '../../assets/krishnajiClouds.png'
-
+import {Link} from 'react-router-dom'
 function Section2() {
     return (
         <div className='w-full h-auto flex flex-col justify-center items-end bg-[#FDE3B6] lg:flex-row-reverse 2xl:h-screen' style={
@@ -28,9 +28,11 @@ function Section2() {
                             He had started giving lectures on the sacred Bhagavad Gita weekly. In 1966, he established ISKCON in New York City successfully.
                         </p>
                         <div className='w-full h-auto font-poppins'>
+                            <Link to ="/donate">
                             <button className='px-3 py-2 text-sm text-white bg-[#EB852C] rounded-3xl xl:px-6 xl:py-3 xl:text-base'>
                                 Donate
                             </button>
+                            </Link>
                         </div>
                     </div>
                     <img src={KrishnaJiClouds} alt="krishna ji clouds" className='w-full h-auto object-cover lg:absolute lg:-bottom-10' />

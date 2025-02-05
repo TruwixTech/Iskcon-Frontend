@@ -7,10 +7,11 @@ import Border1 from '../../assets/section1border1.svg'
 import Border2 from '../../assets/section1border2.svg'
 import ItemBg from '../../assets/itemBg.svg'
 import Krishnaji from '../../assets/krishna2.png'
-
+import { Link } from 'react-router-dom';
 
 function Section1() {
     const [scrollY, setScrollY] = useState(0);
+  
 
     const content = [
         {
@@ -68,7 +69,9 @@ function Section1() {
                                             <p className='text-center font-nunito text-[#4A5D88] px-4 text-lg 2xl:text-xl'>{item.desc}</p>
                                         </div>
                                         <div className='w-full h-auto flex justify-center items-center'>
+                                            <Link to ="/csr">
                                             <button className='px-4 py-2 bg-[#EB852C] font-nunito rounded-3xl text-white'>View More</button>
+                                            </Link>
                                         </div>
                                         {/* <img src={ItemBg} alt="border 2" className='w-full h-full absolute ' /> */}
                                     </div>

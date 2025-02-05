@@ -6,7 +6,7 @@ import Blogimg1 from '../../assets/blog1.svg'
 import Blogimg2 from '../../assets/blog2.svg'
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-
+import { Link } from 'react-router-dom';
 function Section3() {
     return (
         <div className='w-full h-auto flex flex-col bg-[#FDE3B6] overflow-hidden px-5 md:px-10 lg:flex-row-reverse 2xl:h-screen' style={
@@ -76,7 +76,9 @@ function Section3() {
                             </p>
                         </div>
                         <div className='w-full h-auto flex'>
+                            <Link to="/blogs">
                             <button className='bg-[#EB852C] text-white px-5 py-2 rounded-3xl'>View More</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

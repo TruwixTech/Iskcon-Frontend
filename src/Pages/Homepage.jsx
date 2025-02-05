@@ -1,3 +1,4 @@
+import React from "react";
 import grass from "../assets/grass.png";
 import tree from "../assets/tree.png";
 import krishna from "../assets/krishna.png";
@@ -11,7 +12,7 @@ import Sun from "../assets/sun.png";
 import Section1 from "../Components/HomePageComponents/Section1";
 import Section2 from "../Components/HomePageComponents/Section2";
 import Section3 from "../Components/HomePageComponents/Section3";
-import { Link,NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Homepage = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
@@ -61,18 +62,16 @@ const Homepage = () => {
     transform: `translateY(${Math.min(
       -animationProgress * 4,
       500
-    )}px) translateX(${Math.min(animationProgress * 3.4, 800)}px) scale(${
-      1 + animationProgress * 0.04
-    })`, // Move up and right diagonally and scale
+    )}px) translateX(${Math.min(animationProgress * 3.4, 800)}px) scale(${1 + animationProgress * 0.04
+      })`, // Move up and right diagonally and scale
   };
 
   const sunStyle2 = {
     transform: `translateY(${Math.min(
       -animationProgress * 3.2,
       500
-    )}px) translateX(${Math.min(animationProgress * 0.6, 400)}px) scale(${
-      1 + animationProgress * 0.02
-    })`, // Move up and right diagonally and scale
+    )}px) translateX(${Math.min(animationProgress * 0.6, 400)}px) scale(${1 + animationProgress * 0.02
+      })`, // Move up and right diagonally and scale
   };
 
   const textStyle = {
@@ -105,9 +104,9 @@ const Homepage = () => {
                 <h1 className="text-6xl font-[500]">ISCKON Ghaziabad</h1>
                 <div className="flex gap-4 items-center">
                   <Link to="/donate">
-                  <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
-                    Donate
-                  </button>
+                    <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
+                      Donate
+                    </button>
                   </Link>
                   <NavLink
                     to="/membership"
@@ -170,7 +169,7 @@ const Homepage = () => {
 
           <div className="md:hidden block">
             <div
-              className="w-full h-full absolute top-[15%] z-50 -left-60"
+              className="w-full h-full absolute top-[15%] z-[100] -left-60"
               style={textStyle2}
             >
               <div className="flex flex-col gap-2 mt-10">
@@ -181,11 +180,15 @@ const Homepage = () => {
                 <h1 className="text-3xl font-[500] text-center">
                   ISCKON Ghaziabad
                 </h1>
-                <div className="flex justify-center">
-                  <button className="w-[180px] rounded-full bg-white text-[#eb852c] py-2 px-4 cursor-pointer">
-                    Donate
-                  </button>
-                </div>
+                <Link to="/donate" className="">
+                  <div className="flex justify-center">
+
+                    <button className="w-[180px] rounded-full bg-white text-[#eb852c] py-2 px-4 cursor-pointer ">
+                      Donate
+                    </button>
+
+                  </div>
+                </Link>
               </div>
             </div>
 

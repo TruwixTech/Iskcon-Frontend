@@ -16,10 +16,14 @@ import leaf2 from "../assets/leaf2.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CSRPage = () => {
   const [scrollY, setScrollY] = useState(0);
   const backend = import.meta.env.VITE_BACKEND_URL;
+    useEffect(() => {
+          window.scrollTo(0, 0);
+        }, []);
 
   const content = [
     {
@@ -133,9 +137,11 @@ const CSRPage = () => {
             the hungry, supporting education, and promoting environmental
             sustainability.
           </p>
+         <Link to ="/donate">
           <button className="w-[250px] md:w-[180px] bg-[#EB852C] text-white py-2 rounded-full">
             Donate Now
           </button>
+          </Link>
         </div>
         <div className="w-full absolute bottom-1 sm:hidden flex justify-center">
           <h1 className="text-3xl font-bold md:font-normal text-center md:text-start md:text-3xl lg:text-4xl xl:text-6xl text-[#3b2106] font-prata lg:leading-[70px]">

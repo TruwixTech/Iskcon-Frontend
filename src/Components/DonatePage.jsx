@@ -3,8 +3,12 @@ import BgOne from '../assets/bg2.png'
 import Navbar from './Navbar'
 import Donate from '../assets/donateImage.jpeg'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function DonatePage() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
         <div className='w-full h-full flex flex-col bg-[#fde3b6]'
             style={{

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Image1 from '../../assets/bg2.png'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Navbar from '../Navbar'
 import Border1 from "../../assets/section1border1.svg";
 import Border2 from "../../assets/section1border2.svg";
@@ -100,9 +100,11 @@ function SingleDonation() {
                                                             </h1>
                                                             <div className='text-lg text-[#ECA242] xl:text-xl font-semibold'>₹{donationType.amount}</div>
                                                             <div className='w-full h-auto flex justify-center items-center'>
+                                                               <Link to="/donate">
                                                                 <button className='px-6 py-2 text-white bg-[#EB852C] rounded-3xl md:hover:bg-[#f0913e]'>
                                                                     Donate Now
                                                                 </button>
+                                                            </Link>
                                                             </div>
                                                         </div>
                                                     </div>
