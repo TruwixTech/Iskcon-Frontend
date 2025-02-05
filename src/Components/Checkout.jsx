@@ -17,7 +17,7 @@ const Checkout = () => {
   const [states, setStates] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.countrystatecity.in/v1/countries/IN/states") // Replace with actual API
+    fetch("") // Replace with actual API
       .then(response => response.json())
       .then(data => setStates(data))
       .catch(error => console.error("Error fetching states:", error));
