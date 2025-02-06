@@ -59,7 +59,7 @@ import DonatePage from "./Components/DonatePage.jsx";
 import DonationHistory from "./Components/UserProfile/DonationHistory.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Ensure you have a ProtectedRoute component
 import Checkout from "./Components/Checkout.jsx";
-
+import Confirm from "./Pages/Confirm.jsx";
 const MainApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -159,6 +159,7 @@ const MainApp = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/details/:id" element={<CardDetails />} />
           <Route path="/donation" element={<DonationPage />} />
+          <Route path="/confirm" element={<Confirm />} />
           <Route
             path="/donation/single-donation/:id"
             element={<SingleDonation />}
