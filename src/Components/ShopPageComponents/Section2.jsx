@@ -7,6 +7,7 @@ import Border1 from '../../assets/section1border1.svg'
 import Border2 from '../../assets/section1border2.svg'
 import axios from 'axios'
 import ProductCard from './ProductCard'
+import {useNavigate} from 'react-router-dom';
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -67,7 +68,10 @@ function Section2() {
     useEffect(() => {
         fetchProducts()
     }, [])
-
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/all-products");
+  }
     return (
         <>
             <div className='w-full h-auto flex flex-col px-5 py-6 gap-8 md:py-10 xl:py-14'>
@@ -105,7 +109,7 @@ function Section2() {
             <div className='w-full h-auto flex flex-col bg-[#fde3b6] px-5 md:px-10 xl:px-20 py-8 md:py-14 xl:py-20'>
                 <div className='w-full h-auto flex justify-between items-center text-lg sm:text-xl md:text-2xl'>
                     <span className='font-prata'>Best Sellers</span>
-                    <button className='font-nunito'>View all</button>
+                    <button onClick={handleClick} className='font-nunito'>View all</button>
                 </div>
                 <div className='w-full h-auto mt-10 md:mt-20 grid grid-cols-1 sm:grid-cols-2 place-items-center md:grid-cols-3 lg:grid-cols-4 gap-5'>
                     {

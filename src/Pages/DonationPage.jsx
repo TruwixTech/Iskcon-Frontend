@@ -4,7 +4,7 @@ import Section2 from '../Components/DonationComponents/Section2'
 
 const DonationPage = () => {
   return (
-   <div>
+   <div >
     <Section1 />
     <Section2 />
    </div>
