@@ -60,6 +60,9 @@ import DonationHistory from "./Components/UserProfile/DonationHistory.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Ensure you have a ProtectedRoute component
 import Checkout from "./Components/Checkout.jsx";
 import Confirm from "./Pages/Confirm.jsx";
+import AllProducts from "./Pages/AllProducts.jsx";
+import TempleConstruction from "./Pages/TempleConstruction.jsx";
+
 const MainApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -152,6 +155,7 @@ const MainApp = () => {
           {/* Public Routes */}
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop/single-product/:id" element={<SingleProduct />} />
+          <Route path="/all-products" element={<AllProducts/>} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/single-blog/:id" element={<SingleBlog />} />
           <Route path="/contacts" element={<ContactPage />} />
@@ -164,6 +168,7 @@ const MainApp = () => {
             path="/donation/single-donation/:id"
             element={<SingleDonation />}
           />
+          <Route path="/temple-construction" element={<TempleConstruction/>} />
           {/* <Route path="/donate-form" element={<DonationForm />} /> */}
           <Route path="/events" element={<EventPage />} />
           <Route path="/events/single-event/:id" element={<SingleEventPage />} />

@@ -93,7 +93,7 @@ const Navbar = () => {
                     key={path}
                     className="relative group flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setDropdownOpen(true)}
-                    // onMouseLeave={() => setDropdownOpen(false)}
+                  // onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <span className="flex items-center gap-2 text-black group-hover:text-[#eb852c]">
                       {label}
@@ -101,8 +101,8 @@ const Navbar = () => {
                     </span>
                     {dropdownOpen && (
                       <div
-                        className="absolute top-8 left-0 w-48 bg-white shadow-md rounded-xl"
-                        onMouseLeave={() => setDropdownOpen(false)}
+                        className="absolute top-8 left-0 w-60 bg-white shadow-md rounded-xl"
+                        onMouseLeave={() => setTimeout(() => setDropdownOpen(false), 200)} // Small delay for better UX
                       >
                         <ul className="flex flex-col p-2">
                           <li>
@@ -121,19 +121,27 @@ const Navbar = () => {
                               CSR Donation
                             </NavLink>
                           </li>
+                          <li>
+                            <NavLink
+                              to="/temple-construction"
+                              className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                            >
+                              Temple Construction
+                            </NavLink>
+                          </li>
                         </ul>
                       </div>
                     )}
+
                   </li>
                 ) : (
                   <li key={path}>
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `group relative flex items-center gap-2 ${
-                          isActive
-                            ? "text-[#eb852c] underline underline-offset-8"
-                            : "text-black"
+                        `group relative flex items-center gap-2 ${isActive
+                          ? "text-[#eb852c] underline underline-offset-8"
+                          : "text-black"
                         } hover:text-[#eb852c]`
                       }
                     >
@@ -331,10 +339,9 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `${
-                          isActive
-                            ? "text-[#eb852c] underline-[#eb852c]"
-                            : "text-black underline underline-offset-8"
+                        `${isActive
+                          ? "text-[#eb852c] underline-[#eb852c]"
+                          : "text-black underline underline-offset-8"
                         } hover:text-[#eb852c]`
                       }
                       onClick={() => setMenuOpen(false)}

@@ -6,7 +6,6 @@ import Image3 from '../assets/orderNow.svg'
 import Section2 from '../Components/ShopPageComponents/Section2'
 import Section3 from '../Components/ShopPageComponents/Section3'
 
-
 function ShopPage() {
     useEffect(() => {
         window.scrollTo(0, 0);
