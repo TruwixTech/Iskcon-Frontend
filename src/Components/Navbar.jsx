@@ -24,7 +24,7 @@ const Navbar = () => {
   useEffect(() => {
     // Get the token from localStorage
     const accessToken = localStorage.getItem("token");
-  
+
     // If the token exists and is not null, set the state to true
     if (accessToken) {
       setHasAccessToken(true);
@@ -189,7 +189,10 @@ const Navbar = () => {
                           >
                             Donation History
                           </Link>
-                          <li className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300" onClick={handleLogout}>
+                          <li
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                            onClick={handleLogout}
+                          >
                             Logout
                           </li>
                         </ul>
@@ -473,13 +476,17 @@ const Navbar = () => {
                 <span>&#x20B9; {getCartTotal()}</span>
               </div>
             </div>
+
             <div>
-              <Link to="/checkout" className="w-full h-auto flex mt-5 lg:mt-7">
-              <button className="w-full bg-[#EB852C] rounded-3xl text-white h-auto flex justify-center items-center py-2 md:hover:bg-[#ffab62]">
-                Checkout
-              </button>
+              <Link
+                to={`/checkout`}
+                className="w-full h-auto flex mt-5 lg:mt-7"
+              >
+                <button className="w-full bg-[#EB852C] rounded-3xl text-white h-auto flex justify-center items-center py-2 md:hover:bg-[#ffab62]">
+                  Checkout
+                </button>
               </Link>
-              </div>
+            </div>
           </div>
         )}
       </div>
