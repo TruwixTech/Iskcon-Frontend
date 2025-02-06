@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Navbar from "./Navbar";
 import formbg from "../assets/formbg.png";
 import BgOne from "../assets/bg2.png";
@@ -39,18 +39,18 @@ const statesList = [
 ];
 
 const Checkout = () => {
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const fetchUserData = async () => {
     try {
-      const token = localStorage.getItem("token");
-  
+      const token = JSON.parse(localStorage.getItem("token"));
+
       if (!token) {
         console.error("No token found in localStorage");
         return;
       }
 
-      console.log("🔹 Token being sent:", token);
-
-  
       const response = await fetch(`${backend}/secure/decode`, {
         method: "GET",
         headers: {
@@ -58,22 +58,24 @@ const Checkout = () => {
           "Content-Type": "application/json",
         },
       });
-  
+
       if (!response.ok) {
         throw new Error(`Failed to fetch user data: ${response.statusText}`);
       }
-  
+
       const data = await response.json();
+      setUser(data);
       console.log("✅ User Data:", data);
     } catch (error) {
       console.error("❌ Error fetching user data:", error);
     }
   };
-  
-  
-  // Call the function to fetch user data
-  fetchUserData();
-  const { getCartTotal } = useContext(CartContext);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const { getCartTotal, cartItems } = useContext(CartContext);
 
   const totalAmount = getCartTotal();
 
@@ -93,28 +95,62 @@ const Checkout = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page refresh
-
+    e.preventDefault(); 
+    setLoading(true);
     try {
       const payload = {
-        ...formData,
-        totalAmount,
+        userId: user.userData.userId,
+        amount: totalAmount,
+        shippingAddress:
+          formData.address +
+          ", " +
+          formData.city +
+          ", " +
+          formData.state +
+          ", " +
+          formData.pincode,
+        orderStatus: "PENDING",
+        orderItems: cartItems.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        contact: formData.mobile,
+        transactionId: "T" + Date.now(),
+        paymentDetails: {
+          paymentStatus: "PENDING", // Default payment status
+          paymentId: "T" + Date.now(), // Assign transactionId as paymentId
+        },
       };
 
-      // Send payment request to backend
-      const response = await axios.post(
-        `${backend}/api/v1/initiate-payment`,
-        payload
-      );
+      console.log("payload", payload);
 
-      if (response.data.success && response.data.paymentUrl) {
-        // Redirect user to PhonePe payment page
-        window.location.href = response.data.paymentUrl;
+      // Send payment request to backend
+      const response = await axios.post(`${backend}/admin/order/add`, payload);
+
+      if (
+        response.data &&
+        response.data.data &&
+        response.data.data.instrumentResponse
+      ) {
+        const redirectInfo = response.data.data.instrumentResponse.redirectInfo;
+
+        if (redirectInfo && redirectInfo.url) {
+          // Redirect the user to the payment gateway URL
+          window.location.href = redirectInfo.url;
+        } else {
+          console.log("Redirect URL not found in the response");
+          // Optionally, notify the user that payment initiation failed.
+        }
       } else {
-        console.error("Payment initiation failed:", response.data.message);
+        console.log("Invalid response structure from payment gateway");
+        // Optionally, notify the user of an error with payment initiation.
       }
+      console.log(response.data);
     } catch (error) {
-      console.error("Error processing payment:", error);
+      console.error("Payment failed:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

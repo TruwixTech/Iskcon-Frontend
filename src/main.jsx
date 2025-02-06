@@ -159,7 +159,7 @@ const MainApp = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/details/:id" element={<CardDetails />} />
           <Route path="/donation" element={<DonationPage />} />
-          <Route path="/confirm" element={<Confirm />} />
+          <Route path="/status/:id" element={<Confirm />} />
           <Route
             path="/donation/single-donation/:id"
             element={<SingleDonation />}
