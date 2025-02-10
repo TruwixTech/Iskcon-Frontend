@@ -1,4 +1,5 @@
 import { StrictMode, useState } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -59,9 +60,11 @@ import DonatePage from "./Components/DonatePage.jsx";
 import DonationHistory from "./Components/UserProfile/DonationHistory.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Ensure you have a ProtectedRoute component
 import Checkout from "./Components/Checkout.jsx";
+import Checkout2 from "./Components/Checkout2.jsx";
 import Confirm from "./Pages/Confirm.jsx";
 import AllProducts from "./Pages/AllProducts.jsx";
 import TempleConstruction from "./Pages/TempleConstruction.jsx";
+import DonationConfirm from "./Pages/DonationConfirm.jsx";
 
 const MainApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -103,7 +106,10 @@ const MainApp = () => {
               path="/admin-dashboard/blogs/single-blog/:id"
               element={<AdminSingleBlog />}
             />
-            <Route path="/admin-dashboard/services" element={<AdminServices />} />
+            <Route
+              path="/admin-dashboard/services"
+              element={<AdminServices />}
+            />
             <Route
               path="/admin-dashboard/services/create-service"
               element={<CreateService />}
@@ -112,13 +118,22 @@ const MainApp = () => {
               path="/admin-dashboard/services/single-service/:id"
               element={<AdminSingleService />}
             />
-            <Route path="/admin-dashboard/donation" element={<AdminDonation />} />
+            <Route
+              path="/admin-dashboard/donation"
+              element={<AdminDonation />}
+            />
             <Route
               path="/admin-dashboard/donation/single-donation/:id"
               element={<SinglePageDonation />}
             />
-            <Route path="/admin-dashboard/products" element={<AdminProducts />} />
-            <Route path="/admin-dashboard/guest-house" element={<AdminGuestHouse />} />
+            <Route
+              path="/admin-dashboard/products"
+              element={<AdminProducts />}
+            />
+            <Route
+              path="/admin-dashboard/guest-house"
+              element={<AdminGuestHouse />}
+            />
             <Route
               path="/admin-dashboard/guest-house/create-guest-house"
               element={<CreateGuestHouse />}
@@ -145,7 +160,10 @@ const MainApp = () => {
               path="/admin-dashboard/media/single-media/:id"
               element={<AdminSingleMedia />}
             />
-            <Route path="/admin-dashboard/csrdonation" element={<CSRDonation />} />
+            <Route
+              path="/admin-dashboard/csrdonation"
+              element={<CSRDonation />}
+            />
             <Route
               path="/admin-dashboard/csrdonation/create-csr-donation"
               element={<CreateCSRDonationPage />}
@@ -155,7 +173,7 @@ const MainApp = () => {
           {/* Public Routes */}
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop/single-product/:id" element={<SingleProduct />} />
-          <Route path="/all-products" element={<AllProducts/>} />
+          <Route path="/all-products" element={<AllProducts />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/single-blog/:id" element={<SingleBlog />} />
           <Route path="/contacts" element={<ContactPage />} />
@@ -164,17 +182,22 @@ const MainApp = () => {
           <Route path="/details/:id" element={<CardDetails />} />
           <Route path="/donation" element={<DonationPage />} />
           <Route path="/status/:id" element={<Confirm />} />
+          <Route path="/donationStatus/:id" element={<DonationConfirm />} />
           <Route
             path="/donation/single-donation/:id"
             element={<SingleDonation />}
           />
-          <Route path="/temple-construction" element={<TempleConstruction/>} />
+          <Route path="/temple-construction" element={<TempleConstruction />} />
           {/* <Route path="/donate-form" element={<DonationForm />} /> */}
           <Route path="/events" element={<EventPage />} />
-          <Route path="/events/single-event/:id" element={<SingleEventPage />} />
+          <Route
+            path="/events/single-event/:id"
+            element={<SingleEventPage />}
+          />
           <Route path="/csr" element={<CSRPage />} />
           <Route path="/membership" element={<MembershipPage />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/donation-checkout" element={<Checkout2 />} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Route>
 

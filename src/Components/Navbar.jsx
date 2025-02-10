@@ -6,14 +6,17 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { CartContext } from "../Context/CartContext";
+import { DonationCartContext } from "../Context/DonationCartContext";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import { useEffect } from "react";
 import logicon from "../assets/enter.png";
+import donation from "../assets/donation.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartSidebar, setCartSidebar] = useState(false);
+  const [donationSidebar, setDonationSidebar] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false); // For desktop
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); // For mobile
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -45,6 +48,9 @@ const Navbar = () => {
 
   const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } =
     useContext(CartContext);
+
+  const { donationCartItems, addToDonationCart, clearDonationCart, removeFromDonationCart, getDonationCartTotal } =
+    useContext(DonationCartContext);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -93,7 +99,7 @@ const Navbar = () => {
                     key={path}
                     className="relative group flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setDropdownOpen(true)}
-                  // onMouseLeave={() => setDropdownOpen(false)}
+                    // onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <span className="flex items-center gap-2 text-black group-hover:text-[#eb852c]">
                       {label}
@@ -102,7 +108,9 @@ const Navbar = () => {
                     {dropdownOpen && (
                       <div
                         className="absolute top-8 left-0 w-60 bg-white shadow-md rounded-xl"
-                        onMouseLeave={() => setTimeout(() => setDropdownOpen(false), 200)} // Small delay for better UX
+                        onMouseLeave={() =>
+                          setTimeout(() => setDropdownOpen(false), 200)
+                        } // Small delay for better UX
                       >
                         <ul className="flex flex-col p-2">
                           <li>
@@ -132,16 +140,16 @@ const Navbar = () => {
                         </ul>
                       </div>
                     )}
-
                   </li>
                 ) : (
                   <li key={path}>
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `group relative flex items-center gap-2 ${isActive
-                          ? "text-[#eb852c] underline underline-offset-8"
-                          : "text-black"
+                        `group relative flex items-center gap-2 ${
+                          isActive
+                            ? "text-[#eb852c] underline underline-offset-8"
+                            : "text-black"
                         } hover:text-[#eb852c]`
                       }
                     >
@@ -160,6 +168,18 @@ const Navbar = () => {
               {cartItems.length > 0 && (
                 <span className="text-[#eb852c] absolute font-semibold -top-1 text-xs -right-2 w-4 h-4 flex justify-center items-center bg-white rounded-full border border-gray-400">
                   {cartItems.length}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setDonationSidebar(true)}
+              className="text-black hover:text-[#eb852c] relative"
+            >
+              <img src={donation} alt="" className="w-8 h-8" />
+
+              {donationCartItems.length > 0 && (
+                <span className="text-[#eb852c] absolute font-semibold -top-1 text-xs -right-2 w-4 h-4 flex justify-center items-center bg-white rounded-full border border-gray-400">
+                  {donationCartItems.length}
                 </span>
               )}
             </button>
@@ -339,9 +359,10 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `${isActive
-                          ? "text-[#eb852c] underline-[#eb852c]"
-                          : "text-black underline underline-offset-8"
+                        `${
+                          isActive
+                            ? "text-[#eb852c] underline-[#eb852c]"
+                            : "text-black underline underline-offset-8"
                         } hover:text-[#eb852c]`
                       }
                       onClick={() => setMenuOpen(false)}
@@ -358,6 +379,10 @@ const Navbar = () => {
                   onClick={() => setCartSidebar(true)}
                 >
                   <img src={cart} alt="cart" />
+                </span>
+                <span className="flex items-center justify-center text-black hover:text-[#eb852c]"
+                 onClick={() => setDonationSidebar(true)}>
+                  <img src={donation} alt="" className="w-8 h-8" />
                 </span>
                 <NavLink
                   to="/donate"
@@ -497,12 +522,123 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      <div
+        className={`fixed inset-x-0 font-poppins z-50 h-[35%] overflow-y-scroll bottom-0 w-full bg-white shadow-lg px-6 py-3 transform transition-transform duration-300 ease-in-out  
+        ${donationSidebar ? "translate-y-0" : "translate-y-full"}`}
+        style={{
+          scrollbarWidth: "none",
+        }}
+      >
+        <button
+          className="absolute top-3 right-3 text-gray-600"
+          onClick={() => setDonationSidebar(false)}
+        >
+          <IoMdClose size={40} />
+        </button>
+        <div className="w-[95%] h-auto flex justify-between items-center">
+        <h2 className="text-3xl font-bold">Donation Cart</h2>
+
+          <span
+            className="flex gap-2 text-red-500 items-center text-sm md:text-base font-semibold cursor-pointer"
+            onClick={clearDonationCart}
+          >
+            Clear Cart
+            <RiDeleteBin5Fill size={20} />
+          </span>
+        </div>
+        <div className="w-full flex flex-col h-auto gap-4 my-4">
+          {donationCartItems.length > 0 ? (
+            donationCartItems.map((item) => (
+              <div
+                key={item.id}
+                className="w-full flex items-center "
+              >
+                <div className="w-full md:w-1/2 flex justify-between items-center   h-full ">
+                  <div className="w-[80%] flex justify-between items-center gap-4">
+                    <h3 className="w-[90%] text-xs font-semibold sm:text-base xl:text-lg">
+                      {item.title}
+                    </h3>
+                    <div className="w-full h-auto flex justify-end">
+                    <div className="px-2 py-1 flex gap-2 text-xs items-center justify-center bg-[#ECA242] rounded-lg text-white sm:px-3 sm:text-base sm:rounded-xl sm:gap-3 xl:px-4 xl:py-1">
+                      <span
+                        onClick={() => removeFromDonationCart(item)}
+                        className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
+                      >
+                        -
+                      </span>
+                      <span className="font-semibold xl:text-lg">
+                        {item.quantity}
+                      </span>
+                      <span
+                        onClick={() => addToDonationCart(item)}
+                        className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
+                      >
+                        +
+                      </span>
+                    </div>
+                  </div>
+                  </div>
+                  <p className="text-xs font-semibold sm:text-sm xl:text-base">
+                      &#x20B9; {item.amount * item.quantity}
+                    </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-lg font-semibold h-80 flex justify-center items-center">
+              Cart is Empty
+            </p>
+          )}
+        </div>
+        {donationCartItems.length > 0 && (
+          <div className="w-full h-auto flex flex-col">
+            <div className="w-full h-auto flex gap-2 items-center">
+              <input type="checkbox" className="w-3" id="checkout" />
+              <label htmlFor="checkout" className="text-xs">
+                Checkout as Guest
+              </label>
+            </div>
+            <div className="h-[1px] bg-black w-full mt-1"></div>
+            <div className="w-full h-auto flex flex-col mt-4 gap-1.5 md:gap-2">
+              <h1 className="font-semibold lg:text-lg xl:text-2xl">
+                Donation Summary
+              </h1>
+              <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                <span>Total Donation</span>
+                <span>&#x20B9; {getDonationCartTotal()}</span>
+              </div>
+              {/* <div className="w-full h-[1px] bg-black"></div>
+              <div className="w-full h-auto flex justify-between items-center md:text-lg">
+                <span className="font-semibold">Total Amount</span>
+                <span>&#x20B9; {getDonationCartTotal()}</span>
+              </div> */}
+            </div>
+
+            <div>
+              <Link
+                to={`/donation-checkout`}
+                className="w-full h-auto flex mt-5 lg:mt-7"
+              >
+                <button className="w-full bg-[#EB852C] rounded-3xl text-white h-auto flex justify-center items-center py-2 md:hover:bg-[#ffab62]">
+                  Checkout
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Backdrop for Cart Sidebar */}
       {cartSidebar && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
           onClick={() => setCartSidebar(false)}
+        ></div>
+      )}
+      {donationSidebar && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
+          onClick={() => setDonationSidebar(false)}
         ></div>
       )}
     </>

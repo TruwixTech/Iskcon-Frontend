@@ -19,22 +19,30 @@ const Section1 = () => {
         <Navbar />
       </div>
 
-      {/* Left Half (Frame Image + Content Centered) */}
-      <div className="md:w-1/3 w-full  flex flex-col justify-center px-10 absolute bottom-20">
-       
+      {/* Gradient Overlay */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-[#FDE3B6]/80 to-[#FDE3B6]/20"
+        style={{
+          mixBlendMode: "multiply", // Blend the gradient with the background image
+        }}
+      ></div>
+
+      {/* Left Half (Content Centered) */}
+      <div className="md:w-1/3 w-full h-full flex flex-col justify-end pb-20 px-10 relative z-10">
+        <div className="relative z-50">
           <h1 className="font-prata text-3xl md:text-4xl text-black font-semibold mb-4">
             General Donation
           </h1>
           <p className="text-[#444444] mb-6">
             Donation is the most valuable human act; it is all about creating a
             sustainable environment in which every human being can persevere and
-            flourish. All Donations are Tax Exempted here. Please After
-            Donation contact us on Thank You Page!
+            flourish. All Donations are Tax Exempted here. Please After Donation
+            contact us on Thank You Page!
           </p>
           <button className="bg-[#EB852C] text-white px-6 py-3 rounded-3xl">
             Donate Now
           </button>
-        
+        </div>
       </div>
 
       {/* Right Half (Transparent to let `krishnabg.png` show) */}

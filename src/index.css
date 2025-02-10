@@ -80,3 +80,8 @@ img {
   color: #ffd700;
 }
 
+.progress-circle {
+  transition: clip-path 0.5s ease-in-out;
+}
+
+

@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { CartContext } from "../Context/CartContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { DonationCartContext } from "../Context/DonationCartContext";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
-function Confirm() {
-  const { cartItems } = useContext(CartContext);
+function DonationConfirm() {
   const { id: merchantTransactionId } = useParams();
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState(null);
+  const [donation, setDonation] = useState(null);
   const [error, setError] = useState("");
   const [user, setUser] = useState({});
+
 
   const fetchUserData = async () => {
     try {
@@ -55,7 +55,7 @@ function Confirm() {
         const response = await axios.get(
           `${
             import.meta.env.VITE_BACKEND_URL
-          }/admin/order/status?id=${merchantTransactionId}`
+          }/admin/donationOrder/donationStatus?id=${merchantTransactionId}`
         );
 
         if (response.data.success) {
@@ -82,16 +82,15 @@ function Confirm() {
 
     setLoading(true);
     setError("");
-    setOrder(null);
 
     try {
       const response = await axios.get(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/admin/order/${merchantTransactionId}`
+        }/admin/donationOrder/${merchantTransactionId}`
       );
-      setOrder(response.data.data);
-      console.log("✅ Order Data:", response.data.data);
+      setDonation(response.data.data);
+      console.log("✅ Donation Data:", response.data.data);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch order");
     } finally {
@@ -103,7 +102,7 @@ function Confirm() {
     fetchOrder();
   }, []);
 
-  console.log(order);
+  console.log("donation",donation);
 
   return (
     <div className="bg-[#fde3b6] w-full h-auto">
@@ -113,7 +112,7 @@ function Confirm() {
 
       <div className="w-[90%] mx-auto p-6 bg-white shadow-2xl rounded-2xl mt-10 mb-5 transform transition-all duration-300 hover:shadow-3xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left Side: Order Confirmation */}
+          {/* Left Side: Order DonationConfirmation */}
           <div className="flex flex-col gap-6 relative p-6">
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl -z-10"></div>
 
@@ -121,13 +120,13 @@ function Confirm() {
               className="text-5xl font-bold bg-gradient-to-r from-[#eb852c] to-yellow-500
  bg-clip-text text-transparent animate-fade-in"
             >
-              Thank you for your <br /> Order! 🎉
+              Thank you for your <br /> Donation! 🎉
             </h1>
 
             <div className="space-y-6">
               <p className="text-lg text-gray-600 leading-relaxed animate-slide-up delay-100">
-                Your order is being processed and will ship soon. We'll send you
-                tracking details shortly.
+                Your Donation has been successfully processed. Thank you for your 
+                support.
               </p>
 
               <div className="animate-fade-in delay-200">
@@ -169,8 +168,8 @@ function Confirm() {
                   </div>
                   <div className="space-y-2 font-medium text-sm text-gray-800">
                     <p>{user?.userData?.name}</p>
-                    <p>{order?.shippingAddress}</p>
-                    <p>{order?.contact}</p>
+                    <p>{donation?.shippingAddress}</p>
+                    <p>{donation?.contact}</p>
                     <p>{user?.userData?.email}</p>
                   </div>
                 </div>
@@ -203,7 +202,7 @@ function Confirm() {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
                   <p className="text-sm text-gray-500">Order Date</p>
-                  <p className="font-medium">{order?.createdAt}</p>
+                  <p className="font-medium">{donation?.createdAt}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Payment Method</p>
@@ -216,25 +215,25 @@ function Confirm() {
               <div className="space-y-4">
                 <h3 className="font-semibold text-gray-800">Items</h3>
                 <div className="space-y-4 max-h-64 overflow-y-auto pr-2">
-                  {order?.orderItems?.map((item) => (
+                  {donation?.donationItems?.map((item) => (
                     <div
-                      key={item.id}
+                      key={item.donationItemsId}
                       className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 hover:shadow-md transition-shadow"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-3xl">
+                        {/* <div className="w-12 h-12 rounded-3xl">
                         <img src={item.productId.images[0]} alt=""/>
 
-                        </div>
+                        </div> */}
                         <div>
-                          <p className="font-medium">{item.name}</p>
+                          <p className="font-medium">{item.title}</p>
                           <p className="text-sm text-gray-500">
                             Qty: {item.quantity}
                           </p>
                         </div>
                       </div>
                       <p className="font-medium">
-                        ₹{item.price * item.quantity}
+                        ₹{item.amount * item.quantity}
                       </p>
                     </div>
                   ))}
@@ -244,7 +243,7 @@ function Confirm() {
               <div className="space-y-3">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal:</span>
-                  <span>₹{order?.amount / 100}</span>
+                  <span>₹{donation?.amount / 100}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping:</span>
@@ -256,7 +255,7 @@ function Confirm() {
                 </div>
                 <div className="flex justify-between pt-4 font-bold text-lg text-gray-800">
                   <span>Total:</span>
-                  <span>₹{order?.amount / 100}</span>
+                  <span>₹{donation?.amount / 100}</span>
                 </div>
               </div>
             </div>
@@ -267,4 +266,4 @@ function Confirm() {
   );
 }
 
-export default Confirm;
+export default DonationConfirm;

@@ -2,8 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import Navbar from "./Navbar";
 import formbg from "../assets/formbg.png";
 import BgOne from "../assets/bg2.png";
-import { CartContext } from "../Context/CartContext";
+import { DonationCartContext } from "../Context/DonationCartContext";
 import axios from "axios";
+
 const backend = import.meta.env.VITE_BACKEND_URL;
 
 const statesList = [
@@ -37,7 +38,7 @@ const statesList = [
   "West Bengal",
 ];
 
-const Checkout = () => {
+const Checkout2 = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -45,27 +46,28 @@ const Checkout = () => {
     const fetchUserData = async () => {
       try {
         const token = JSON.parse(localStorage.getItem("token"));
-
+  
         if (!token) {
           console.error("No token found in localStorage");
           return;
         }
-
+  
         const response = await fetch(`${backend}/secure/decode`, {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, 
             "Content-Type": "application/json",
           },
         });
-
+  
         if (!response.ok) {
           throw new Error(`Failed to fetch user data: ${response.statusText}`);
         }
-
+  
         const data = await response.json();
         setUser(data);
-
+        console.log("✅ User Data:", data);
+  
         // Pre-fill form fields if user data exists
         setFormData((prev) => ({
           ...prev,
@@ -77,12 +79,14 @@ const Checkout = () => {
         console.error("❌ Error fetching user data:", error);
       }
     };
-
+  
     fetchUserData();
   }, []);
 
-  const { getCartTotal, cartItems } = useContext(CartContext);
-  const totalAmount = getCartTotal();
+  const { donationCartItems, getDonationCartTotal } = useContext(DonationCartContext);
+
+  const totalAmount = getDonationCartTotal();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -101,64 +105,53 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+  
     try {
+      const transactionId = "T" + Date.now(); // Generate a single transaction ID for consistency
+  
       const payload = {
         userId: user?.userData?.userId,
         amount: totalAmount,
-        shippingAddress:
-          formData.address +
-          ", " +
-          formData.city +
-          ", " +
-          formData.state +
-          ", " +
-          formData.pincode,
-        orderStatus: "PENDING",
-        orderItems: cartItems.map((item) => ({
-          productId: item.id,
-          name: item.name,
+        shippingAddress: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.pincode}`,
+        donationOrderStatus: "PENDING",
+        donationItems: donationCartItems.map((item) => ({
+          donationItemsId: item.id,
+          title: item.title,
           quantity: item.quantity,
-          price: item.price,
+          amount: item.amount,
         })),
         contact: formData.mobile,
-        transactionId: "T" + Date.now(),
+        transactionId,
         paymentDetails: {
-          paymentStatus: "PENDING", // Default payment status
-          paymentId: "T" + Date.now(), // Assign transactionId as paymentId
+          paymentStatus: "PENDING",
+          paymentId: transactionId, // Use the same transaction ID for paymentId
         },
       };
-
-      console.log("payload", payload);
-
+  
+      console.log("Payload:", payload);
+  
       // Send payment request to backend
-      const response = await axios.post(`${backend}/admin/order/add`, payload);
-
+      const response = await axios.post(`${backend}/admin/donationOrder/add`, payload);
+      console.log("Payment response:", response.data);
+  
       if (
-        response.data &&
-        response.data.data &&
-        response.data.data.instrumentResponse
+        response.data?.data?.instrumentResponse?.redirectInfo?.url
       ) {
-        const redirectInfo = response.data.data.instrumentResponse.redirectInfo;
-
-        if (redirectInfo && redirectInfo.url) {
-          // Redirect the user to the payment gateway URL
-          window.location.href = redirectInfo.url;
-        } else {
-          console.log("Redirect URL not found in the response");
-          // Optionally, notify the user that payment initiation failed.
-        }
+        // Redirect the user to the payment gateway URL
+        window.location.href = response.data.data.instrumentResponse.redirectInfo.url;
       } else {
-        console.log("Invalid response structure from payment gateway");
-        // Optionally, notify the user of an error with payment initiation.
+        console.error("Redirect URL not found in the response");
+        alert("Payment initiation failed. Please try again.");
       }
-      console.log(response.data);
-      localStorage.removeItem("cartItems");
+      localStorage.removeItem("donationItems");
     } catch (error) {
       console.error("Payment failed:", error);
+      alert("An error occurred while processing the payment. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div
@@ -184,7 +177,9 @@ const Checkout = () => {
                 </h2>
                 <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label className="text-gray-700 font-medium">Name</label>
+                    <label className="text-gray-700 font-medium">
+                      Name
+                    </label>
                     <input
                       name="firstName"
                       value={formData.firstName}
@@ -194,7 +189,7 @@ const Checkout = () => {
                       className="mt-2 p-3 border rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
-
+                 
                   <div className="flex flex-col">
                     <label className="text-gray-700 font-medium">Email</label>
                     <input
@@ -280,7 +275,7 @@ const Checkout = () => {
                   </h2>
                   <div className="flex justify-between text-gray-700 mb-2">
                     <span>Total MRP</span>
-                    <span>₹{getCartTotal()}</span>
+                    <span>₹{getDonationCartTotal()}</span>
                   </div>
                   <div className="flex justify-between text-gray-700 mb-2">
                     <span>MRP Discount</span>
@@ -293,7 +288,7 @@ const Checkout = () => {
                   <div className="border-t my-4"></div>
                   <div className="flex justify-between font-bold text-gray-900">
                     <span>Total Amount</span>
-                    <span>₹{getCartTotal()}</span>
+                    <span>₹{getDonationCartTotal()}</span>
                   </div>
                 </div>
                 <button
@@ -311,4 +306,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Checkout2;
