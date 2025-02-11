@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import Border1 from "../../assets/section1border1.svg";
 import Border2 from "../../assets/section1border2.svg";
 import { DonationCartContext } from "../../Context/DonationCartContext";
+import PaymentDetailsCard from "../PaymentDetailsCard";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -195,6 +196,9 @@ console.log(singleDonation)
             Donate Now
           </button>
         </div>
+      </div>
+      <div className="w-full md:px-20 px-4 py-20">
+        <PaymentDetailsCard />
       </div>
     </>
   );

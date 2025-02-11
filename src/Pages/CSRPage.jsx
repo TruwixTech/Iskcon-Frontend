@@ -4,7 +4,7 @@ import csr from "../assets/csr.png";
 import circlebg from "../assets/circlebg.png";
 import scroll from "../assets/scroll.png";
 import rectcsr from "../assets/rectcsr.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Border1 from "../assets/section1border1.svg";
 import Border2 from "../assets/section1border2.svg";
 import c1 from "../assets/c1.png";
@@ -17,13 +17,15 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import DonateFormModal from "../Components/DonateFormModal";
 
 const CSRPage = () => {
   const [scrollY, setScrollY] = useState(0);
   const backend = import.meta.env.VITE_BACKEND_URL;
-    useEffect(() => {
-          window.scrollTo(0, 0);
-        }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const content = [
     {
@@ -110,6 +112,8 @@ const CSRPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+ 
   return (
     <>
       {/* first section */}
@@ -137,11 +141,11 @@ const CSRPage = () => {
             the hungry, supporting education, and promoting environmental
             sustainability.
           </p>
-         <Link to ="/donate">
-          <button className="w-[250px] md:w-[180px] bg-[#EB852C] text-white py-2 rounded-full">
-            Donate Now
-          </button>
-          </Link>
+          <a href="/donation#donationcircle">
+            <button className="w-[250px] md:w-[180px] bg-[#EB852C] text-white py-2 rounded-full">
+              Donate Now
+            </button>
+          </a>
         </div>
         <div className="w-full absolute bottom-1 sm:hidden flex justify-center">
           <h1 className="text-3xl font-bold md:font-normal text-center md:text-start md:text-3xl lg:text-4xl xl:text-6xl text-[#3b2106] font-prata lg:leading-[70px]">
@@ -260,7 +264,9 @@ const CSRPage = () => {
                 />
 
                 {/* Title */}
-                <h1 className="text-[16px] font-[400px] font-nunito mt-2">{donation.title}</h1>
+                <h1 className="text-[16px] font-[400px] font-nunito mt-2">
+                  {donation.title}
+                </h1>
 
                 {/* Amount Raised */}
                 <div className="mt-2 flex items-center justify-between">
@@ -288,17 +294,18 @@ const CSRPage = () => {
                   ></div>
                 </div>
 
-                <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
+                <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center" onClick={() => setIsModalOpen(true)}>
                   Donate Now
                 </button>
               </div>
             ))}
           </div>
+          <DonateFormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
       </div>
 
       {/* fifth section */}
-      <div className="bg-[#fde3b6] w-full relative ">
+      {/* <div className="bg-[#fde3b6] w-full relative ">
         <div className="absolute top-0 opacity-10 z-20 w-full">
           <img
             src={circlebg}
@@ -471,7 +478,7 @@ const CSRPage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

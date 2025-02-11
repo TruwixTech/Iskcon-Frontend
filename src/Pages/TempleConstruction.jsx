@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -30,6 +35,18 @@ const TempleConstruction = () => {
             const percentageRaised = Math.round(
               (donation.amountRaised / donation.totalAmount) * 100
             );
+
+            // Data for the pie chart
+            const pieChartData = {
+              labels: ["Amount Raised", "Remaining Amount"],
+              datasets: [
+                {
+                  data: [donation.amountRaised, donation.totalAmount - donation.amountRaised],
+                  backgroundColor: ["#f97316", "#36A2EB"],
+                  hoverBackgroundColor: ["#f97316", "#36A2EB"],
+                },
+              ],
+            };
 
             return (
               <div key={index} className="w-full h-full flex flex-col">
@@ -65,34 +82,39 @@ const TempleConstruction = () => {
                     }}
                   ></div>
                 </div>
-
-                {/* Loader Animation */}
-                <div className="mt-6 flex justify-center">
-                  <div className="relative w-40 h-40">
-                    {/* Outer Circle */}
-                    <div className="absolute w-full h-full rounded-full border-4 border-gray-200"></div>
-                    {/* Inner Circle (Progress) */}
-                    <div
-                      className="absolute w-full h-full rounded-full border-4 border-orange-500"
-                      style={{
-                        clipPath: `polygon(50% 50%, 50% 0%, ${
-                          50 + 50 * Math.cos((2 * Math.PI * percentageRaised) / 100)
-                        }% ${
-                          50 + 50 * Math.sin((2 * Math.PI * percentageRaised) / 100)
-                        }%)`,
-                      }}
-                    ></div>
-                    {/* Percentage Text */}
-                    <div className="absolute inset-0 flex items-center justify-center text-xl font-bold text-orange-500">
-                      {percentageRaised}%
-                    </div>
-                  </div>
-                </div>
-
-                {/* Donate Button */}
                 <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
                   Donate Now
                 </button>
+
+                {/* Pie Chart */}
+                <div className="mt-6 flex justify-center">
+                  <div className="w-[450px] h-[450px]">
+                    <Pie
+                      data={pieChartData}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            position: "bottom",
+                          },
+                          tooltip: {
+                            callbacks: {
+                              label: (context) => {
+                                const label = context.label || "";
+                                const value = context.raw || 0;
+                                return `${label}: ₹${value.toLocaleString()}`;
+                              },
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                </div>
+
+              
+                
               </div>
             );
           })}

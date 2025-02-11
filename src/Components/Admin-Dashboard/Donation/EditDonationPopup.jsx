@@ -139,7 +139,7 @@ const EditDonationsPopup = ({ donation, closePopup, refreshDonations }) => {
 
 
     return (
-        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-800 bg-opacity-50 pt-20 font-marcellus">
+        <div className="fixed inset-0 overflow-y-auto flex items-center z-50 justify-center bg-gray-800 bg-opacity-50 pt-20 font-marcellus">
             <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-y-auto relative z-50">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">

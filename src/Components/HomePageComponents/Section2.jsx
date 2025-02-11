@@ -28,11 +28,11 @@ function Section2() {
                             He had started giving lectures on the sacred Bhagavad Gita weekly. In 1966, he established ISKCON in New York City successfully.
                         </p>
                         <div className='w-full h-auto font-poppins'>
-                            <Link to ="/donate">
+                            <a href ="/donation#donationcircle">
                             <button className='px-3 py-2 text-sm text-white bg-[#EB852C] rounded-3xl xl:px-6 xl:py-3 xl:text-base'>
                                 Donate
                             </button>
-                            </Link>
+                            </a>
                         </div>
                     </div>
                     <img src={KrishnaJiClouds} alt="krishna ji clouds" className='w-full h-auto object-cover lg:absolute lg:-bottom-10' />

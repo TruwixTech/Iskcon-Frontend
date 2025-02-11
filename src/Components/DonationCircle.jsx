@@ -60,6 +60,7 @@ function DonationCircle() {
 
   return (
     <div
+      id="section3"
       className={`w-full h-auto flex flex-col ${getBackgroundColor()} px-4 md:px-10 lg:flex-row-reverse 2xl:h-screen`}
       style={{
         backgroundImage: `url(${BgOne})`,

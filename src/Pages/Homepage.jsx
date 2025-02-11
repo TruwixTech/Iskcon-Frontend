@@ -17,6 +17,7 @@ import { Link, NavLink } from "react-router-dom";
 const Homepage = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
 
+  
   useEffect(() => {
     let progress = 0;
     const interval = setInterval(() => {
@@ -62,16 +63,18 @@ const Homepage = () => {
     transform: `translateY(${Math.min(
       -animationProgress * 4,
       500
-    )}px) translateX(${Math.min(animationProgress * 3.4, 800)}px) scale(${1 + animationProgress * 0.04
-      })`, // Move up and right diagonally and scale
+    )}px) translateX(${Math.min(animationProgress * 3.4, 800)}px) scale(${
+      1 + animationProgress * 0.04
+    })`, // Move up and right diagonally and scale
   };
 
   const sunStyle2 = {
     transform: `translateY(${Math.min(
       -animationProgress * 3.2,
       500
-    )}px) translateX(${Math.min(animationProgress * 0.6, 400)}px) scale(${1 + animationProgress * 0.02
-      })`, // Move up and right diagonally and scale
+    )}px) translateX(${Math.min(animationProgress * 0.6, 400)}px) scale(${
+      1 + animationProgress * 0.02
+    })`, // Move up and right diagonally and scale
   };
 
   const textStyle = {
@@ -103,11 +106,12 @@ const Homepage = () => {
                 <h2 className="text-4xl">Welcome to</h2>
                 <h1 className="text-6xl font-[500]">ISCKON Ghaziabad</h1>
                 <div className="flex gap-4 items-center">
-                  <Link to="/donate">
+                <a href="/donation#donationcircle" className="">
                     <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
                       Donate
                     </button>
-                  </Link>
+                  </a>
+                  
                   <NavLink
                     to="/membership"
                     className="px-8 py-3 bg-[#eb852c] text-white hover:border-2 hover:border-white rounded-full transition duration-300 ease-in-out transform hover:scale-105"
@@ -180,13 +184,11 @@ const Homepage = () => {
                 <h1 className="text-3xl font-[500] text-center">
                   ISCKON Ghaziabad
                 </h1>
-                <Link to="/donate" className="">
+                <Link to="/donation#donationcircle" className="">
                   <div className="flex justify-center">
-
                     <button className="w-[180px] rounded-full bg-white text-[#eb852c] py-2 px-4 cursor-pointer ">
                       Donate
                     </button>
-
                   </div>
                 </Link>
               </div>

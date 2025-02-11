@@ -23,9 +23,9 @@ function AdminDashboard() {
           { label: "Donation", link: "/admin-dashboard/donation" },
           { label: "Blogs", link: "/admin-dashboard/blogs" },
           { label: "Products", link: "/admin-dashboard/products" },
-          { label: "Guest House", link: "/admin-dashboard/guest-house" },
-          { label: "Media", link: "/admin-dashboard/media" },
-          { label: "Offline Classes", link: "/admin-dashboard/classes" },
+          // { label: "Guest House", link: "/admin-dashboard/guest-house" },
+          // { label: "Media", link: "/admin-dashboard/media" },
+          // { label: "Offline Classes", link: "/admin-dashboard/classes" },
           { label: "CSR Donation", link: "/admin-dashboard/csrdonation" },
         ].map((item, index) => (
           <Link

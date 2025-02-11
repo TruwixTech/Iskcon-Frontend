@@ -39,9 +39,11 @@ const Section1 = () => {
             flourish. All Donations are Tax Exempted here. Please After Donation
             contact us on Thank You Page!
           </p>
+          <a href="/donation#donationcircle">
           <button className="bg-[#EB852C] text-white px-6 py-3 rounded-3xl">
             Donate Now
           </button>
+          </a>
         </div>
       </div>
 
