@@ -61,7 +61,7 @@ function DonationCircle() {
   return (
     <div
       id="section3"
-      className={`w-full h-auto flex flex-col ${getBackgroundColor()} px-4 md:px-10 lg:flex-row-reverse 2xl:h-screen`}
+      className={`w-full h-auto flex flex-col ${getBackgroundColor()} px-4 md:px-10 lg:flex-row-reverse 2xl:h-auto`}
       style={{
         backgroundImage: `url(${BgOne})`,
         backgroundPosition: "bottom",
@@ -69,7 +69,7 @@ function DonationCircle() {
         backgroundSize: "cover",
       }}
     >
-      <div className="w-full h-auto flex flex-col justify-center mt-10 md:mt-0">
+      <div className="w-full h-auto flex flex-col justify-center pt-20 mt-10 md:mt-0">
         <h1 className="font-prata mb-10 text-[#3B2106] flex justify-center text-3xl  md:text-3xl lg:text-end lg:text-4xl  2xl:text-6xl">
           Donations
         </h1>

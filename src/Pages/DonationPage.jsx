@@ -65,7 +65,7 @@ const DonationPage = () => {
       <Section1 />
       <div id="section2">
         <Section2 />
-        <div id="donationcircle">
+        <div id="donationcircle" className="">
           <DonationCircle />
         </div>
 
