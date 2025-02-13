@@ -18,6 +18,7 @@ import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DonateFormModal from "../Components/DonateFormModal";
+import CountUp from "react-countup";
 
 const CSRPage = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -124,7 +125,7 @@ const CSRPage = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full opacity-15">
           <img src={circlebg} alt="" className="w-full" />
         </div>
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
+        <div className="absolute top-7 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
           <img src={csr} alt="csr" className="" />
         </div>
         <div className="absolute bottom-0 right-20 md:flex gap-10 hidden">
@@ -211,41 +212,31 @@ const CSRPage = () => {
 
       {/* third section */}
       <div className="bg-[#fde3b6] w-full h-auto py-28 flex flex-col gap-10 items-center justify-center">
-        <h1 className="text-3xl md:text-4xl text-center md:text-started font-prata">
-          Giving you can trust
-        </h1>
-        <p className="text-sm md:text-lg text-center font-nunito">
-          We conduct thorough and comprehensive checks on all nonprofits and
-          their projects to ensure your donation fulfills its purpose—making a{" "}
-          <br /> real difference and transforming lives. Learn more.
-        </p>
-        <div className="w-full md:w-2/3 flex flex-col md:flex-row gap-6 md:gap-0 items-center md:justify-between ">
-          <div className="flex flex-col items-center text-center gap-4">
-            <h1 className="text-[#eb852c] font-bold text-4xl">700cr+</h1>
-            <p className="text-base w-full md:w-[80%] text-gray-700">
-              Raised for Non-profits
-            </p>
+      <h1 className="text-3xl md:text-4xl text-center md:text-started font-prata">
+        Giving you can trust
+      </h1>
+      <p className="text-sm md:text-lg text-center font-nunito">
+        We conduct thorough and comprehensive checks on all nonprofits and
+        their projects to ensure your donation fulfills its purpose—making a{" "}
+        <br /> real difference and transforming lives. Learn more.
+      </p>
+      <div className="w-full md:w-2/3 flex flex-col md:flex-row gap-6 md:gap-0 items-center md:justify-between">
+        {[
+          { value: 700, suffix: "cr+", label: "Raised for Non-profits" },
+          { value: 15, suffix: "M+", label: "Lives Impacted" },
+          { value: 2, suffix: "M+", label: "Donors have Contributed to the cause" },
+          { value: 150, suffix: "+", label: "Trusted by Corporate and Brand" },
+        ].map((stat, index) => (
+          <div key={index} className="flex flex-col items-center text-center gap-4">
+            <h1 className="text-[#eb852c] font-bold text-4xl">
+              <CountUp end={stat.value} duration={8} separator="," />
+              {stat.suffix}
+            </h1>
+            <p className="text-base w-full md:w-[80%] text-gray-700">{stat.label}</p>
           </div>
-          <div className="flex flex-col items-center text-center gap-4">
-            <h1 className="text-[#eb852c] font-bold text-4xl">15M+</h1>
-            <p className="text-base w-full md:w-[80%] text-gray-700">
-              Lives Impacted
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center gap-4">
-            <h1 className="text-[#eb852c] font-bold text-4xl">2M+</h1>
-            <p className="text-base w-full md:w-[80%] text-gray-700">
-              Donors have Contributed to the cause
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center gap-4">
-            <h1 className="text-[#eb852c] font-bold text-4xl">150+</h1>
-            <p className="text-base w-full md:w-[80%] text-gray-700">
-              Trusted by Corporate and Brand
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
+    </div>
 
       {/* fourht section */}
       <div className="w-full h-auto bg-white py-20">

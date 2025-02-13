@@ -5,11 +5,17 @@ import Image2 from '../assets/freeDeliveryLogo.svg'
 import Image3 from '../assets/orderNow.svg'
 import Section2 from '../Components/ShopPageComponents/Section2'
 import Section3 from '../Components/ShopPageComponents/Section3'
+import { useNavigate } from 'react-router-dom'
 
 function ShopPage() {
+    const navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
+    const handleClick = () => {
+        navigate("/all-products");
+    };
+
     return (
         <>
             <div
@@ -29,7 +35,7 @@ function ShopPage() {
                         Online Now</h1>
                     <p className='text-white text-sm font-nunito text-center font-thin lg:text-base'>“By reading my books and chanting Hare Krishna, your life will become perfect.”</p>
                     <div className='w-full h-auto flex justify-center items-center'>
-                        <button className='px-5 py-1.5 bg-[#EB852C] text-white rounded-3xl font-normal font-poppins lg:py-3 lg:px-7'>View Books</button>
+                        <button className='px-5 py-1.5 bg-[#EB852C] text-white rounded-3xl font-normal font-poppins lg:py-3 lg:px-7' onClick={handleClick}>View Products</button>
                     </div>
                     <div className='w-full h-auto flex justify-center items-center'>
                         <img src={Image2} alt="free delivery logo" className='h-20 w-40 lg:w-60 lg:h-32' />

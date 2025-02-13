@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 function Footer() {
   return (
     <div
-      className="relative w-full h-auto md:h-[580px] px-4 md:px-20 z-0"
+      className="relative w-full h-auto md:h-[450px] px-4 md:px-20 z-0"
       style={{
         backgroundImage: `url(${footerbg})`,
         backgroundSize: "cover",

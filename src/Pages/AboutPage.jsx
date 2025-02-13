@@ -9,27 +9,23 @@ import about4 from "../assets/bout4.jpg";
 const data = [
   {
     id: 1,
-    title: "About Srila Prabhuapada",
+    title: "About Srila Prabhupada",
     image: about1,
-    description: "Detailed information about Srila Prabhuapada.",
   },
   {
     id: 2,
     title: "History Of ISKCON",
     image: about2,
-    description: "The history and origin of ISKCON.",
   },
   {
     id: 3,
     title: "Our Philosophy",
     image: about3,
-    description: "The philosophy behind ISKCON.",
   },
   {
     id: 4,
     title: "Hare Krishna Movement",
     image: about4,
-    description: "Details about the Hare Krishna movement.",
   },
 ];
 
@@ -41,22 +37,41 @@ const AboutUs = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <div className="bg-[#fde3b6] w-full h-full">
-      <div className="px-20 pt-10 relative z-50">
+    <div className="bg-gradient-to-b from-[#fde3b6] to-[#f8c56a] w-full min-h-screen">
+      <div className="px-4 md:px-20 pt-10 relative z-50">
         <Navbar />
       </div>
-      <h1 className="text-3xl font-bold text-center mb-8 mt-20">
-        About <span className="text-yellow-500">Us</span>
+      {/* Heading with Animation */}
+      <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 mt-20 text-[#2c3e50] animate-fade-in">
+        About <span className="text-yellow-500 animate-pulse">Us</span>
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-10 pb-20 px-4 md:px-20">
+      {/* Paragraph Content Section with Animation */}
+      <div className="px-4 md:px-20 animate-slide-in">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#2c3e50] mb-8 animate-fade-in">
+            Welcome to ISKCON WaveCity Ghaziabad
+          </h2>
+          <p className="text-gray-800 text-lg mb-8 animate-fade-in">
+            The ISKCON WaveCity Ghaziabad temple is a divine abode dedicated to the worship of Lord Krishna and His divine associates. It stands as a testament to the vision of His Divine Grace A.C. Bhaktivedanta Swami Prabhupada, the Founder-Acharya of the International Society for Krishna Consciousness (ISKCON), who envisioned spreading the teachings of Lord Krishna and the practice of bhakti-yoga to every corner of the world.
+          </p>
+          <p className="text-gray-800 text-lg mb-8 animate-fade-in">
+            Located in the heart of Ghaziabad, this temple is a spiritual oasis for devotees and seekers alike. It serves as a vibrant center for spiritual learning, cultural enrichment, and devotional service. The temple complex is designed to inspire peace, devotion, and a deep connection with the divine.
+          </p>
+          <p className="text-gray-800 text-lg mb-8 animate-fade-in">
+            Whether you are a lifelong devotee or a curious seeker, ISKCON WaveCity Ghaziabad welcomes you to experience the joy of devotion, the wisdom of ancient Vedic teachings, and the warmth of a loving spiritual family. Come and be a part of this divine journey, where every moment is an opportunity to connect with the Supreme Lord, Sri Krishna.
+          </p>
+        </div>
+      </div>
+      {/* Cards Section with Animation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-10 pb-20 px-4 md:px-20 animate-slide-in">
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all"
+            className="bg-white shadow-2xl rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-3xl"
             onClick={() => handleCardClick(item.id)}
           >
             <img
@@ -64,9 +79,11 @@ const AboutUs = () => {
               alt={item.title}
               className="w-full h-48 object-cover"
             />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2 text-center">{item.title}</h2>
-              <button className="w-full rounded-full mt-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-2 px-4 ">
+            <div className="p-6">
+              <h2 className="text-2xl font-bold mb-4 text-center text-[#2c3e50]">
+                {item.title}
+              </h2>
+              <button className="w-full rounded-full mt-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-2 px-4 hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300">
                 Read More
               </button>
             </div>

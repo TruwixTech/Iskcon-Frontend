@@ -18,10 +18,15 @@ export default {
           '50%': { transform: 'translateX(10px)' },
           '100%': { transform: 'translateX(0)' },
         },
+        slideIn: {
+          "0%": { transform: "translateY(20px)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
+        },
       },
       animation: {
         shine: "shine 2s infinite",
         'slide-arrow': 'slideArrow 1s infinite',
+        "slide-in": "slideIn 1s ease-out",
       },
     },
   },

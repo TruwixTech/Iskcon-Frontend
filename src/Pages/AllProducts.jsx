@@ -56,7 +56,7 @@ const AllProducts = () => {
             <div className='w-full flex justify-end items-center gap-4 mt-6'>
                 {/* Category Filter */}
                 <select
-                    className='p-2 border rounded-md shadow-sm bg-white'
+                    className='p-2 border rounded-full px-4 shadow-sm bg-white'
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -68,7 +68,7 @@ const AllProducts = () => {
 
                 {/* Price Filter */}
                 <select
-                    className='p-2 border rounded-md shadow-sm bg-white'
+                    className='p-2 border rounded-full px-4 shadow-sm bg-white'
                     value={priceFilter}
                     onChange={(e) => setPriceFilter(e.target.value)}
                 >
