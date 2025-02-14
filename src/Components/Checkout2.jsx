@@ -66,7 +66,7 @@ const Checkout2 = () => {
   
         const data = await response.json();
         setUser(data);
-        console.log("✅ User Data:", data);
+        // console.log("✅ User Data:", data);
   
         // Pre-fill form fields if user data exists
         setFormData((prev) => ({
@@ -128,11 +128,11 @@ const Checkout2 = () => {
         },
       };
   
-      console.log("Payload:", payload);
+      // console.log("Payload:", payload);
   
       // Send payment request to backend
       const response = await axios.post(`${backend}/admin/donationOrder/add`, payload);
-      console.log("Payment response:", response.data);
+      // console.log("Payment response:", response.data);
   
       if (
         response.data?.data?.instrumentResponse?.redirectInfo?.url

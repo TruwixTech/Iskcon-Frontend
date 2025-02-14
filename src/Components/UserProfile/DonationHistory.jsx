@@ -13,7 +13,7 @@ function DonationHistory() {
   async function fetchDonations() {
     try {
       const response = await axios.get(`${backend}/admin/donationOrder/get`);
-      console.log("API Response:", response.data); // Check the structure
+      // console.log("API Response:", response.data); // Check the structure
       setDonation(response.data || []); // Ensure it's an array
     } catch (error) {
       console.log("Error while fetching donations", error);

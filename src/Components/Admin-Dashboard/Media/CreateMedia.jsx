@@ -65,12 +65,12 @@ function CreateMedia() {
 
         images.forEach((image, index) => {
             if (image) {
-                formPayload.append(`image${index}`, image);
+                formPayload.append(`image`, image); // Append each image
             }
         });
 
         try {
-            const response = await axios.post(`${backend}/api/v1/media`, formPayload, {
+            const response = await axios.post(`${backend}/admin/media/create`, formPayload, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

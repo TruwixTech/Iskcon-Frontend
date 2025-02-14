@@ -75,8 +75,6 @@ function SingleDonation() {
     }
 }
 
-console.log(singleDonation)
-
   return (
     <>
       <div

@@ -1,53 +1,165 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import EditMediaPopup from './EditMediaPopup';
-// import EditEventsPopup from './EditEventsPopup';
+import axios from 'axios';
+import { MdDelete } from "react-icons/md";
+
+const backend = import.meta.env.VITE_BACKEND_URL;
 
 function AdminMedia() {
-  const [popup, setPopup] = useState(false);
-  const [currentMedia, setCurrentMedia] = useState(null);
-
-  function handleOpenPopup(media = null) {
-    setCurrentMedia(media);
-    setPopup(true);
-  }
+  const [media, setMedia] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedType, setSelectedType] = useState('all');
   const navigate = useNavigate();
-  const handleCreateMedia = () => {
-    navigate('/admin-dashboard/media/create-media');
+
+  // Date handling functions
+  const handlePreviousDate = () => {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() - 1);
+    setSelectedDate(newDate);
   };
+
+  const handleNextDate = () => {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() + 1);
+    setSelectedDate(newDate);
+  };
+
+  const formatDate = (date) => {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  // Media filtering logic
+  const parseCreatedAt = (dateString) => {
+    const [day, month, year] = dateString.split(' ')[0].split('-');
+    return new Date(year, month - 1, day);
+  };
+
+  const isSameDate = (date1, date2) => {
+    return (
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
+  };
+
+  // Get unique types from media
+  const mediaTypes = [...new Set(media.map(item => item.type))];
+
+  const filteredMedia = media.filter(item =>
+    isSameDate(parseCreatedAt(item.createdAt), selectedDate) &&
+    (selectedType === 'all' || item.type === selectedType)
+  );
+
+  // Data fetching
+  async function getAllMedia() {
+    try {
+      const response = await axios.get(`${backend}/admin/media/get`);
+      setMedia(response.data.data);
+    } catch (error) {
+      console.log("Error while fetching media", error);
+    }
+  }
+
+  //delete media 
+  async function deleteSingleMedia(id) {
+    try {
+      await axios.delete(`${backend}/admin/media/delete`, {
+        data: { mediaId: id } 
+      });
+      getAllMedia()
+      alert("Media deleted successfully!");
+    } catch (error) {
+      console.log("Error while fetching media", error);
+    }
+  }
+
+  useEffect(() => {
+    getAllMedia();
+  }, []);
 
   return (
     <div className='w-full h-auto flex flex-col'>
       <h1 className='text-center text-4xl font-semibold my-3'>Admin-Media-Section</h1>
+
       <div className='w-full h-auto flex flex-col my-10'>
         <div className='w-full h-auto flex flex-col justify-center items-center mb-10 gap-7'>
-          <span onClick={handleCreateMedia} className='w-auto px-5 py-2 border text-yellow-500 rounded-md active:bg-yellow-600 active:text-white font-medium border-yellow-500 md:hover:bg-yellow-600 duration-300 ease-in-out md:hover:text-white cursor-pointer'>
+          <button
+            onClick={() => navigate('/admin-dashboard/media/create-media')}
+            className='w-auto px-5 py-2 border text-yellow-500 rounded-md active:bg-yellow-600 active:text-white font-medium border-yellow-500 md:hover:bg-yellow-600 duration-300 ease-in-out md:hover:text-white cursor-pointer'
+          >
             Create A New Media
-          </span>
-        </div>
-        <div className='w-full h-auto px-5 md:px-10 lg:px-20 gap-4 lg:gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center'>
-          {[{ image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }, { image: "", title: "The title of first event", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores labore quam consequuntur. Saepe, incidunt eaque, totam exercitationem assumenda doloremque ipsa optio dolores cum fuga possimus quasi vel nulla vitae corrupti." }].map((event, index) => (
-            <div className='w-full h-auto p-3 lg:p-5 flex flex-col items-center gap-3 duration-300 ease-in-out border rounded-lg shadow-md hover:shadow-xl' key={index}>
-              <NavLink to='/admin-dashboard/events/single-event/125366434' className='w-full h-auto flex flex-col'>
-                <img src={event.image} alt="" className='w-full h-40' />
-                <h1 className='text-xl font-semibold'>{event.title}</h1>
-                <p className='text-sm text-gray-500'>{event.content.length > 150 ? event.content.slice(0, 150) + "..." : event.content.slice(0, 150)}</p>
-              </NavLink>
-              <div className='w-full h-auto flex justify-between items-center'>
-                <button onClick={() => handleOpenPopup(event)} className='px-6 py-2 bg-green-500 rounded-lg text-white'>Edit</button>
-                <button className='px-6 py-2 bg-red-500 rounded-lg text-white'>Delete</button>
-              </div>
+          </button>
+
+          {/* Filters */}
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            {/* Date Navigation */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handlePreviousDate}
+                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+              >
+                ←
+              </button>
+              <span className="text-lg font-medium">
+                {formatDate(selectedDate)}
+              </span>
+              <button
+                onClick={handleNextDate}
+                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+              >
+                →
+              </button>
             </div>
-          ))}
+
+            {/* Type Selector */}
+            <select
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value)}
+              className="px-4 py-2 border rounded-lg bg-white"
+            >
+              <option value="all">All Types</option>
+              {mediaTypes.map((type) => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Media Display */}
+        <div className='w-full h-auto px-5 md:px-10 lg:px-20 gap-4 lg:gap-6 grid grid-cols-1 place-content-center'>
+          {filteredMedia.length === 0 ? (
+            <p className="text-center text-gray-500">
+              No media found for {formatDate(selectedDate)} {selectedType !== 'all' && `of type ${selectedType}`}
+            </p>
+          ) : (
+            filteredMedia.map((mediaItem) => (
+              <div key={mediaItem._id} className="flex flex-col gap-4 mb-8">
+                <div className='w-full h-auto flex justify-between items-center'>
+                  <div className="flex flex-col">
+                    <h2 className="text-2xl font-semibold">{mediaItem.title}</h2>
+                    <span className="text-sm text-gray-500">{mediaItem.type}</span>
+                  </div>
+                  <div className='w-auto h-auto'>
+                    <MdDelete size={30} className='text-red-500 cursor-pointer' onClick={() => deleteSingleMedia(mediaItem._id)} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {mediaItem.image.map((imgUrl, index) => (
+                    <div key={index} className="relative aspect-square">
+                      <img
+                        src={imgUrl}
+                        alt={`${mediaItem.title} ${index + 1}`}
+                        className="w-full h-full object-cover rounded-lg shadow-md"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
-      {popup && (
-        <EditMediaPopup
-          product={currentMedia}
-          closePopup={() => setPopup(false)}
-        // refreshProducts={fetchProducts}
-        />
-      )}
     </div>
   )
 }
