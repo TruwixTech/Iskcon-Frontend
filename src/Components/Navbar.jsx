@@ -819,7 +819,7 @@ const Navbar = () => {
         )}
       </div>
       <div
-        className={`fixed inset-x-0 font-poppins z-50 h-[35%] flex flex-col overflow-y-scroll bottom-0 w-full bg-white shadow-lg px-6 py-3 transform transition-transform duration-300 ease-in-out  
+        className={`fixed inset-x-0 font-poppins z-[100] h-[35%] flex flex-col overflow-y-scroll bottom-0 w-full bg-white shadow-lg px-6 py-3 transform transition-transform duration-300 ease-in-out  
         ${donationSidebar ? "translate-y-0" : "translate-y-full"}`}
         style={{
           scrollbarWidth: "none",
@@ -938,7 +938,7 @@ const Navbar = () => {
       )}
       {donationSidebar && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-50"
           onClick={() => setDonationSidebar(false)}
         ></div>
       )}
