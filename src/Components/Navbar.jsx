@@ -49,8 +49,13 @@ const Navbar = () => {
   const { clearCart, removeFromCart, getCartTotal, addToCart, cartItems } =
     useContext(CartContext);
 
-  const { donationCartItems, addToDonationCart, clearDonationCart, removeFromDonationCart, getDonationCartTotal } =
-    useContext(DonationCartContext);
+  const {
+    donationCartItems,
+    addToDonationCart,
+    clearDonationCart,
+    removeFromDonationCart,
+    getDonationCartTotal,
+  } = useContext(DonationCartContext);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -280,10 +285,10 @@ const Navbar = () => {
                   />
                   {isDropdownOpen3 && (
                     <div
-                      className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
+                      className="absolute top-12 right-0 mt-2 w-52 z-50   bg-white shadow-lg rounded-lg border"
                       onMouseLeave={toggleDropdown3}
                     >
-                      <ul className="flex flex-col text-md space-y-1 m-2">
+                      <ul className="flex flex-col text-md space-y-1 m-2 ">
                         <Link
                           to="/profile"
                           className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
@@ -348,7 +353,7 @@ const Navbar = () => {
             <div className="absolute top-[70px] left-0 w-full bg-[#ece4c7] shadow-md p-6 lg:hidden z-50 rounded-3xl mt-4">
               <ul className="flex flex-col items-center gap-6 text-base font-medium">
                 {[
-                  { path: "/about-us", label: "About Us" },
+                  { path: "/about", label: "About Us" },
                   { path: "/donation", label: "Donation" },
                   { path: "/events", label: "Events" },
                   { path: "/blogs", label: "Blogs" },
@@ -380,8 +385,10 @@ const Navbar = () => {
                 >
                   <img src={cart} alt="cart" />
                 </span>
-                <span className="flex items-center justify-center text-black hover:text-[#eb852c]"
-                 onClick={() => setDonationSidebar(true)}>
+                <span
+                  className="flex items-center justify-center text-black hover:text-[#eb852c]"
+                  onClick={() => setDonationSidebar(true)}
+                >
                   <img src={donation} alt="" className="w-8 h-8" />
                 </span>
                 <NavLink
@@ -523,7 +530,7 @@ const Navbar = () => {
         )}
       </div>
       <div
-        className={`fixed inset-x-0 font-poppins z-50 h-[35%] overflow-y-scroll bottom-0 w-full bg-white shadow-lg px-6 py-3 transform transition-transform duration-300 ease-in-out  
+        className={`fixed inset-x-0 font-poppins z-50 h-[35%] flex flex-col overflow-y-scroll bottom-0 w-full bg-white shadow-lg px-6 py-3 transform transition-transform duration-300 ease-in-out  
         ${donationSidebar ? "translate-y-0" : "translate-y-full"}`}
         style={{
           scrollbarWidth: "none",
@@ -535,8 +542,8 @@ const Navbar = () => {
         >
           <IoMdClose size={40} />
         </button>
-        <div className="w-[95%] h-auto flex justify-between items-center">
-        <h2 className="text-3xl font-bold">Donation Cart</h2>
+        <div className="w-[95%] h-auto flex justify-between items-center mb-4">
+          <h2 className="text-3xl font-bold">Donation Cart</h2>
 
           <span
             className="flex gap-2 text-red-500 items-center text-sm md:text-base font-semibold cursor-pointer"
@@ -546,86 +553,91 @@ const Navbar = () => {
             <RiDeleteBin5Fill size={20} />
           </span>
         </div>
-        <div className="w-full flex flex-col h-auto gap-4 my-4">
-          {donationCartItems.length > 0 ? (
-            donationCartItems.map((item) => (
-              <div
-                key={item.id}
-                className="w-full flex items-center "
-              >
-                <div className="w-full md:w-1/2 flex justify-between items-center   h-full ">
-                  <div className="w-[80%] flex justify-between items-center gap-4">
-                    <h3 className="w-[90%] text-xs font-semibold sm:text-base xl:text-lg">
-                      {item.title}
-                    </h3>
-                    <div className="w-full h-auto flex justify-end">
-                    <div className="px-2 py-1 flex gap-2 text-xs items-center justify-center bg-[#ECA242] rounded-lg text-white sm:px-3 sm:text-base sm:rounded-xl sm:gap-3 xl:px-4 xl:py-1">
-                      <span
-                        onClick={() => removeFromDonationCart(item)}
-                        className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
-                      >
-                        -
-                      </span>
-                      <span className="font-semibold xl:text-lg">
-                        {item.quantity}
-                      </span>
-                      <span
-                        onClick={() => addToDonationCart(item)}
-                        className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
-                      >
-                        +
-                      </span>
+        <div className="w-full flex gap-10">
+          {/* Donation Cart Section */}
+          <div
+            className="w-1/2 flex flex-col gap-2 justify-start items-start overflow-y-auto"
+            style={{ maxHeight: "240px" }} // Fixed height for ~4 items
+          >
+            {donationCartItems.length > 0 ? (
+              donationCartItems.map((item) => (
+                <div key={item.id} className="w-full flex items-center">
+                  <div className="w-full flex flex-col border border-gray-300 rounded-lg p-2">
+                    <div className="w-full flex justify-between items-center">
+                      <h3 className="w-[60%] text-xs font-semibold sm:text-base xl:text-lg">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs font-semibold w-[15%] sm:text-sm xl:text-base">
+                        ₹ {item.amount * item.quantity}
+                      </p>
+                      <div className="w-[20%] h-auto flex justify-end">
+                        <div className="px-2 py-1 flex gap-2 text-xs items-center justify-center bg-[#ECA242] rounded-lg text-white sm:px-3 sm:text-base sm:rounded-xl sm:gap-3 xl:px-4 xl:py-1">
+                          <span
+                            onClick={() => removeFromDonationCart(item)}
+                            className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
+                          >
+                            -
+                          </span>
+                          <span className="font-semibold w-[20px] text-center xl:text-lg">
+                            {item.quantity}
+                          </span>
+                          <span
+                            onClick={() => addToDonationCart(item)}
+                            className="w-4 h-4 flex justify-center items-center rounded-full border border-white sm:w-5 sm:h-5 cursor-pointer select-none"
+                          >
+                            +
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  </div>
-                  <p className="text-xs font-semibold sm:text-sm xl:text-base">
-                      &#x20B9; {item.amount * item.quantity}
-                    </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-lg font-semibold h-80 flex justify-center items-center">
+                Cart is Empty
+              </p>
+            )}
+          </div>
+
+          {/* Donation Summary & Checkout Section */}
+          {donationCartItems.length > 0 && (
+            <div className="w-1/2 flex flex-col gap-4">
+              {/* Checkout as Guest Checkbox */}
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="w-3 cursor-pointer"
+                  id="checkout"
+                />
+                <label htmlFor="checkout" className="text-xs cursor-pointer">
+                  Checkout as Guest
+                </label>
+              </div>
+
+              {/* Divider */}
+              <div className="h-[1px] bg-gray-400 w-full"></div>
+
+              {/* Donation Summary */}
+              <div className="flex flex-col gap-2">
+                <h1 className="font-semibold lg:text-lg xl:text-2xl">
+                  Donation Summary
+                </h1>
+                <div className="flex justify-between text-sm sm:text-base md:text-lg">
+                  <span>Total Donation</span>
+                  <span>&#x20B9; {getDonationCartTotal()}</span>
                 </div>
               </div>
-            ))
-          ) : (
-            <p className="text-center text-lg font-semibold h-80 flex justify-center items-center">
-              Cart is Empty
-            </p>
-          )}
-        </div>
-        {donationCartItems.length > 0 && (
-          <div className="w-full h-auto flex flex-col">
-            <div className="w-full h-auto flex gap-2 items-center">
-              <input type="checkbox" className="w-3" id="checkout" />
-              <label htmlFor="checkout" className="text-xs">
-                Checkout as Guest
-              </label>
-            </div>
-            <div className="h-[1px] bg-black w-full mt-1"></div>
-            <div className="w-full h-auto flex flex-col mt-4 gap-1.5 md:gap-2">
-              <h1 className="font-semibold lg:text-lg xl:text-2xl">
-                Donation Summary
-              </h1>
-              <div className="w-full h-auto flex justify-between items-center md:text-lg">
-                <span>Total Donation</span>
-                <span>&#x20B9; {getDonationCartTotal()}</span>
-              </div>
-              {/* <div className="w-full h-[1px] bg-black"></div>
-              <div className="w-full h-auto flex justify-between items-center md:text-lg">
-                <span className="font-semibold">Total Amount</span>
-                <span>&#x20B9; {getDonationCartTotal()}</span>
-              </div> */}
-            </div>
 
-            <div>
-              <Link
-                to={`/donation-checkout`}
-                className="w-full h-auto flex mt-5 lg:mt-7"
-              >
-                <button className="w-full bg-[#EB852C] rounded-3xl text-white h-auto flex justify-center items-center py-2 md:hover:bg-[#ffab62]">
+              {/* Checkout Button */}
+              <Link to="/donation-checkout" className="w-full">
+                <button className="w-full bg-[#EB852C] rounded-3xl text-white py-2 hover:bg-[#ffab62] transition">
                   Checkout
                 </button>
               </Link>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Backdrop for Cart Sidebar */}

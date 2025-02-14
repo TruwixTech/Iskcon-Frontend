@@ -173,7 +173,7 @@ const Homepage = () => {
 
           <div className="md:hidden block">
             <div
-              className="w-full h-full absolute top-[15%] z-[100] -left-60"
+              className="w-full h-full absolute top-[15%] z-[60]  -left-60"
               style={textStyle2}
             >
               <div className="flex flex-col gap-2 mt-10">

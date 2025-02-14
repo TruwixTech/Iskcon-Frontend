@@ -7,6 +7,7 @@ import Border1 from "../../assets/section1border1.svg";
 import Border2 from "../../assets/section1border2.svg";
 import { DonationCartContext } from "../../Context/DonationCartContext";
 import PaymentDetailsCard from "../PaymentDetailsCard";
+import { toast } from "react-toastify";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -39,18 +40,19 @@ function SingleDonation() {
     }
   }
 
+  
   // Update scrollY value on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrollY(window.scrollY);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -67,11 +69,18 @@ function SingleDonation() {
             amount: donationType.amount,
             quantity: 1
         });
-        window.scrollTo(0, 0);
-        alert("Donation Added to Cart Successfully !!");
-
+        toast.success("Donation Added to cart !!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      });
     } else {
-        alert("This donation is already in the cart.");
+        toast.error("Donation Already in Cart!");
     }
 }
 
@@ -105,9 +114,11 @@ function SingleDonation() {
                 {singleDonation?.description?.slice(0, 150)}
               </p>
               <div className="w-full h-auto flex justify-center items-center">
+              <a href={`/donation/single-donation/${id}#section2`}>
                 <button className="px-4 py-2 bg-[#EB852C] text-white font-poppins rounded-3xl text-sm lg:py-3 lg:text-base lg:px-6 md:hover:bg-[#fd8721]">
                   Donate Now
                 </button>
+                </a>
               </div>
             </div>
           </div>
@@ -118,7 +129,7 @@ function SingleDonation() {
           </div>
         </div>
       </div>
-      <div className="w-full h-auto flex flex-col py-10 px-5 md:px-10 lg:px-20 lg:py-20">
+      <div className="w-full h-auto flex flex-col py-10 px-5 md:px-10 lg:px-20 lg:py-20" id="section2">
         <h1 className="w-full h-auto text-center text-[#3B2106] font-prata md:text-xl lg:text-2xl xl:text-4xl">
           You Can Also Contribute For {singleDonation?.title}
         </h1>

@@ -62,13 +62,15 @@ const EventPage = () => {
             className="w-full h-full rounded-3xl object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 rounded-3xl mx-4 md:mx-20  "></div>
-          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-5xl font-prata text-white font-semibold">Events</div>
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-5xl font-prata text-white font-semibold">
+            Events
+          </div>
         </div>
 
         <div>
           <div className=" mx-auto py-8 px-5 md:px-10 lg:px-20">
             {/* Trending Blogs */}
-            <section className="px-4 mt-10">
+            <section className="px-0 md:px-4 mt-10">
               <div className="w-full flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-10">
                 <div className="w-full md:w-1/3 text-center md:text-start">
                   {search.length > 0 ? null : (
@@ -156,35 +158,69 @@ const EventPage = () => {
                   Trending Events
                 </h2>
               ) : null}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
-                {events?.slice(0, 3)?.map((event) => (
-                  <NavLink
-                    to={`/events/single-event/${event._id}`}
-                    key={event._id}
-                    className=" overflow-hidden cursor-pointer transform transition duration-500 ease-out hover:scale-105 font-prata"
-                  >
-                    <div className="rounded-lg ">
-                      <img
-                        src={event.image[0]}
-                        alt={event.title}
-                        className="w-full h-[250px] rounded-lg object-fit"
-                      />
-                    </div>
+              <div className="flex gap-10">
+                <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 ">
+                  {events?.slice(0, 2)?.map((event) => (
+                    <NavLink
+                      to={`/events/single-event/${event._id}`}
+                      key={event._id}
+                      className=" overflow-hidden cursor-pointer transform transition duration-500 ease-out hover:scale-105 font-prata"
+                    >
+                      <div className="rounded-lg ">
+                        <img
+                          src={event.image[0]}
+                          alt={event.title}
+                          className="w-full h-[250px] rounded-lg object-fit"
+                        />
+                      </div>
 
-                    <div className="p-4">
-                      <p className="text-sm text-[#4F4F4F]">
-                        {formatDate(event?.startDate)} •{" "}
-                        {formatDate(event?.endDate)}
-                      </p>
-                      <h3 className="text-lg font-bold mt-2">{event.title}</h3>
-                      <p className="text-sm text-gray-700 mt-2">
-                        {event.description.length > 200
-                          ? event.description.slice(0, 200) + "..."
-                          : event.description}
-                      </p>
-                    </div>
-                  </NavLink>
-                ))}
+                      <div className="p-4">
+                        <p className="text-sm text-[#4F4F4F]">
+                          {formatDate(event?.startDate)} •{" "}
+                          {formatDate(event?.endDate)}
+                        </p>
+                        <h3 className="text-lg font-bold mt-2">
+                          {event.title}
+                        </h3>
+                        <p className="text-sm text-gray-700 mt-2">
+                          {event.description.length > 200
+                            ? event.description.slice(0, 200) + "..."
+                            : event.description}
+                        </p>
+                      </div>
+                    </NavLink>
+                  ))}
+                </div>
+                <aside className="w-full md:w-1/3 md:block hidden">
+                  <h2 className="text-3xl font-semibold mb-6 font-poppins">
+                    Related Events
+                  </h2>
+                  <div className="space-y-4">
+                    {events?.slice(9).map((event) => (
+                      <NavLink
+                        to={`/events/single-event/${event._id}`}
+                        key={event._id}
+                        className="flex items-center cursor-pointer space-x-4 font-prata"
+                      >
+                        <div className="w-[100px] md:w-[120px] h-20 md:h-24 lg:w-[150px]">
+                          <img
+                            src={event.image[0]}
+                            alt={event.title}
+                            className="w-full h-full object-fit rounded-lg"
+                          />
+                        </div>
+
+                        <div>
+                          <h3 className="text-sm font-bold">{event.title}</h3>
+                          <p className="text-sm text-[#4F4F4F] mt-3">
+                            {formatDate(event?.startDate)} •{" "}
+                            {formatDate(event?.endDate)}
+                          </p>
+                        </div>
+                      </NavLink>
+                    ))}
+                  </div>
+                </aside>
               </div>
             </section>
 
@@ -194,7 +230,7 @@ const EventPage = () => {
                 Latest Events
               </h2>
               <div className="w-full flex flex-col md:flex-row gap-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full md:w-2/3 ">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full ">
                   {events?.slice(3, 9).map((event) => (
                     <NavLink
                       to={`/events/single-event/${event._id}`}
@@ -230,7 +266,7 @@ const EventPage = () => {
                   ))}
                 </div>
                 {/* Related Blogs */}
-                <aside className="w-full md:w-1/3">
+                <aside className="w-full md:w-1/3 md:hidden">
                   <h2 className="text-3xl font-semibold mb-6 font-poppins">
                     Related Events
                   </h2>

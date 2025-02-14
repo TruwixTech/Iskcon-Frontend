@@ -102,17 +102,17 @@ const CSRPage = () => {
     fetchCSRDonation();
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrollY(window.scrollY);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
  
   return (

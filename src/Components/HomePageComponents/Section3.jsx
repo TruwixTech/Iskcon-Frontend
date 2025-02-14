@@ -49,14 +49,14 @@ function Section3() {
                                 </div>
                             </div>
                         </div>
-                        <div className='w-full h-auto flex gap-3 items-center mt-10 lg:mt-0 lg:mb-14 xl:mb-20 2xl:mb-32 '>
+                        {/* <div className='w-full h-auto flex gap-3 items-center mt-10 lg:mt-0 lg:mb-14 xl:mb-20 2xl:mb-32 '>
                             <button className='w-10 h-10 rounded-full border border-[#32203875] bg-[#5F2C7014] flex justify-center items-center xl:h-12 xl:w-12'>
                                 <MdOutlineKeyboardArrowLeft size={20} className='text-black' />
                             </button>
                             <button className='w-10 h-10 rounded-full bg-[#EB852C] flex justify-center items-center xl:h-12 xl:w-12'>
                                 <MdOutlineKeyboardArrowRight size={20} className='text-white' />
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='w-full h-auto flex flex-col relative sm:w-[80%] sm:mx-auto md:mx-0 md:w-[40%] lg:w-[40%] md:justify-end'>
                         <div className='w-[60%] h-auto ml-auto'>
