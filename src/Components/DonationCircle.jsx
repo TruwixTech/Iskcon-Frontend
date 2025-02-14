@@ -77,7 +77,7 @@ function DonationCircle() {
           Transform lives with your contribution towards Society.
         </p>
         <div className="w-full h-auto flex flex-wrap justify-center items-center gap-6 mb-10 overflow-hidden">
-          {donation.map((item, index) => (
+          {donation?.map((item, index) => (
             <div
               key={index}
               className="w-[300px] h-72 rounded-full flex justify-center items-center relative 2xl:h-80 2xl:w-[320px]"

@@ -1,7 +1,7 @@
 import logo from "../assets/logo.svg";
 import { Link, NavLink } from "react-router-dom";
 import cart from "../assets/cart.svg";
-import { useContext, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -9,9 +9,13 @@ import { CartContext } from "../Context/CartContext";
 import { DonationCartContext } from "../Context/DonationCartContext";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
-import { useEffect } from "react";
 import logicon from "../assets/enter.png";
 import donation from "../assets/donation.png";
+import { PiBellSimpleZLight } from "react-icons/pi";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+import sun from "../assets/sun.gif"
+import moon from "../assets/moon.gif"
+import puja from "../assets/puja.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,6 +27,102 @@ const Navbar = () => {
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
   const [hasAccessToken, setHasAccessToken] = useState(false);
+  const [status, setStatus] = useState({ isOpen: false, timeSlot: "Closed" });
+  const [isDayTime, setIsDayTime] = useState(false); // New state for day/night
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  useEffect(() => {
+    const checkTime = () => {
+      const currentTime = new Date();
+      const currentHour = currentTime.getHours();
+      const currentMinute = currentTime.getMinutes();
+
+      // Define the open and closed time ranges
+      const openingHour = 4;
+      const openingMinute = 30;
+      const closingHourMorning = 13;
+      const closingMinuteMorning = 0;
+      const afternoonCloseStart = 13;
+      const afternoonCloseEnd = 16;
+      const reopeningHour = 16;
+      const reopeningMinute = 0;
+      const closingHourEvening = 21;
+      const closingMinuteEvening = 30;
+      const nightCloseStart = 21;
+      const nightCloseMinuteStart = 30;
+      const nightCloseEnd = 4;
+      const nightCloseMinuteEnd = 30;
+
+      // Determine if it's open or closed
+      if (
+        (currentHour > openingHour ||
+          (currentHour === openingHour && currentMinute >= openingMinute)) &&
+        (currentHour < closingHourMorning ||
+          (currentHour === closingHourMorning &&
+            currentMinute <= closingMinuteMorning))
+      ) {
+        // Open from 04:30 - 13:00
+        setStatus({
+          isOpen: true,
+          timeSlot: "04:30 - 13:00",
+        });
+        setIsDayTime(true);
+      } else if (
+        currentHour >= afternoonCloseStart &&
+        currentHour < afternoonCloseEnd
+      ) {
+        // Closed from 13:00 - 16:00
+        setStatus({
+          isOpen: false,
+          timeSlot: "13:00 - 16:00",
+        });
+        setIsDayTime(true);
+      } else if (
+        (currentHour > reopeningHour ||
+          (currentHour === reopeningHour &&
+            currentMinute >= reopeningMinute)) &&
+        (currentHour < closingHourEvening ||
+          (currentHour === closingHourEvening &&
+            currentMinute <= closingMinuteEvening))
+      ) {
+        // Open from 16:00 - 21:30
+        setStatus({
+          isOpen: true,
+          timeSlot: "16:00 - 21:30",
+        });
+        setIsDayTime(false);
+      } else if (
+        currentHour > nightCloseStart ||
+        (currentHour === nightCloseStart &&
+          currentMinute >= nightCloseMinuteStart) ||
+        currentHour < nightCloseEnd ||
+        (currentHour === nightCloseEnd && currentMinute <= nightCloseMinuteEnd)
+      ) {
+        // Closed from 21:30 - 04:30
+        setStatus({
+          isOpen: false,
+          timeSlot: "21:30 - 04:30",
+        });
+        setIsDayTime(false);
+      } else {
+        // Default to closed if none of the conditions are met
+        setStatus({
+          isOpen: false,
+          timeSlot: "Closed",
+        });
+      }
+    };
+
+    checkTime();
+
+    const interval = setInterval(checkTime, 60000);
+
+    // Clean up interval on unmount
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Get the token from localStorage
@@ -68,8 +168,197 @@ const Navbar = () => {
 
   return (
     <>
+      <div className="w-full flex justify-end">
+        <div className="flex items-center gap-6">
+          <div className="bg-[#ffffff] rounded-3xl py-3 px-4 flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
+            <span>
+              {status.isOpen ? (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 19 19"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="9.5" cy="9.5" r="9.5" fill="#C2FFC2" />
+                  <circle cx="9.50006" cy="9.5" r="7.26471" fill="#88F888" />
+                  <circle
+                    cx="9.49965"
+                    cy="9.50002"
+                    r="3.91176"
+                    fill="#50D850"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 19 19"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="9.5" cy="9.5" r="9.5" fill="#FFC2C2" />
+                  <circle cx="9.50006" cy="9.5" r="7.26471" fill="#F88888" />
+                  <circle
+                    cx="9.49965"
+                    cy="9.50002"
+                    r="3.91176"
+                    fill="#D85050"
+                  />
+                </svg>
+              )}
+            </span>
+
+            <p className="text-gray-600 text-sm font-semibold">
+              {status.isOpen ? "Open" : "Closed"}
+            </p>
+            <span>
+              <img
+                src={isDayTime ? sun : moon}
+                alt="status"
+                width={20}
+                height={20}
+              />
+            </span>
+            <p className="text-gray-600 text-sm font-semibold">
+              {status.timeSlot}
+            </p>
+          </div>
+          <div
+              className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+              onClick={openModal}
+            >
+              <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
+                🗓️
+              </span>
+              <p className="pr-2 text-gray-600 text-sm font-semibold">
+                Schedule
+              </p>
+            </div>
+          {isOpen && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30"
+                onClick={closeModal}
+              >
+                <div
+                  className="bg-white rounded-lg shadow-lg p-6 w-[100%] max-w-7xl relative"
+                  onClick={(e) => e.stopPropagation()} 
+                >
+                  <button
+                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+                    onClick={closeModal}
+                  >
+                    <IoIosCloseCircleOutline size={40} />
+                  </button>
+
+                  <h2 className="text-xl font-bold text-center mb-4">
+                    ISKCON Wevecity Temple Timings
+                  </h2>
+                  <p className="text-center text-gray-600 font-semibold mb-8">
+                    Closed from 13:00 - 16:00 and 21:30 - 04:10
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-8">
+                    {[
+                      {
+                        time: "04:30 AM",
+                        event: "Mangal Aarti",
+                        translation: "मंगल आरती",
+                      },
+                      {
+                        time: "05:00 AM",
+                        event: "Tulsi puja",
+                        translation: "तुलसी पूजा",
+                      },
+                      {
+                        time: "07:15 AM",
+                        event: "Shrinagar Darshan",
+                        translation: "श्रीनगर दर्शन",
+                      },
+                      {
+                        time: "07:30 AM",
+                        event: "Guru Puja",
+                        translation: "गुरु पूजा",
+                      },
+                      {
+                        time: "08:00 AM",
+                        event: "Srimad Bhagavatam Class",
+                        translation: "श्रीमद भागवतम क्लास",
+                      },
+                      {
+                        time: "12:30 PM",
+                        event: "Raj Bhoga Aarti",
+                        translation: "राज भोग आरती",
+                      },
+                      {
+                        time: "01:00 PM",
+                        event: "Darshan Closed",
+                        translation: "दर्शन बंद",
+                      },
+                      {
+                        time: "04:15 PM",
+                        event: "Dhoop Aarti",
+                        translation: "धूप आरती",
+                      },
+                      {
+                        time: "06:30 PM",
+                        event: "Sandhya Aarti",
+                        translation: "संध्या आरती",
+                      },
+                      {
+                        time: "07:30 PM",
+                        event: "Bhagavad Gita Discourse",
+                        translation: "भगवद गीता डिस्कोर्स ",
+                      },
+                      {
+                        time: "08:30 PM",
+                        event: "Shayan Aarti",
+                        translation: "शयन आरती",
+                      },
+                      {
+                        time: "09:00 PM",
+                        event: "Darshan Closed",
+                        translation: "दर्शन बंद",
+                      },
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <span className="w-10 h-10 bg-blue-300 rounded-full flex justify-center items-center">
+                          <img
+                            src={puja}
+                            alt="icon"
+                            width={200}
+                            height={200}
+                            className="w-6 h-6 object-contain"
+                          />
+                        </span>
+                        <div>
+                          <p className="font-bold">
+                            {item.time} – {item.event}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {item.translation}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          {/* <div>
+              <span className="bg-[#ffffff] rounded-full w-10 h-10 flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
+                <PiBellSimpleZLight size={24} />
+              </span>
+            </div>
+            <div>
+              <span className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-2 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
+                Login
+              </span>
+            </div> */}
+        </div>
+      </div>
       <div
-        className="w-full h-[70px] rounded-[100px] pl-6 pr-4"
+        className="w-full h-[70px] rounded-[100px] pl-6 pr-4 mt-2"
         style={{
           backgroundColor: "rgba(251,247,245,0.7)",
           backdropFilter: "blur(8px)",
