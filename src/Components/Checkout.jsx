@@ -128,7 +128,7 @@ const Checkout = () => {
         },
       };
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       // Send payment request to backend
       const response = await axios.post(`${backend}/admin/order/add`, payload);

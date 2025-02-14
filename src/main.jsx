@@ -34,7 +34,6 @@ import AdminClasses from "./Components/Admin-Dashboard/Classes/AdminClasses.jsx"
 import CreateOfflineClasses from "./Components/Admin-Dashboard/Classes/CreateOfflineClasses.jsx";
 import SingleClass from "./Components/Admin-Dashboard/Classes/SingleClass.jsx";
 import AdminMedia from "./Components/Admin-Dashboard/Media/AdminMedia.jsx";
-import AdminSingleMedia from "./Components/Admin-Dashboard/Media/AdminSingleMedia.jsx";
 import CreateMedia from "./Components/Admin-Dashboard/Media/CreateMedia.jsx";
 import DonationPage from "./Pages/DonationPage.jsx";
 import SinglePageDonation from "./Components/Admin-Dashboard/Donation/SinglePageDonation.jsx";
@@ -65,6 +64,7 @@ import Confirm from "./Pages/Confirm.jsx";
 import AllProducts from "./Pages/AllProducts.jsx";
 import TempleConstruction from "./Pages/TempleConstruction.jsx";
 import DonationConfirm from "./Pages/DonationConfirm.jsx";
+import DailyDarshan from "./Pages/DailyDarshanPage.jsx";
 
 
 const MainApp = () => {
@@ -158,10 +158,6 @@ const MainApp = () => {
               element={<CreateMedia />}
             />
             <Route
-              path="/admin-dashboard/media/single-media/:id"
-              element={<AdminSingleMedia />}
-            />
-            <Route
               path="/admin-dashboard/csrdonation"
               element={<CSRDonation />}
             />
@@ -173,6 +169,7 @@ const MainApp = () => {
 
           {/* Public Routes */}
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/daily-darshan" element={<DailyDarshan />} />
           <Route path="/shop/single-product/:id" element={<SingleProduct />} />
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/blogs" element={<BlogsPage />} />

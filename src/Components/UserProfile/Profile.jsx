@@ -34,7 +34,7 @@ function Profile() {
       const data = await response.json();
       setUser(data);
       
-      console.log("✅ User Data:", data);
+      // console.log("✅ User Data:", data);
     } catch (error) {
       console.error("❌ Error fetching user data:", error);
     }
