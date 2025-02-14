@@ -168,7 +168,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full flex justify-end">
+      <div className="w-full md:flex justify-end hidden ">
         <div className="flex items-center gap-6">
           <div className="bg-[#ffffff] rounded-3xl py-3 px-4 flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
             <span>
