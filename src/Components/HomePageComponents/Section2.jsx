@@ -44,7 +44,7 @@ function Section2() {
             </p>
             <div className="w-full h-auto font-poppins">
               <a href="/donation#donationcircle">
-                <button className="px-3 py-2 text-sm text-white bg-[#EB852C] rounded-3xl xl:px-6 xl:py-3 xl:text-base">
+                <button className="px-8 py-2 text-sm text-white bg-[#EB852C] rounded-3xl xl:px-20 xl:py-3 xl:text-base">
                   Donate
                 </button>
               </a>

@@ -14,6 +14,8 @@ import Icon4 from '../../assets/singleProductIcon4.png'
 import axios from 'axios'
 import ProductCard from './ProductCard'
 import { CartContext } from '../../Context/CartContext'
+import { toast } from "react-toastify";
+
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -68,8 +70,16 @@ function SingleProduct() {
                 quantity: 1
 
             })
-            alert("Pruduct Added to cart Successfully !!")
-        }
+            toast.success("Product added to cart successfully!!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });}
 
     }
 

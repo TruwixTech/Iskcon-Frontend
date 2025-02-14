@@ -85,7 +85,6 @@ const BlogPage = () => {
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 rounded-3xl mx-4 md:mx-20  "></div>
           <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-5xl font-prata text-white font-semibold">Blogs</div>
-
         </div>
         <div className="my-10">
           <Marquee className="font-prata h-12 text-3xl text-[#ED683C]  overflow-y-hidden">
@@ -104,7 +103,7 @@ const BlogPage = () => {
         <div>
           <div className=" mx-auto py-8 px-5 md:px-10 lg:px-20">
             {/* Trending Blogs */}
-            <section className="px-4 mt-10">
+            <section className="md:px-4 mt-10">
               <div className="w-full flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-10">
                 <div className="w-full md:w-1/3 text-center md:text-start">
                   {
@@ -202,8 +201,9 @@ const BlogPage = () => {
                   </h2>
                   : null
               }
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
-                {blogs?.slice(0, 3)?.map((blog) => (
+              <div className="w-full flex gap-10">
+              <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 ">
+                {blogs?.slice(0, 2)?.map((blog) => (
                   <NavLink
                     to={`/blogs/single-blog/${blog._id}`}
                     key={blog._id}
@@ -230,6 +230,37 @@ const BlogPage = () => {
                   </NavLink>
                 ))}
               </div>
+              <aside className="w-full md:w-1/3 hidden md:block">
+                  <h2 className="text-3xl font-semibold mb-6 font-poppins">
+                    Related Blogs
+                  </h2>
+                  <div className="space-y-4">
+                    {blogs?.slice(9).map((blog) => (
+                      <NavLink
+                        to={`/blogs/single-blog/${blog._id}`}
+                        key={blog._id}
+                        className="flex items-center cursor-pointer space-x-4 font-prata"
+                      >
+                        <div className="w-[100px] md:w-[120px] h-20 md:h-24 lg:w-[150px]">
+                          <img
+                            src={blog.image[0]}
+                            alt={blog.title}
+                            className="w-full h-full object-fit rounded-lg"
+                          />
+                        </div>
+
+                        <div>
+                          <h3 className="text-sm font-bold">{blog.title}</h3>
+                          <p className="text-sm text-[#4F4F4F] mt-3">
+                            {blog.createdAt.slice(0, 10)} •
+                            {timeSince(blog.createdAt)}
+                          </p>
+                        </div>
+                      </NavLink>
+                    ))}
+                  </div>
+                </aside>
+              </div>
             </section>
 
             {/* Latest Blogs */}
@@ -238,7 +269,7 @@ const BlogPage = () => {
                 Latest Blog
               </h2>
               <div className="w-full flex flex-col md:flex-row gap-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full md:w-2/3 ">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full ">
                   {blogs?.slice(3, 9).map((blog) => (
                     <NavLink
                       to={`/blogs/single-blog/${blog._id}`}
@@ -266,7 +297,7 @@ const BlogPage = () => {
                   ))}
                 </div>
                 {/* Related Blogs */}
-                <aside className="w-full md:w-1/3">
+                <aside className="w-full md:w-1/3 md:hidden">
                   <h2 className="text-3xl font-semibold mb-6 font-poppins">
                     Related Blogs
                   </h2>

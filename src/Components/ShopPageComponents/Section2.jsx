@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Category1 from '../../assets/category1.svg';
-import Category2 from '../../assets/category2.svg';
+import Category2 from '../../assets/grocery.png';
 import Category3 from '../../assets/category3.svg';
 import Category4 from '../../assets/category4.svg';
 import Category5 from '../../assets/cloth.webp'; // New category icon for Clothes
@@ -9,6 +9,8 @@ import Border2 from '../../assets/section1border2.svg';
 import axios from 'axios';
 import ProductCard from './ProductCard';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 

@@ -66,6 +66,7 @@ import AllProducts from "./Pages/AllProducts.jsx";
 import TempleConstruction from "./Pages/TempleConstruction.jsx";
 import DonationConfirm from "./Pages/DonationConfirm.jsx";
 
+
 const MainApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

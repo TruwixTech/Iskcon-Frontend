@@ -32,17 +32,17 @@ function Section1() {
     ]
 
     // Update scrollY value on scroll
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrollY(window.scrollY);
-        };
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         setScrollY(window.scrollY);
+    //     };
 
-        window.addEventListener("scroll", handleScroll);
+    //     window.addEventListener("scroll", handleScroll);
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener("scroll", handleScroll);
+    //     };
+    // }, []);
 
     return (
         <div className='w-full h-auto flex flex-col bg-[#FDE3B6] px-4 md:px-10 lg:flex-row-reverse 2xl:h-screen' style={
