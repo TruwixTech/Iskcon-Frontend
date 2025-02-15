@@ -101,10 +101,10 @@ const Homepage = () => {
             >
               <div className="flex flex-col gap-2 relative z-[999]">
                 <h3 className="text-xl">
-                  Connect to SHRI SHRI RADHA MADAN MOHAN JI
+                Feel the Divine Essence of Lord Krishna
                 </h3>
                 <h2 className="text-4xl">Welcome to</h2>
-                <h1 className="text-6xl font-[500]">ISCKON Ghaziabad</h1>
+                <h1 className="text-5xl font-[500]">ISCKON Wavecity <br/> Ghaziabad</h1>
                 <div className="flex gap-4 items-center">
                 <a href="/donation#donationcircle" className="">
                     <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
