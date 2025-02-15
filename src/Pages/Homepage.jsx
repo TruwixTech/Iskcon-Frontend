@@ -90,7 +90,7 @@ const Homepage = () => {
       <div className="w-full h-auto relative font-poppins">
         {/* Hero Section */}
         <div className="w-full h-[800px] md:h-screen relative bg-[#fde3b6] overflow-hidden">
-          <div className="w-full h-[70px] z-[100] absolute top-10 px-4 md:px-20">
+          <div className="w-full h-[70px] z-[100] absolute top-4 px-4 md:px-20">
             <Navbar />
           </div>
 

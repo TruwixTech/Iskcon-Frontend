@@ -169,7 +169,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full md:flex justify-end hidden ">
+      <div className="w-full flex justify-end ">
         <div className="flex items-center gap-3">
           <div className="bg-[#ffffff] rounded-3xl py-3 px-4 flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
             <span>
@@ -594,34 +594,7 @@ const Navbar = () => {
                   )}
                 </>
               ) : (
-                <>
-                  <div className="relative flex items-center gap-4">
-                    <div className="mr-2" onMouseEnter={toggleDropdown3}>
-                      <img src={logicon} alt="" className="w-10 h-10 " />
-                    </div>
-                    {isDropdownOpen3 && (
-                      <div
-                        className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
-                        onMouseLeave={toggleDropdown3}
-                      >
-                        <ul className="flex flex-col text-md space-y-1 m-2">
-                          <Link
-                            to="/signup"
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          >
-                            SignUp
-                          </Link>
-                          <Link
-                            to="/signin"
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          >
-                            SignIn
-                          </Link>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </>
+               ""
               )}
             </div>
           </div>

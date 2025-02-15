@@ -49,7 +49,7 @@ const AllProducts = () => {
     }, [selectedCategory, priceFilter, products]);
 
     return (
-        <div className='w-full h-auto flex flex-col bg-[#fde3b6] px-5 pt-10 md:px-10 xl:px-20 pb-8 md:pb-14 xl:pb-20'>
+        <div className='w-full h-auto flex flex-col bg-[#fde3b6] px-5 pt-4 md:px-10 xl:px-20 pb-8 md:pb-14 xl:pb-20'>
             <Navbar />
             <span className='font-prata text-center text-3xl font-bold sm:text-3xl md:text-3xl pt-10'>All Products</span>
             

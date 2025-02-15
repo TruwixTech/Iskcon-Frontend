@@ -107,7 +107,7 @@ function Confirm() {
 
   return (
     <div className="bg-[#fde3b6] w-full h-auto">
-      <div className="px-20 pt-10 relative z-50">
+      <div className="px-20 pt-4 relative z-50">
         <Navbar />
       </div>
 

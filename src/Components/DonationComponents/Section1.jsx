@@ -15,7 +15,7 @@ const Section1 = () => {
       }}
     >
       {/* Navbar Section */}
-      <div className="absolute top-0 left-0 w-full px-4 md:px-20 pt-10 z-50">
+      <div className="absolute top-0 left-0 w-full px-4 md:px-20 pt-4 z-50">
         <Navbar />
       </div>
 

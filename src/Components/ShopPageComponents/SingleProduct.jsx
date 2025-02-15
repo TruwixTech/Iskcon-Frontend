@@ -100,7 +100,7 @@ function SingleProduct() {
                     backgroundPosition: 'top',
                 }}
             >
-                <div className="px-4 md:px-20 py-10 relative z-50">
+                <div className="px-4 md:px-20 pt-4 pb-10 relative z-50">
                     <Navbar />
                 </div>
                 <div className='w-full h-auto flex flex-col px-5 md:px-10 xl:px-20 md:flex-row md:justify-between'>

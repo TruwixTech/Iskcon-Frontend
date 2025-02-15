@@ -183,7 +183,7 @@ function Profile() {
         backgroundSize: "contain",
       }}
     >
-      <div className="px-4 md:px-20 py-10 z-10 relative">
+      <div className="px-4 md:px-20 pt-4 pb-10 z-10 relative">
         <Navbar />
       </div>
 

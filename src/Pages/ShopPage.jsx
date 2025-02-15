@@ -27,7 +27,7 @@ function ShopPage() {
                     backgroundPosition: 'center',
                 }}
             >
-                <div className="px-4 md:px-20 pt-10 relative z-50">
+                <div className="px-4 md:px-20 pt-4 relative z-50">
                     <Navbar />
                 </div>
                 <div className='w-[95%] sm:w-[80%] lg:w-[74%] 2xl:w-[65%] mt-10 mx-auto gap-8 h-auto flex flex-col py-6 relative sm:mt-20'>

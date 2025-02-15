@@ -119,13 +119,13 @@ const CSRPage = () => {
     <>
       {/* first section */}
       <div className="bg-[#fde3b6] w-full h-[500px] lg:h-screen relative ">
-        <div className="px-4 md:px-20 pt-10 relative z-50 ">
+        <div className="px-4 md:px-20 pt-4 relative z-50 ">
           <Navbar />
         </div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full opacity-15">
           <img src={circlebg} alt="" className="w-full" />
         </div>
-        <div className="absolute top-7 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
           <img src={csr} alt="csr" className="" />
         </div>
         <div className="absolute bottom-0 right-20 md:flex gap-10 hidden">
