@@ -118,8 +118,8 @@ function DailyDarshan() {
                         filteredMedia.map((mediaItem) => (
                             <div key={mediaItem._id} className="flex flex-col gap-4 mb-8 lg:gap-8">
                                 <div className="flex flex-col">
-                                    <h2 className="text-xl md:text-2xl font-semibold lg:text-4xl">{mediaItem.title}</h2>
-                                    <span className="text-sm text-gray-500 lg:text-lg">{mediaItem.type}</span>
+                                    <h2 className="text-xl md:text-2xl font-semibold lg:text-4xl font-prata">{mediaItem.title}</h2>
+                                    <span className="text-sm text-gray-500 lg:text-lg font-poppins">{mediaItem.type}</span>
                                 </div>
 
                                 {/* Masonry Grid */}
