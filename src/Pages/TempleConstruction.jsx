@@ -15,15 +15,21 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 const TempleConstruction = () => {
   const [csrDonation, setCsrDonation] = useState([]);
   const templeDonation = [
-    { _id:1,title: "Donate For Sudama Sewa", price: 9999 },
-    { _id:2, title: "Donate For Life Membership", price: 35555 },
-    { _id:3, title: "Donate For Sudarshan Seva", price: 75000 },
-    { _id:4, title: "Donate For 108 Paadsevanam", price: 100000 },
-    { _id:5, title: "Donate For Pandava Membership", price: 111000 },
-    { _id:6, title: "Donate For Golden Bricks", price: 150000 },
-    { _id:7, title: "Donate For 108 Bhakti Stambh", price: 150000 },
-    { _id:8, title: "Donate For Vigrah Ke Jewellery", price: 250000 },
-  ];
+    { _id: 1, title: "5 CFT Sand", price: 300 },
+    { _id: 2, title: "10 CFT Sand", price: 500 },
+    { _id: 3, title: "20 CFT Sand", price: 1000 },
+    { _id: 4, title: "300 Bricks", price: 2100 },
+    { _id: 5, title: "10 Bag Cement", price: 4000 },
+    { _id: 6, title: "100 Kg TMT Saria", price: 5100 },
+    { _id: 7, title: "1 Sq. Foot Area", price: 9999 },
+    { _id: 8, title: "1 Bag Cement", price: 400 },
+    { _id: 9, title: "100 Bricks", price: 750 },
+    { _id: 10, title: "4 Bag Cement", price: 1600 },
+    { _id: 11, title: "500 Bricks", price: 3500 },
+    { _id: 12, title: "Half Sq. Foot Area", price: 4999 },
+    { _id: 13, title: "1000 Bricks", price: 7000 },
+    { _id: 14, title: "2 Sq. Feet Area", price: 19999 }
+];
 
    const {
       addToDonationCart,

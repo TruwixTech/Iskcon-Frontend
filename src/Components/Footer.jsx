@@ -5,6 +5,8 @@ import fb from "../assets/fb.png"
 import insta from "../assets/insta.png"
 import twit from "../assets/twit.png"
 import { NavLink } from "react-router-dom";
+import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
+import { IoLogoWhatsapp } from "react-icons/io";
 
 function Footer() {
   return (
@@ -68,8 +70,8 @@ function Footer() {
                 Contact Us
               </h1>
               <div className="text-gray-300 space-y-1 md:space-y-2">
-                <p>📞 +91 93157 63868</p>
-                <p>📞 +91 81309 92863</p>
+                <p>📞 +91 9990469266</p>
+                {/* <p>📞 +91 81309 92863</p> */}
                 <p>📧 info@iskconghaziabad.com</p>
               </div>
               <h2 className="text-white font-bold tracking-wider mt-4">
@@ -77,13 +79,16 @@ function Footer() {
               </h2>
               <div className="flex gap-6 mt-2">
                 <a href="#" className=" ">
-                  <span><img src={insta} alt="" className="w-full h-full"/></span>
+                  <span><FaInstagram color="white" size={26}/></span>
                 </a>
                 <a href="#" className=" ">
-                  <span><img src={fb} alt="" className="w-full h-full"/></span>
+                  <span><FaFacebook color="white" size={26}/></span>
                 </a>
                 <a href="#" className=" ">
-                  <span><img src={twit} alt="" className="w-full h-full"/></span>
+                  <span><FaTwitter color="white" size={26}/></span>
+                </a>
+                <a href="#" className=" ">
+                  <span><IoLogoWhatsapp color="white" size={26} /></span>
                 </a>
               </div>
             </div>

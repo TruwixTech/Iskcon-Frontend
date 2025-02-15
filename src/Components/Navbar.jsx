@@ -171,7 +171,7 @@ const Navbar = () => {
     <>
       <div className="w-full flex justify-end ">
         <div className="flex items-center gap-3">
-          <div className="bg-[#ffffff] rounded-3xl py-3 px-4 flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
+          <div className="bg-[#ffffff] hidden  rounded-3xl py-3 px-4 lg:flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
             <span>
               {status.isOpen ? (
                 <svg
@@ -227,7 +227,7 @@ const Navbar = () => {
           </div>
           <Link
             to={"/live-darshan"}
-            className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-2 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-2 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
           >
             <span className="w-9 h-9 flex justify-center rounded-full items-center ">
               <img src={logo} alt="" />
@@ -238,7 +238,7 @@ const Navbar = () => {
           </Link>
           <Link
             to={"/daily-darshan"}
-            className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
           >
             <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
               <img src={darshan} alt="" />
@@ -248,7 +248,7 @@ const Navbar = () => {
             </p>
           </Link>
           <div
-            className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
             onClick={openModal}
           >
             <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
@@ -367,21 +367,27 @@ const Navbar = () => {
             </div>
           )}
           {!hasAccessToken ? (
-                <>
-          <div>
-            <Link to={"/signup"} className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
-              SignUp
-            </Link>
-          </div>
-          <div>
-            <Link to={"/signin"} className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
-              Login
-            </Link>
-          </div>
-          </>
-           ) : (
+            <>
+              <div>
+                <Link
+                  to={"/signup"}
+                  className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                >
+                  SignUp
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to={"/signin"}
+                  className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                >
+                  Login
+                </Link>
+              </div>
+            </>
+          ) : (
             ""
-            )}
+          )}
         </div>
       </div>
       <div
@@ -592,11 +598,7 @@ const Navbar = () => {
                         </Link>
                         <li
                           className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          onClick={() => {
-                            // Clear the AccessToken on logout
-                            Cookies.remove("AccessToken");
-                            setHasAccessToken(false);
-                          }}
+                          onClick={handleLogout}
                         >
                           Logout
                         </li>
@@ -605,7 +607,7 @@ const Navbar = () => {
                   )}
                 </>
               ) : (
-               ""
+                ""
               )}
             </div>
           </div>
