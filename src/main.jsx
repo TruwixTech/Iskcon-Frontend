@@ -65,6 +65,8 @@ import AllProducts from "./Pages/AllProducts.jsx";
 import TempleConstruction from "./Pages/TempleConstruction.jsx";
 import DonationConfirm from "./Pages/DonationConfirm.jsx";
 import DailyDarshan from "./Pages/DailyDarshanPage.jsx";
+import LiveDarshan from "./Pages/LiveDarshan.jsx";
+import AdminLiveDarshan from "./Components/Admin-Dashboard/LiveDarshan/AdminLiveDarshan.jsx";
 
 
 const MainApp = () => {
@@ -165,11 +167,14 @@ const MainApp = () => {
               path="/admin-dashboard/csrdonation/create-csr-donation"
               element={<CreateCSRDonationPage />}
             />
+
+            <Route path="/admin-dashboard/live-darshan" element={<AdminLiveDarshan />} />
           </Route>
 
           {/* Public Routes */}
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/daily-darshan" element={<DailyDarshan />} />
+          <Route path="/live-darshan" element={<LiveDarshan />} />
           <Route path="/shop/single-product/:id" element={<SingleProduct />} />
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/blogs" element={<BlogsPage />} />

@@ -34,7 +34,8 @@ function DonationCircle() {
       location.pathname === "/blogs" ||
       location.pathname.includes("/blogs/single-blog") ||
       location.pathname === "/events" ||
-      location.pathname.includes("/events/single-event")
+      location.pathname.includes("/events/single-event") ||
+      location.pathname === "/live-darshan" 
     ) {
       return "bg-[#FDE3B6]"; // Tailwind class for black background
     }

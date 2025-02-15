@@ -25,6 +25,7 @@ function AdminDashboard() {
           { label: "Products", link: "/admin-dashboard/products" },
           // { label: "Guest House", link: "/admin-dashboard/guest-house" },
           { label: "Media", link: "/admin-dashboard/media" },
+          { label: "Live Darshan", link: "/admin-dashboard/live-darshan" },
           // { label: "Offline Classes", link: "/admin-dashboard/classes" },
           { label: "CSR Donation", link: "/admin-dashboard/csrdonation" },
         ].map((item, index) => (
