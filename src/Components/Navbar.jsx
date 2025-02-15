@@ -226,6 +226,17 @@ const Navbar = () => {
             </p>
           </div>
           <Link
+            to={"/live-darshan"}
+            className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-2 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+          >
+            <span className="w-9 h-9 flex justify-center rounded-full items-center ">
+              <img src={logo} alt="" />
+            </span>
+            <p className="pr-2 text-gray-600 text-sm font-semibold">
+              Live-Darshan
+            </p>
+          </Link>
+          <Link
             to={"/daily-darshan"}
             className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
           >
