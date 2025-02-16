@@ -232,7 +232,7 @@ const Navbar = () => {
             <span className="w-9 h-9 flex justify-center rounded-full items-center ">
               <img src={logo} alt="" />
             </span>
-            <p className="pr-2 text-gray-600 text-sm font-semibold">
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">
               Live-Darshan
             </p>
           </Link>
@@ -243,7 +243,7 @@ const Navbar = () => {
             <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
               <img src={darshan} alt="" />
             </span>
-            <p className="pr-2 text-gray-600 text-sm font-semibold">
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">
               Daily-Darshan
             </p>
           </Link>
@@ -254,7 +254,7 @@ const Navbar = () => {
             <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
               🗓️
             </span>
-            <p className="pr-2 text-gray-600 text-sm font-semibold">Schedule</p>
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">Schedule</p>
           </div>
           {isOpen && (
             <div
@@ -371,7 +371,7 @@ const Navbar = () => {
               <div>
                 <Link
                   to={"/signup"}
-                  className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                  className="bg-[#ffffff] text-gray-600 text-[10px] lg:text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
                 >
                   SignUp
                 </Link>
@@ -379,7 +379,7 @@ const Navbar = () => {
               <div>
                 <Link
                   to={"/signin"}
-                  className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                  className="bg-[#ffffff] text-gray-600 text-[10px] lg:text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
                 >
                   Login
                 </Link>
@@ -801,13 +801,19 @@ const Navbar = () => {
         }}
       >
         <button
-          className="absolute top-3 right-3 text-gray-600"
+          className="absolute top-3 right-3 text-gray-600 hidden md:block"
           onClick={() => setDonationSidebar(false)}
         >
           <IoMdClose size={40} />
         </button>
-        <div className="w-[95%] h-auto flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-bold">Donation Cart</h2>
+        <button
+          className="absolute top-3 right-3 text-gray-600 md:hidden"
+          onClick={() => setDonationSidebar(false)}
+        >
+          <IoMdClose size={28} />
+        </button>
+        <div className="w-[90%] md:w-[95%] h-auto flex justify-between items-center mb-4">
+          <h2 className="text-xl md:text-3xl font-bold">Donation Cart</h2>
 
           <span
             className="flex gap-2 text-red-500 items-center text-sm md:text-base font-semibold cursor-pointer"
@@ -817,10 +823,10 @@ const Navbar = () => {
             <RiDeleteBin5Fill size={20} />
           </span>
         </div>
-        <div className="w-full flex gap-10">
+        <div className="w-full flex flex-col md:flex-row  gap-10">
           {/* Donation Cart Section */}
           <div
-            className="w-1/2 flex flex-col gap-2 justify-start items-start overflow-y-auto"
+            className="w-full md:w-1/2 flex flex-col gap-2 justify-start items-start overflow-y-auto"
             style={{ maxHeight: "240px" }} // Fixed height for ~4 items
           >
             {donationCartItems.length > 0 ? (
@@ -828,10 +834,10 @@ const Navbar = () => {
                 <div key={item.id} className="w-full flex items-center">
                   <div className="w-full flex flex-col border border-gray-300 rounded-lg p-2">
                     <div className="w-full flex justify-between items-center">
-                      <h3 className="w-[60%] text-xs font-semibold sm:text-base xl:text-lg">
+                      <h3 className="w-[50%] md:w-[60%] text-xs font-semibold sm:text-base xl:text-lg">
                         {item.title}
                       </h3>
-                      <p className="text-xs font-semibold w-[15%] sm:text-sm xl:text-base">
+                      <p className="text-xs font-semibold w-[20%] md:w-[15%] sm:text-sm xl:text-base">
                         ₹ {item.amount * item.quantity}
                       </p>
                       <div className="w-[20%] h-auto flex justify-end">
@@ -866,7 +872,7 @@ const Navbar = () => {
 
           {/* Donation Summary & Checkout Section */}
           {donationCartItems.length > 0 && (
-            <div className="w-1/2 flex flex-col gap-4">
+            <div className="w-full md:w-1/2 flex flex-col gap-4">
               {/* Checkout as Guest Checkbox */}
               <div className="flex items-center gap-2">
                 <input

@@ -28,19 +28,19 @@ const Section1 = () => {
       ></div>
 
       {/* Left Half (Content Centered) */}
-      <div className="md:w-1/3 w-full h-full flex flex-col justify-end pb-20 px-10 relative z-10">
+      <div className="md:w-1/3 w-full h-full flex flex-col justify-end pb-20 px-2 md:px-10 relative z-10">
         <div className="relative z-50">
-          <h1 className="font-prata text-3xl md:text-4xl text-black font-semibold mb-4">
+          <h1 className="font-prata text-2xl text-white md:text-4xl md:text-black font-bold md:font-semibold mb-4">
             General Donation
           </h1>
-          <p className="text-[#444444] mb-6">
+          <p className="text-white md:text-[#444444] text-sm md:text-base mb-6 w-full">
             Donation is the most valuable human act; it is all about creating a
             sustainable environment in which every human being can persevere and
             flourish. All Donations are Tax Exempted here. Please After Donation
             contact us on Thank You Page!
           </p>
           <a href="/donation#donationcircle">
-          <button className="bg-[#EB852C] text-white px-6 py-3 rounded-3xl">
+          <button className="bg-[#EB852C] text-white px-6 py-2 md:py-3 rounded-3xl">
             Donate Now
           </button>
           </a>

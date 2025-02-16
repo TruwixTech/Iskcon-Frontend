@@ -22,7 +22,6 @@ function Section2() {
 
     const categories = [
         { id: 1, image: Category1, categoryName: "Books" },
-        { id: 2, image: Category2, categoryName: "Grocery" },
         { id: 3, image: Category3, categoryName: "Flowers" },
         { id: 4, image: Category4, categoryName: "Puja Thali" },
         { id: 5, image: Category5, categoryName: "Clothes" } // New category added

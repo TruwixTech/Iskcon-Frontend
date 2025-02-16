@@ -146,7 +146,7 @@ function SingleDonation() {
                     className="w-[300px] h-72 rounded-full flex justify-center items-center relative 2xl:h-80 2xl:w-[320px]"
                   >
                     <div className="w-[85%] h-[85%] border-[10px] rounded-full border-[#bf9d78] relative flex justify-center items-center">
-                      <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8 z-50">
+                      <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8 z-40">
                         <div className="w-full h-auto flex flex-col justify-center items-center gap-2 xl:gap-3">
                           <h1 className="text-center font-bold font-nunito text-lg xl:text-xl px-7">
                             {donationType.title}

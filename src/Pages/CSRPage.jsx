@@ -142,7 +142,7 @@ const CSRPage = () => {
             the hungry, supporting education, and promoting environmental
             sustainability.
           </p>
-          <a href="/donation#donationcircle">
+          <a href="/csr#sectiondonation">
             <button className="w-[250px] md:w-[180px] bg-[#EB852C] text-white py-2 rounded-full">
               Donate Now
             </button>
@@ -239,7 +239,7 @@ const CSRPage = () => {
     </div>
 
       {/* fourht section */}
-      <div className="w-full h-auto bg-white py-20">
+      <div className="w-full h-auto bg-white py-20"id="sectiondonation">
         <div className="w-full flex flex-col  justify-center items-center">
           <h1 className="w-full text-center text-5xl font-semibold font-prata mb-10">
             Joining our mission is the most <br /> impactful way to give

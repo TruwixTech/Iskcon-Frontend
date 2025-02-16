@@ -11,7 +11,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 function Footer() {
   return (
     <div
-      className="relative w-full h-auto md:h-[450px] px-4 md:px-20 z-0"
+      className="relative w-full h-auto lg:h-[450px] px-4 md:px-20 z-0"
       style={{
         backgroundImage: `url(${footerbg})`,
         backgroundSize: "cover",
@@ -24,23 +24,23 @@ function Footer() {
 
       {/* Content over the overlay */}
       <div className="relative z-10 flex flex-col items-center md:items-start justify-end h-full">
-        <div className="flex flex-col md:flex-row gap-4 md:gap-10 my-10 w-full">
-          <div className="flex flex-col gap-4 items-center md:items-start text-white w-full md:w-[35%]">
+        <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-start md:gap-10 my-10 w-full">
+          <div className="flex flex-col gap-4 items-center lg:items-start text-white w-full md:w-[35%]">
             <img src={logof} alt="" className="w-[200px]" />
-            <p className="text-lg w-full text-center md:text-start">
+            <p className="text-base lg:text-lg w-full text-center lg:text-start">
               R-11/35, Hare Krishna Marg,Sector 11,
               <br /> Raj Nagar, Ghaziabad, <br />
               Uttar Pradesh,201002
             </p>
           </div>
 
-          <div className="w-full md:w-[65%] flex flex-col gap-10 md:gap-0 md:flex-row items-center md:items-start justify-between mt-20 mx-auto">
+          <div className="w-full  md::w-[65%] flex flex-col gap-10 md:gap-0 md:flex-row items-center md:items-start justify-between mt-20 mx-auto">
             {/* Timings Section */}
             <div className="w-full md:w-1/3 flex flex-col items-center md:items-start text-center md:text-start">
               <h1 className="text-white font-bold tracking-wider mb-4">
                 Timings
               </h1>
-              <div className="text-gray-300 space-y-1 md:space-y-2">
+              <div className="text-gray-300 text-sm lg:text-base space-y-1 md:space-y-2">
                 <p>MANGALA ARATI - 04:15 AM</p>
                 <p>TULASI-PUJA - 05:00 AM</p>
                 <p>SRINGAR DARSHAN - 07:15 AM</p>
@@ -96,7 +96,7 @@ function Footer() {
         </div>
         <p className="border-b border-white w-full"></p>
         <div className="w-full flex justify-center text-white my-8">
-          ©2025 Copyright by Truwix All rights reserved.
+          ©2025 Copyright by Campaigning Source All rights reserved.
         </div>
       </div>
     </div>
