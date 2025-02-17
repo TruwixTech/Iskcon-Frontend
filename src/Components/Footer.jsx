@@ -77,18 +77,15 @@ function Footer() {
               <h2 className="text-white font-bold tracking-wider mt-4">
                 Social Links
               </h2>
-              <div className="flex gap-6 mt-2">
+              <div className="flex gap-6 mt-4">
                 <a href="#" className=" ">
-                  <Link to={'https://www.instagram.com/iskconwavecity?igsh=cXF3cnQ3MnMzNHg2'} target="_blank"><FaInstagram color="white" size={26}/></Link>
+                  <Link to={'https://www.instagram.com/iskconwavecity?igsh=cXF3cnQ3MnMzNHg2'} target="_blank"><FaInstagram color="white" size={40}/></Link>
                 </a>
                 <a href="#" className=" ">
-                  <Link to={'https://www.facebook.com/profile.php?id=61555008819970'} target="_blank"><FaFacebook color="white" size={26}/></Link>
+                  <Link to={'https://www.facebook.com/profile.php?id=61555008819970'} target="_blank"><FaFacebook color="white" size={40}/></Link>
                 </a>
-                <a href="#" className=" ">
-                  <span><FaTwitter color="white" size={26}/></span>
-                </a>
-                <a href="#" className=" ">
-                  <span><IoLogoWhatsapp color="white" size={26} /></span>
+                <a href="https://api.whatsapp.com/send?phone=916396075703" target="_blank"  className=" ">
+                  <span><IoLogoWhatsapp color="white" size={40} /></span>
                 </a>
               </div>
             </div>
