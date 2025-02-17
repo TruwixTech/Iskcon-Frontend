@@ -33,6 +33,17 @@ function SignUpPage() {
     const [isResendDisabled, setIsResendDisabled] = useState(true);
     const navigate = useNavigate()
 
+    const resetFormData = () => {
+        setUserDetails({
+            name: '',
+            email: '',
+            phone_no: '',
+            password: '',
+            confirmPassword: '',
+            user_role: "iskcon-user"
+        })
+    }
+
     useEffect(() => {
         let countdown;
 
@@ -144,7 +155,7 @@ function SignUpPage() {
             toast.error("Name is required");
             return;
         }
-        
+
         if (!/^[A-Za-z\s]+$/.test(userDetails.name.trim())) {
             toast.dismiss();
             toast.error("Name should contain only alphabets and spaces.");
@@ -308,10 +319,10 @@ function SignUpPage() {
                     <h1 className='font-semibold text-lg lg:text-xl'>Sign Up</h1>
                     <p className='text-sm font-semibold my-3 lg:my-4'>Please enter your email or phone number for verification</p>
                     <div className='w-full h-auto flex flex-col gap-4 lg:flex-row '>
-                        <button onClick={() => setSignUpWay('email')} className={`${signUpWay === 'email' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
+                        <button onClick={() => { setSignUpWay('email'); resetFormData() }} className={`${signUpWay === 'email' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
                             Sign Up via Email
                         </button>
-                        <button onClick={() => setSignUpWay('phone')} className={`${signUpWay === 'phone' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
+                        <button onClick={() => { setSignUpWay('phone'); resetFormData() }} className={`${signUpWay === 'phone' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
                             Sign Up via Mobile Number
                         </button>
                     </div>

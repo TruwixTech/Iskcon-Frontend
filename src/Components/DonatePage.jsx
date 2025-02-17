@@ -43,7 +43,7 @@ function DonatePage() {
                 </h1>
                 <div className='w-full h-auto flex flex-col justify-center items-center my-7 gap-3 md:gap-7'>
                     <h1 className='text-center font-semibold md:text-lg font-poppins'>Amount :</h1>
-                    <input type="number" onWheel={(e) => e.currentTarget.blur()}  onChange={handleInputChange} min={0} className='w-full border bg-gray-100 rounded-3xl outline-none py-2 px-3 sm:w-[80%] md:w-[70%] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none' />
+                    <input type="number" onWheel={(e) => e.currentTarget.blur()} onChange={handleInputChange} min={0} className='w-full border bg-gray-100 rounded-3xl outline-none py-2 px-3 sm:w-[80%] md:w-[70%] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none' />
                     <span className='px-6 py-2 text-white bg-[#eb852c] font-semibold rounded-3xl'>
                             DONATE
                     </span>

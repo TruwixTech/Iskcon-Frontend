@@ -25,6 +25,9 @@ function SingleProduct() {
     const [images, setImages] = useState([]);
     const { addToCart, cartItems, removeFromCart } = useContext(CartContext);
     const [mainImage, setMainImage] = useState();
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [pincode, setPincode] = useState(0)
+    const [isPincode, setIsPincode] = useState(false)
     const { id } = useParams()
     const sliderRef = useRef(null);
 
@@ -46,16 +49,6 @@ function SingleProduct() {
         } catch (error) {
             console.log("Error while fetching products", error);
         }
-    }
-
-    function handleScroll() {
-        const slider = sliderRef.current;
-        slider.scrollLeft += slider.offsetWidth;
-    }
-
-    function handleScrollLeft() {
-        const slider = sliderRef.current;
-        slider.scrollLeft -= slider.offsetWidth;
     }
 
     function handleAddToCart() {
@@ -82,8 +75,51 @@ function SingleProduct() {
                 theme: "light",
             });
         }
-
     }
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        if (value === "" || (Number(value) >= 0 && !value.startsWith("0"))) {
+            e.target.value = value;
+        } else {
+            e.target.value = value.replace(/[^0-9]/g, '');
+        }
+    };
+
+    function validatePincode() {
+        const pincodePattern = /^\d{6}$/;
+        toast.dismiss()
+
+        if (!pincode) {
+            toast.error("Pincode is required!");
+            return false;
+        }
+
+        if (!pincodePattern.test(pincode)) {
+            toast.error("Invalid pincode! Must be 6 digits.");
+            return false;
+        }
+        setIsPincode(true)
+        setTimeout(() => {
+            setIsPincode(false)
+            setPincode(0)
+        }, 5000);
+        return true;
+    }
+
+    // Handle next image
+    const handleNext = () => {
+        const newIndex = (currentIndex + 1) % images.length;
+        setCurrentIndex(newIndex);
+        setMainImage(images[newIndex]);
+    };
+
+    // Handle previous image
+    const handlePrev = () => {
+        const newIndex = (currentIndex - 1 + images.length) % images.length;
+        setCurrentIndex(newIndex);
+        setMainImage(images[newIndex]);
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -111,23 +147,36 @@ function SingleProduct() {
                             <div className='w-full h-auto rounded-2xl overflow-hidden sm:w-[70%] sm:mx-auto md:w-full'>
                                 <img src={mainImage} alt="product Image" className='w-full h-[500px] rounded-2xl object-cover' />
                             </div>
-                            {
-                                images.length > 1 && (
-                                    <div className='w-full h-auto flex justify-between items-center sm:w-[70%] sm:mx-auto md:w-full'>
-                                        <span><FaChevronLeft onClick={handleScrollLeft} size={20} className='text-black cursor-pointer' /></span>
-                                        <div ref={sliderRef} className='w-full flex-1 scroll-smooth h-auto overflow-x-scroll flex gap-1 md:gap-3' style={{
-                                            scrollbarWidth: 'none',
-                                        }}>
-                                            {
-                                                images.map((item, index) => (
-                                                    <img src={item} onClick={() => setMainImage(item)} alt="product image" className={`${mainImage === item ? 'border-2 border-[#EB852C]' : ''} w-24 h-20 object-cover rounded-xl md:h-24 xl:w-[107px] xl:h-[110px]`} key={index} />
-                                                ))
-                                            }
-                                        </div>
-                                        <span><FaChevronRight onClick={handleScroll} size={20} className='text-black cursor-pointer' /></span>
+                            {images.length > 1 && (
+                                <div className='w-full flex justify-between items-center sm:w-[70%] md:w-full'>
+                                    {/* Left Arrow */}
+                                    <span onClick={handlePrev}>
+                                        <FaChevronLeft size={20} className='text-black cursor-pointer' />
+                                    </span>
+
+                                    {/* Image Thumbnails */}
+                                    <div className='w-full flex-1 scroll-smooth overflow-x-scroll flex gap-1 md:gap-3' style={{ scrollbarWidth: 'none' }}>
+                                        {images.map((item, index) => (
+                                            <img
+                                                key={index}
+                                                src={item}
+                                                alt={`Thumbnail ${index + 1}`}
+                                                className={`w-24 h-20 object-cover rounded-xl md:h-24 xl:w-[107px] xl:h-[110px] cursor-pointer ${mainImage === item ? 'border-2 border-[#EB852C]' : ''
+                                                    }`}
+                                                onClick={() => {
+                                                    setMainImage(item);
+                                                    setCurrentIndex(index);
+                                                }}
+                                            />
+                                        ))}
                                     </div>
-                                )
-                            }
+
+                                    {/* Right Arrow */}
+                                    <span onClick={handleNext}>
+                                        <FaChevronRight size={20} className='text-black cursor-pointer' />
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className='w-full h-auto flex flex-col gap-1 md:gap-2 xl:gap-3 pb-8 md:w-[55%]'>
@@ -185,25 +234,29 @@ function SingleProduct() {
                                         : 'Add to Cart'
                                 }
                             </button>
-                            <button className='w-40 py-1.5 bg-[#FDFDFD] text-[#999999] border border-[#ECA242] font-poppins rounded-3xl flex justify-center items-center gap-2 xl:py-3 xl:w-48'>
+                            {/* <button className='w-40 py-1.5 bg-[#FDFDFD] text-[#999999] border border-[#ECA242] font-poppins rounded-3xl flex justify-center items-center gap-2 xl:py-3 xl:w-48'>
                                 <MdKeyboardArrowDown size={20} />
                                 <span>Wishlist</span>
-                            </button>
+                            </button> */}
                         </div>
                         <div className='w-full h-auto flex flex-col gap-3 mt-4 xl:mt-8'>
                             <h1 className='text-[#1A1A1A] font-poppins font-semibold md:text-lg xl:text-xl'>Check for Delivery Details</h1>
                             <div className='w-full h-10 bg-white flex justify-between items-center rounded-xl px-3 md:w-[300px] xl:w-[400px]'>
-                                <input type="text" placeholder='Enter Pincode' className="w-full rounded-l-xl h-full outline-none flex-1" />
-                                <button className='text-sm font-poppins'>Check</button>
+                                <input type="number" value={pincode} onWheel={(e) => e.currentTarget.blur()} onChange={(e) => setPincode(e.target.value)} placeholder='Enter Pincode' min={0} className="w-full rounded-l-xl h-full outline-none flex-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" />
+                                <button onClick={validatePincode} className='text-sm font-poppins'>Check</button>
                             </div>
                             <div className='w-full h-auto flex gap-1 items-center mt-3 xl:gap-3'>
                                 <RiTruckLine size={20} className='md:size-7' />
                                 <p className='font-poppins text-xs md:text-sm'>Enter Pincode for Estimated Delivery Date</p>
                             </div>
-                            <div className='w-full h-auto flex gap-1 items-center xl:gap-3'>
-                                <FaRegCalendar size={20} className='md:size-6' />
-                                <p className='font-poppins text-xs md:text-sm'>Estimated Delivery Time: 12 Aug - 15 Aug</p>
-                            </div>
+                            {
+                                isPincode && (
+                                    <div className='w-full h-auto flex gap-1 text-green-500 items-center xl:gap-3'>
+                                        {/* <FaRegCalendar size={20} className='md:size-6' /> */}
+                                        <p className='font-poppins text-sm'>We Deliver at this Pincode <br />Estimated Delivery Time 3 to 4 Days</p>
+                                    </div>
+                                )
+                            }
                         </div>
                         <div className='w-full h-auto flex flex-col gap-3 mt-5 font-poppins'>
                             <h1 className='text-[#344054] font-medium text-lg xl:text-2xl'>Product Description</h1>

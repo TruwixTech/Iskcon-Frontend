@@ -56,6 +56,15 @@ function SignInPage() {
         },
     ];
 
+    const resetFormData = () => {
+        setUserDetails({
+            name: '',
+            email: '',
+            phone_no: '',
+            password: '',
+        })
+    }
+
     const navigate = useNavigate()
 
     // Auto-slide logic
@@ -129,10 +138,10 @@ function SignInPage() {
                     <h1 className='font-semibold text-lg lg:text-xl'>Sign In</h1>
                     <p className='text-sm font-semibold my-3 lg:my-4'>Welcome Back, Log in to manage your shipments and clients effortlessly.</p>
                     <div className='w-full h-auto flex flex-col gap-4 lg:flex-row '>
-                        <button onClick={() => setSignInWay('email')} className={`${signInWay === 'email' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
+                        <button onClick={() => { setSignInWay('email'); resetFormData() }} className={`${signInWay === 'email' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
                             Sign In via Email
                         </button>
-                        <button onClick={() => setSignInWay('phone')} className={`${signInWay === 'phone' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
+                        <button onClick={() => { setSignInWay('phone'); resetFormData() }} className={`${signInWay === 'phone' ? 'border-[#ECA242]' : 'border-black'} px-6 py-1 rounded-3xl bg-white border lg:py-2`}>
                             Sign In via Mobile Number
                         </button>
                     </div>
