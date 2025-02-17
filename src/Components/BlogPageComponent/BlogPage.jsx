@@ -84,7 +84,6 @@ const BlogPage = () => {
             className="w-full h-full rounded-3xl object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 rounded-3xl mx-4 md:mx-20  "></div>
-          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-5xl font-prata text-white font-semibold">Blogs</div>
         </div>
         <div className="my-10">
           <Marquee className="font-prata h-12 text-3xl text-[#ED683C]  overflow-y-hidden">
@@ -202,35 +201,35 @@ const BlogPage = () => {
                   : null
               }
               <div className="w-full flex gap-10">
-              <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 ">
-                {blogs?.slice(0, 2)?.map((blog) => (
-                  <NavLink
-                    to={`/blogs/single-blog/${blog._id}`}
-                    key={blog._id}
-                    className=" overflow-hidden cursor-pointer transform transition duration-500 ease-out hover:scale-105 font-prata"
-                  >
-                    <div className="rounded-lg ">
-                      <img
-                        src={blog.image[0]}
-                        alt={blog.title}
-                        className="w-full h-[250px] rounded-lg object-fit"
-                      />
-                    </div>
+                <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 ">
+                  {blogs?.slice(0, 2)?.map((blog) => (
+                    <NavLink
+                      to={`/blogs/single-blog/${blog._id}`}
+                      key={blog._id}
+                      className=" overflow-hidden cursor-pointer transform transition duration-500 ease-out hover:scale-105 font-prata"
+                    >
+                      <div className="rounded-lg ">
+                        <img
+                          src={blog.image[0]}
+                          alt={blog.title}
+                          className="w-full h-[250px] rounded-lg object-fit"
+                        />
+                      </div>
 
-                    <div className="p-4">
-                      <p className="text-sm text-[#4F4F4F]">
-                        {blog.createdAt.slice(0, 10)} •
-                        {timeSince(blog.createdAt)}
-                      </p>
-                      <h3 className="text-lg font-bold mt-2">{blog.title}</h3>
-                      <p className="text-sm text-gray-700 mt-2">
-                        {blog.description.length > 200 ? blog.description.slice(0, 200) + '...' : blog.description}
-                      </p>
-                    </div>
-                  </NavLink>
-                ))}
-              </div>
-              <aside className="w-full md:w-1/3 hidden md:block">
+                      <div className="p-4">
+                        <p className="text-sm text-[#4F4F4F]">
+                          {blog.createdAt.slice(0, 10)} •
+                          {timeSince(blog.createdAt)}
+                        </p>
+                        <h3 className="text-lg font-bold mt-2">{blog.title}</h3>
+                        <p className="text-sm text-gray-700 mt-2">
+                          {blog.description.length > 200 ? blog.description.slice(0, 200) + '...' : blog.description}
+                        </p>
+                      </div>
+                    </NavLink>
+                  ))}
+                </div>
+                <aside className="w-full md:w-1/3 hidden md:block">
                   <h2 className="text-3xl font-semibold mb-6 font-poppins">
                     Related Blogs
                   </h2>

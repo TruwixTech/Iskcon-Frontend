@@ -61,7 +61,7 @@ function Section2() {
                 <h1 className='text-center font-prata text-xl lg:text-2xl'>Shop By Category</h1>
                 <div className='w-full h-auto flex flex-col sm:flex-row sm:flex-wrap justify-center items-center overflow-hidden gap-7'>
                     {categories.map((item) => (
-                        <div key={item.id} className='w-[250px] h-auto flex flex-col gap-4 cursor-pointer'
+                        <a href='#products' key={item.id} className='w-[250px] h-auto flex flex-col gap-4 cursor-pointer'
                             onClick={() => setSelectedCategory(item.categoryName)}>
                             <div className={`w-full h-[250px] rounded-full flex justify-center items-center relative 
                                 ${selectedCategory === item.categoryName ? "border-4 border-[#bf9d78]" : ""}`}>
@@ -81,12 +81,12 @@ function Section2() {
                                 ${selectedCategory === item.categoryName ? "text-[#bf9d78]" : ""}`}>
                                 {item.categoryName}
                             </p>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>
 
-            <div className='w-full h-auto flex flex-col bg-[#fde3b6] px-5 md:px-10 xl:px-20 py-8 md:py-14 xl:py-20'>
+            <div id='products' className='w-full h-auto flex flex-col bg-[#fde3b6] px-5 md:px-10 xl:px-20 py-8 md:py-14 xl:py-20'>
                 <div className='w-full h-auto flex justify-between items-center text-lg sm:text-xl md:text-2xl'>
                     <span className='font-prata'>Best Sellers</span>
                     <button onClick={handleClick} className='font-nunito'>View all</button>

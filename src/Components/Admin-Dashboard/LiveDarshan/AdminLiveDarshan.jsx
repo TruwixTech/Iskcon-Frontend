@@ -23,11 +23,13 @@ function AdminLiveDarshan() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.LiveDarshanLink) {
+      toast.dismiss();
       toast.error("Please enter a valid YouTube embed link.");
       return;
     }
 
     if (!/^https:\/\/www\.youtube\.com\/embed\/[a-zA-Z0-9_-]+$/.test(formData.LiveDarshanLink)) {
+      toast.dismiss();
       toast.error("Please enter a valid YouTube embed link.");
       return;
     }
@@ -35,12 +37,14 @@ function AdminLiveDarshan() {
     setLoading(true);
     try {
       const response = await axios.post(`${backend}/admin/liveDarshan/create`, formData);
+      toast.dismiss();
       toast.success("Live Darshan created successfully!");
       getAllLiveDarshan();
       setCreateLiveDarshanPopup(false);
       setFormData({ LiveDarshanLink: '' });
     } catch (error) {
       console.error('Error creating live darshan:', error);
+      toast.dismiss();
       toast.error("Failed to create live darshan!");
     } finally {
       setLoading(false);
@@ -50,10 +54,12 @@ function AdminLiveDarshan() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${backend}/admin/liveDarshan/delete/${id}`);
+      toast.dismiss();
       toast.success("Live Darshan deleted successfully!");
       getAllLiveDarshan();
     } catch (error) {
       console.error('Error deleting live darshan:', error);
+      toast.dismiss();
       toast.error("Failed to delete live darshan!");
     }
   };
@@ -81,6 +87,7 @@ function AdminLiveDarshan() {
       setLiveDarshan(response.data.liveDarshan);
     } catch (error) {
       console.log("Error while fetching live darshan", error);
+      toast.dismiss();
       toast.error("Failed to fetch live darshan!");
     }
   }

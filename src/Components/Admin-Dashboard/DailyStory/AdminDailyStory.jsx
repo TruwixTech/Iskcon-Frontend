@@ -51,14 +51,17 @@ function AdminDailyStory() {
             });
 
             if (response.status === 201) {
+                toast.dismiss();
                 toast.success('Daily stories created successfully!');
                 setStories([{ title: '', description: '', image: null }]);
                 setCreateStoryPopup(false);
             } else {
+                toast.dismiss();
                 toast.error(response.data.message || 'Failed to create daily stories.');
             }
         } catch (error) {
             console.error('Error creating daily stories:', error);
+            toast.dismiss();
             toast.error('An error occurred.');
         } finally {
             setIsSubmitting(false);

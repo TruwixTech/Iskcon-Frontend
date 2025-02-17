@@ -4,6 +4,8 @@ import formbg from "../assets/formbg.png";
 import BgOne from "../assets/bg2.png";
 import { CartContext } from "../Context/CartContext";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 const backend = import.meta.env.VITE_BACKEND_URL;
 
 const statesList = [
@@ -85,7 +87,6 @@ const Checkout = () => {
   const totalAmount = getCartTotal();
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName: "",
     email: "",
     mobile: "",
     address: "",
@@ -98,10 +99,50 @@ const Checkout = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const { firstName, email, mobile, address, city, state, pincode } = formData;
+
+    // Check for empty fields
+    if (!firstName || !email || !mobile || !address || !city || !state || !pincode) {
+      toast.dismiss();
+      toast.error("All fields are required!");
+      return false;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.dismiss();
+      toast.error("Invalid email format!");
+      return false;
+    }
+
+    // Mobile number validation (10 digits)
+    const mobileRegex = /^[0-9]{10}$/;
+    if (!mobileRegex.test(mobile)) {
+      toast.dismiss();
+      toast.error("Mobile number must be 10 digits!");
+      return false;
+    }
+
+    // Pincode validation (6 digits)
+    const pincodeRegex = /^[0-9]{6}$/;
+    if (!pincodeRegex.test(pincode)) {
+      toast.dismiss();
+      toast.error("Pincode must be 6 digits!");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      if (!validateForm()) {
+        setLoading(false);
+        return;
+      }
       const payload = {
         userId: user?.userData?.userId,
         amount: totalAmount,
@@ -228,7 +269,7 @@ const Checkout = () => {
                       value={formData.address}
                       onChange={handleChange}
                       placeholder="Enter Address"
-                      className="mt-2 p-3 border rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
+                      className="mt-2 p-3 border rounded-xl focus:outline-none resize-none h-32 focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
                   <div className="flex flex-col">

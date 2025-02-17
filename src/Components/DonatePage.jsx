@@ -9,6 +9,16 @@ function DonatePage() {
     useEffect(() => {
         window.scrollTo(0, 0);
       }, []);
+
+      const handleInputChange = (e) => {
+        const value = e.target.value;
+        if (value === "" || (Number(value) >= 0 && !value.startsWith("0"))) {
+            e.target.value = value;
+        } else {
+            e.target.value = value.replace(/[^0-9]/g, '');
+        }
+    };
+
     return (
         <div className='w-full h-full flex flex-col bg-[#fde3b6]'
             style={{
@@ -33,10 +43,10 @@ function DonatePage() {
                 </h1>
                 <div className='w-full h-auto flex flex-col justify-center items-center my-7 gap-3 md:gap-7'>
                     <h1 className='text-center font-semibold md:text-lg font-poppins'>Amount :</h1>
-                    <input type="number" className='w-full border bg-gray-100 rounded-3xl outline-none py-2 px-3 sm:w-[80%] md:w-[70%]' />
-                    <Link to='/donate-form' className='px-6 py-2 text-white bg-[#eb852c] font-semibold rounded-3xl'>
+                    <input type="number" onWheel={(e) => e.currentTarget.blur()}  onChange={handleInputChange} min={0} className='w-full border bg-gray-100 rounded-3xl outline-none py-2 px-3 sm:w-[80%] md:w-[70%] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none' />
+                    <span className='px-6 py-2 text-white bg-[#eb852c] font-semibold rounded-3xl'>
                             DONATE
-                    </Link>
+                    </span>
                 </div>
             </div>
         </div>

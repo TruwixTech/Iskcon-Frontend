@@ -129,6 +129,7 @@ function SignUpPage() {
             })
 
             if (response.status === 200 || response.status === 201) {
+                toast.dismiss();
                 toast.success('OTP sent successfully');
             }
         } catch (error) {

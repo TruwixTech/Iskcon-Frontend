@@ -5,6 +5,7 @@ import { MdPhoneCallback } from "react-icons/md";
 import { RiMailSendLine } from "react-icons/ri";
 import { FaChildReaching } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,22 +33,42 @@ const ContactPage = () => {
 
   // Form Validation
   const validateForm = () => {
+    toast.dismiss(); // Dismiss any existing toasts
+
     let newErrors = {};
-    if (!formData.name || formData.name.length < 3) {
-      newErrors.name = "Name must be at least 3 characters";
+
+    // Name Validation: At least 3 chars & no numbers
+    if (!formData.name || formData.name.length < 3 || /\d/.test(formData.name)) {
+      newErrors.name = "Name must be at least 3 characters and contain no numbers.";
+      toast.error(newErrors.name);
     }
-    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+
+    // Email Validation: Strict RFC 5322 pattern
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      newErrors.email = "Invalid email format.";
+      toast.error(newErrors.email);
     }
-    if (!formData.mobile || !/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Mobile number must be 10 digits";
+
+    // Mobile Validation: Exactly 10 digits
+    const mobileRegex = /^[6-9]\d{9}$/;
+    if (!formData.mobile || !mobileRegex.test(formData.mobile)) {
+      newErrors.mobile = "Mobile number should be exactly 10 digits.";
+      toast.error(newErrors.mobile);
     }
+
+    // Subject Validation
     if (!formData.subject) {
-      newErrors.subject = "Subject is required";
+      newErrors.subject = "Subject is required.";
+      toast.error(newErrors.subject);
     }
+
+    // Message Validation: At least 10 characters
     if (!formData.message || formData.message.length < 10) {
-      newErrors.message = "Message must be at least 10 characters";
+      newErrors.message = "Message must be at least 10 characters.";
+      toast.error(newErrors.message);
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -69,7 +90,7 @@ const ContactPage = () => {
         const result = await response.json();
 
         if (response.ok) {
-          alert("Message sent successfully!");
+          toast.success("Message sent successfully!");
           setFormData({
             name: "",
             email: "",
@@ -78,11 +99,11 @@ const ContactPage = () => {
             message: "",
           });
         } else {
-          alert(result.error || "Failed to send message. Please try again.");
+          toast.error(result.error || "Failed to send message. Please try again.");
         }
       } catch (error) {
         console.error("❌ Error submitting form:", error);
-        alert("An error occurred. Please try again.");
+        toast.error("An error occurred. Please try again.");
       }
     }
   };
@@ -166,7 +187,7 @@ const ContactPage = () => {
             </div>
             <div className="w-full flex justify-center mt-4 px-6 py-4">
               <Link
-                to="https://www.google.com/maps/dir/ISKCON+Wave+City,+Unnamed+Road,+Wave+City,+Ghaziabad,+Uttar+Pradesh/JGW5%2BW35,+Unnamed+Road,+Wave+City,+Ghaziabad,+Uttar+Pradesh+201002/@28.647339,77.507582,20.87z/data=!4m13!4m12!1m5!1m1!1s0x390ced5d54e42653:0xe4b6897f26616266!2m2!1d77.5077254!2d28.647275!1m5!1m1!1s0x390ced5d54e42653:0xe4b6897f26616266!2m2!1d77.5077254!2d28.647275?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D" 
+                to="https://www.google.com/maps/dir/ISKCON+Wave+City,+Unnamed+Road,+Wave+City,+Ghaziabad,+Uttar+Pradesh/JGW5%2BW35,+Unnamed+Road,+Wave+City,+Ghaziabad,+Uttar+Pradesh+201002/@28.647339,77.507582,20.87z/data=!4m13!4m12!1m5!1m1!1s0x390ced5d54e42653:0xe4b6897f26616266!2m2!1d77.5077254!2d28.647275!1m5!1m1!1s0x390ced5d54e42653:0xe4b6897f26616266!2m2!1d77.5077254!2d28.647275?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank" rel="noopener noreferrer" className="font-bold w-[70%] border-2 bg-[#eb852c] rounded-full text-white py-2 flex justify-center gap-4 items-center hover:bg-[#d9731f] transition-colors duration-300"
               >
                 <FaChildReaching size={20} />
@@ -239,7 +260,7 @@ const ContactPage = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-[20%] bg-[#eb852c] text-white font-semibold py-3 rounded-lg hover:bg-[#d9731f] transition-colors duration-300"
+                className="w-auto px-6 bg-[#eb852c] text-white font-semibold py-3 rounded-lg hover:bg-[#d9731f] transition-colors duration-300"
               >
                 Send Message
               </button>

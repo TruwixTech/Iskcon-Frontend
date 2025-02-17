@@ -70,6 +70,7 @@ function SingleProduct() {
                 quantity: 1
 
             })
+            toast.dismiss();
             toast.success("Product added to cart successfully!!", {
                 position: "top-right",
                 autoClose: 5000,
@@ -79,7 +80,8 @@ function SingleProduct() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            });}
+            });
+        }
 
     }
 
@@ -87,7 +89,7 @@ function SingleProduct() {
         window.scrollTo(0, 0);
         fetchSingleProduct();
         fetchProducts()
-    }, [])
+    }, [id])
 
     return (
         <>
@@ -243,7 +245,7 @@ function SingleProduct() {
                     <h1 className='font-prata font-semibold text-xl lg:text-2xl'>Related Products</h1>
                     <div className='w-full h-auto mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 place-items-center'>
                         {
-                            relatedProducts.map((product, index) => <ProductCard key={index} productImage={product.images[0]} productName={product.name} productPrice={product.price} productDesc={product.subDesc} />)
+                            relatedProducts.map((product, index) => <ProductCard key={index} productImage={product.images[0]} productName={product.name} productId={product._id} productPrice={product.price} productDesc={product.subDesc} />)
                         }
                     </div>
                 </div>

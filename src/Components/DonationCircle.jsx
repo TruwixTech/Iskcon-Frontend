@@ -84,7 +84,7 @@ function DonationCircle() {
               className="w-[300px] h-72 rounded-full flex justify-center items-center relative 2xl:h-80 2xl:w-[320px]"
             >
               <div className="w-[85%] h-[85%] border-[10px] rounded-full border-[#bf9d78] relative flex justify-center items-center">
-                <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8 z-40">
+                <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8">
                   <div className="w-full h-auto flex flex-col justify-center items-center gap-2">
                     <h1 className="text-center font-bold font-nunito text-xl 2xl:text-2xl">
                       {item.title}
@@ -92,7 +92,7 @@ function DonationCircle() {
                     <div className="w-full h-auto flex justify-center items-center">
                       <NavLink
                         to={`/donation/single-donation/${item._id}`}
-                        className="px-4 py-2 bg-[#EB852C] md:hover:bg-[#f6ab69] font-nunito rounded-3xl text-white"
+                        className="px-4 py-2 bg-[#EB852C] md:hover:bg-[#f6ab69] font-nunito rounded-3xl text-white z-30"
                       >
                         View More
                       </NavLink>
