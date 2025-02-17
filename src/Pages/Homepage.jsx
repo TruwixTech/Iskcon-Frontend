@@ -17,7 +17,6 @@ import { Link, NavLink } from "react-router-dom";
 const Homepage = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
 
-
   useEffect(() => {
     let progress = 0;
     const interval = setInterval(() => {
@@ -102,7 +101,7 @@ const Homepage = () => {
                 Feel the Divine Essence of Lord Krishna
                 </h3>
                 <h2 className="text-2xl lg:text-4xl">Welcome to</h2>
-                <h1 className="text-3xl lg:text-5xl font-[500]">ISCKON Wavecity <br/> Ghaziabad</h1>
+                <h1 className="text-3xl lg:text-5xl font-[500]">ISKCON Wavecity <br/> Ghaziabad</h1>
                 <div className="flex gap-4 items-center">
                   <a href="/donation#donationcircle" className="">
                     <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
@@ -180,7 +179,7 @@ const Homepage = () => {
                 </h3>
                 <h2 className="text-xl text-center">Welcome to</h2>
                 <h1 className="text-3xl font-[500] text-center">
-                  ISCKON Wavecity <br/> Ghaziabad
+                  ISKCON Wavecity <br/> Ghaziabad
                 </h1>
                 <Link to="/donation#donationcircle" className="">
                   <div className="flex justify-center">

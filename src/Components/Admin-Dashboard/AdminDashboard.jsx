@@ -32,17 +32,14 @@ function AdminDashboard() {
         ].map((item, index) => (
           <Link
             to={item.link}
-            className="w-[400px] h-[200px] flex justify-center items-center "
+            className="w-[400px] h-[200px] flex justify-center items-center hover:scale-110 duration-300 transition-all"
             key={index}
             style={{ backgroundImage: `url(${styleborder})`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'contain'
-
              }}
           >
-            
-            
             <h1 className="text-xl md:text-2xl font-bold font-prata text-[#ddae4a]">{item.label}</h1>
           </Link>
         ))}

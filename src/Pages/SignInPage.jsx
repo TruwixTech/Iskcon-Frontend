@@ -71,10 +71,10 @@ function SignInPage() {
 
     async function handleSignIn() {
         // Validation
-        if (!userDetails.name.trim()) {
-            alert("Name is required");
-            return;
-        }
+        // if (!userDetails.name.trim()) {
+        //     alert("Name is required");
+        //     return;
+        // }
 
         if (signInWay === 'email') {
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -102,7 +102,7 @@ function SignInPage() {
             if (response.status === 200 || response.status === 201) {
                 alert('User successfully logged in');
                 setUserDetails({
-                    name: '',
+                    // name: '',
                     email: '',
                     phone_no: '',
                     password: '',
@@ -137,7 +137,7 @@ function SignInPage() {
                         </button>
                     </div>
                     <div className='w-full h-auto flex flex-col my-5 gap-4 lg:my-7 lg:gap-6'>
-                        <input type="text" placeholder='Name' onChange={(e) => setUserDetails({ ...userDetails, name: e.target.value })} value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />
+                        {/* <input type="text" placeholder='Name' onChange={(e) => setUserDetails({ ...userDetails, name: e.target.value })} value={userDetails.name} className='w-full h-auto px-3 border border-black rounded-3xl py-2' /> */}
                         {
                             signInWay === 'email'
                                 ? (<input type="email" placeholder='Email Address' value={userDetails.email} onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
