@@ -6,6 +6,7 @@ import Blogimg1 from '../../assets/blog1.svg'
 import Blogimg2 from '../../assets/blog2.svg'
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 function Section3() {
     return (
@@ -34,8 +35,9 @@ function Section3() {
                                 A Festival of Light <br />
                                 and Devotion
                             </h1>
-                            <div className='w-full h-auto flex items-center gap-5 '>
-                                <img src="" alt="" className='w-10 h-10 rounded-full bg-gray-300 sm:w-12 sm:h-12 md:h-10 md:w-10' />
+                            <div className='w-full h-auto flex items-center gap-3 '>
+                                {/* <img src="" alt="" className='w-10 h-10 rounded-full bg-gray-300 sm:w-12 sm:h-12 md:h-10 md:w-10' /> */}
+                                <FaUserCircle size={35} className='text-[#EB852C]' />
                                 <h1 className='font-nunito text-[#322038] font-bold sm:text-lg md:text-base'>Neha Yadav</h1>
                             </div>
                             <div className='w-full h-auto flex flex-col mt-4 gap-5'>

@@ -40,7 +40,7 @@ function SingleDonation() {
     }
   }
 
-  
+
   // Update scrollY value on scroll
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -59,30 +59,43 @@ function SingleDonation() {
     fetchSingleDonation();
   }, []);
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || (Number(value) >= 0 && !value.startsWith("0"))) {
+      e.target.value = value;
+    } else {
+      e.target.value = value.replace(/[^0-9]/g, '');
+    }
+  }
+
   function handleAddToDonationCart(donationType) {
     const isInCart2 = donationCartItems.find(item => item.id === donationType._id);
-    
+
     if (!isInCart2) {
-        addToDonationCart({
-            id: donationType._id,
-            title: donationType.title,
-            amount: donationType.amount,
-            quantity: 1
-        });
-        toast.success("Donation Added to cart !!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+      addToDonationCart({
+        id: donationType._id,
+        title: donationType.title,
+        amount: donationType.amount,
+        quantity: 1
+      });
+      toast.dismiss();
+      toast.success("Donation Added to cart !!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
     } else {
-        toast.error("Donation Already in Cart!");
+      toast.dismiss();
+      toast.error("Donation Already in Cart!");
     }
-}
+  }
+
+
 
   return (
     <>
@@ -114,10 +127,10 @@ function SingleDonation() {
                 {singleDonation?.description?.slice(0, 150)}
               </p>
               <div className="w-full h-auto flex justify-center items-center">
-              <a href={`/donation/single-donation/${id}#section2`}>
-                <button className="px-4 py-2 bg-[#EB852C] text-white font-poppins rounded-3xl text-sm lg:py-3 lg:text-base lg:px-6 md:hover:bg-[#fd8721]">
-                  Donate Now
-                </button>
+                <a href={`/donation/single-donation/${id}#section2`}>
+                  <button className="px-4 py-2 bg-[#EB852C] text-white font-poppins rounded-3xl text-sm lg:py-3 lg:text-base lg:px-6 md:hover:bg-[#fd8721]">
+                    Donate Now
+                  </button>
                 </a>
               </div>
             </div>
@@ -196,8 +209,11 @@ function SingleDonation() {
           <div className="w-full h-auto flex rounded-lg border-2 border-[#ba9676] py-3 bg-[#e9bb93] px-4 gap-2 font-poppins">
             <span className="text-black fonr-semibold">&#8377;</span>
             <input
-              type="text"
-              className="flex-1 px-2 text-black h-full bg-transparent placeholder-black outline-none"
+              type="number"
+              min={0}
+              onWheel={(e) => e.currentTarget.blur()}
+              onChange={handleInputChange}
+              className="flex-1 px-2 text-black h-full bg-transparent placeholder-black outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               placeholder="Enter Amount"
             />
           </div>

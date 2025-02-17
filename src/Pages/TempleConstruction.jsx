@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
 import { Pie } from "react-chartjs-2";
@@ -29,15 +29,15 @@ const TempleConstruction = () => {
     { _id: 12, title: "Half Sq. Foot Area", price: 4999 },
     { _id: 13, title: "1000 Bricks", price: 7000 },
     { _id: 14, title: "2 Sq. Feet Area", price: 19999 }
-];
+  ];
 
-   const {
-      addToDonationCart,
-      donationCartItems,
-      getDonationCartTotal,
-      removeFromDonationCart,
-      clearDonationCart,
-    } = useContext(DonationCartContext);
+  const {
+    addToDonationCart,
+    donationCartItems,
+    getDonationCartTotal,
+    removeFromDonationCart,
+    clearDonationCart,
+  } = useContext(DonationCartContext);
 
   async function fetchCSRDonation() {
     try {
@@ -53,28 +53,30 @@ const TempleConstruction = () => {
   }, []);
 
   function handleAddToDonationCart(donationType) {
-      const isInCart2 = donationCartItems.find(item => item.id === donationType._id);
-      
-      if (!isInCart2) {
-          addToDonationCart({
-              id: donationType._id,
-              title: donationType.title,
-              amount: donationType.price,
-              quantity: 1
-          });
-          toast.success("Donation Added to cart !!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-      } else {
-          toast.error("Donation Already in Cart!");
-      }
+    const isInCart2 = donationCartItems.find(item => item.id === donationType._id);
+
+    if (!isInCart2) {
+      addToDonationCart({
+        id: donationType._id,
+        title: donationType.title,
+        amount: donationType.price,
+        quantity: 1
+      });
+      toast.dismiss();
+      toast.success("Donation Added to cart !!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.dismiss();
+      toast.error("Donation Already in Cart!");
+    }
   }
 
   return (
@@ -154,13 +156,13 @@ const TempleConstruction = () => {
                         className="w-[300px] h-72 rounded-full flex justify-center items-center relative 2xl:h-80 2xl:w-[320px]"
                       >
                         <div className="w-[85%] h-[85%] border-[10px] rounded-full border-[#bf9d78] relative flex justify-center items-center">
-                          <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8 z-50">
+                          <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8 z-20">
                             <div className="w-full h-auto flex flex-col justify-center items-center gap-2 xl:gap-3">
                               <h1 className="text-center font-bold font-nunito text-lg xl:text-xl px-7">
                                 {donationType.title}
                               </h1>
                               <div className="text-lg text-[#ECA242] xl:text-xl font-semibold">
-                              ₹ {donationType.price}
+                                ₹ {donationType.price}
                               </div>
                               <div className="w-full h-auto flex justify-center items-center">
                                 <button className="px-6 py-2 text-white bg-[#EB852C] rounded-3xl md:hover:bg-[#f0913e]" onClick={() => handleAddToDonationCart(donationType)}>
@@ -179,10 +181,10 @@ const TempleConstruction = () => {
                           src={Border1}
                           alt="border 1"
                           className="w-full h-full absolute"
-                          // style={{
-                          //   transform: `rotate(${scrollY}deg)`, // Spins the image
-                          //   transition: "transform 5s linear",
-                          // }}
+                        // style={{
+                        //   transform: `rotate(${scrollY}deg)`, // Spins the image
+                        //   transition: "transform 5s linear",
+                        // }}
                         />
                       </div>
                     ))}

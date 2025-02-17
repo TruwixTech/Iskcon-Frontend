@@ -4,7 +4,7 @@ import logof from "../assets/logofooter.svg";
 import fb from "../assets/fb.png"
 import insta from "../assets/insta.png"
 import twit from "../assets/twit.png"
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
@@ -41,7 +41,7 @@ function Footer() {
                 Timings
               </h1>
               <div className="text-gray-300 text-sm lg:text-base space-y-1 md:space-y-2">
-                <p>MANGALA ARATI - 04:15 AM</p>
+                <p>MANGALA ARTI - 04:15 AM</p>
                 <p>TULASI-PUJA - 05:00 AM</p>
                 <p>SRINGAR DARSHAN - 07:15 AM</p>
                 <p>GURU PUJA - 07:25 AM</p>
@@ -72,17 +72,17 @@ function Footer() {
               <div className="text-gray-300 space-y-1 md:space-y-2">
                 <p>📞 +91 9990469266</p>
                 {/* <p>📞 +91 81309 92863</p> */}
-                <p>📧 info@iskconghaziabad.com</p>
+                <p>📧 iskconwavecityg@gmail.com</p>
               </div>
               <h2 className="text-white font-bold tracking-wider mt-4">
                 Social Links
               </h2>
               <div className="flex gap-6 mt-2">
                 <a href="#" className=" ">
-                  <span><FaInstagram color="white" size={26}/></span>
+                  <Link to={'https://www.instagram.com/iskconwavecity?igsh=cXF3cnQ3MnMzNHg2'} target="_blank"><FaInstagram color="white" size={26}/></Link>
                 </a>
                 <a href="#" className=" ">
-                  <span><FaFacebook color="white" size={26}/></span>
+                  <Link to={'https://www.facebook.com/profile.php?id=61555008819970'} target="_blank"><FaFacebook color="white" size={26}/></Link>
                 </a>
                 <a href="#" className=" ">
                   <span><FaTwitter color="white" size={26}/></span>

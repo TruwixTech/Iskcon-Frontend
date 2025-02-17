@@ -173,16 +173,16 @@ const Homepage = () => {
               className="w-full h-full absolute top-[15%] z-[60]  -left-60"
               style={textStyle2}
             >
-              <div className="flex flex-col gap-2 mt-10">
-                <h3 className="text-sm text-center">
+              <div className="flex flex-col gap-2 mt-10 pl-4">
+                <h3 className="text-sm">
                 Feel the Divine Essence of Lord Krishna
                 </h3>
-                <h2 className="text-xl text-center">Welcome to</h2>
-                <h1 className="text-3xl font-[500] text-center">
+                <h2 className="text-xl">Welcome to</h2>
+                <h1 className="text-3xl font-[500]">
                   ISKCON Wavecity <br/> Ghaziabad
                 </h1>
                 <Link to="/donation#donationcircle" className="">
-                  <div className="flex justify-center">
+                  <div className="flex justify-start">
                     <button className="w-[180px] rounded-full bg-white text-[#eb852c] py-2 px-4 cursor-pointer ">
                       Donate
                     </button>
@@ -190,7 +190,7 @@ const Homepage = () => {
                 </Link>
                 <NavLink
                   to="/membership"
-                  className="px-8 w-54 mx-auto text-center py-3 bg-[#eb852c] text-white hover:border-2 hover:border-white rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  className="px-8 w-54 mr-auto text-center py-3 bg-[#eb852c] text-white hover:border-2 hover:border-white rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                 >
                   Become a Member
                 </NavLink>

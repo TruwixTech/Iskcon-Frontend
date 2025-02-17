@@ -177,7 +177,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full flex justify-end ">
+      <div className="w-full flex justify-end z-[100] ">
         <div className="flex items-center gap-3">
           <div className="bg-[#ffffff] hidden  rounded-3xl py-3 px-4 lg:flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
             <span>
@@ -264,10 +264,8 @@ const Navbar = () => {
             </span>
             <p className="pr-2 text-gray-600 text-sm font-semibold">Schedule</p>
           </div>
-          <div className="w-auto h-auto relative flex justify-center items-center">
-            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white">
-              <IoNotifications size={25} className="text-[#ffa700]" />
-            </span>
+          <div className="w-auto h-auto relative flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)] rounded-full">
+            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white"><IoNotifications size={25} className="text-[#ffa700]" /></span>
             <span className="w-2 h-2 bg-[#fc9191] rounded-full absolute top-0 right-1"></span>
           </div>
           {isOpen && (
@@ -385,7 +383,7 @@ const Navbar = () => {
               <div>
                 <Link
                   to={"/signup"}
-                  className="bg-[#ffffff] text-gray-600 text-[10px] lg:text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                  className="bg-[#eb852c] text-white md:hover:bg-white md:hover:text-[#eb852c] duration-500 ease-in-out text-[10px] lg:text-sm font-semibold rounded-full py-2 md:py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
                 >
                   SignUp
                 </Link>
@@ -393,7 +391,7 @@ const Navbar = () => {
               <div>
                 <Link
                   to={"/signin"}
-                  className="bg-[#ffffff] text-gray-600 text-[10px] lg:text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                  className="bg-[#eb852c] text-white md:hover:bg-white md:hover:text-[#eb852c] duration-500 ease-in-out text-[10px] lg:text-sm font-semibold rounded-full py-2 md:py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
                 >
                   Login
                 </Link>
@@ -405,7 +403,7 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className="w-full h-[70px] rounded-[100px] pl-6 pr-4 mt-2"
+        className="w-full h-[70px] rounded-[100px] pl-6 pr-4 mt-2 z-[100]"
         style={{
           backgroundColor: "rgba(251,247,245,0.7)",
           backdropFilter: "blur(8px)",
@@ -596,7 +594,7 @@ const Navbar = () => {
                   />
                   {isDropdownOpen3 && (
                     <div
-                      className="absolute top-12 right-0 mt-2 w-52 z-50   bg-white shadow-lg rounded-lg border"
+                      className="absolute top-12 right-0 mt-2 w-52 z-50 bg-white shadow-lg rounded-lg border"
                       onMouseLeave={toggleDropdown3}
                     >
                       <ul className="flex flex-col text-md space-y-1 m-2 ">
@@ -726,7 +724,7 @@ const Navbar = () => {
 
       {/* Cart Sidebar with Smooth Animation */}
       <div
-        className={`fixed inset-y-0 font-poppins z-50 h-auto overflow-y-scroll right-0 w-[85%] bg-white shadow-lg p-5 transform transition-transform duration-300 ease-in-out md:w-[60%] lg:w-[50%] xl:w-[40%] 
+        className={`fixed inset-y-0 font-poppins z-[100] h-auto overflow-y-scroll right-0 w-[85%] bg-white shadow-lg p-5 transform transition-transform duration-300 ease-in-out md:w-[60%] lg:w-[50%] xl:w-[40%] 
         ${cartSidebar ? "translate-x-0" : "translate-x-full"}`}
         style={{
           scrollbarWidth: "none",
