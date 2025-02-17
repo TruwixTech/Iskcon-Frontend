@@ -28,6 +28,7 @@ function DailyDarshan() {
         
         // Prevent navigating to future dates
         if (newDate > today) {
+            toast.dismiss()
             toast.error("Cannot select a future date.");
             return;
         }
