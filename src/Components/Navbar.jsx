@@ -18,6 +18,7 @@ import moon from "../assets/moon.gif";
 import puja from "../assets/puja.png";
 import { IoNotifications } from "react-icons/io5";
 import darshan from "../assets/darshan.svg";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -32,6 +33,12 @@ const Navbar = () => {
   const [status, setStatus] = useState({ isOpen: false, timeSlot: "Closed" });
   const [isDayTime, setIsDayTime] = useState(false); // New state for day/night
   const [isOpen, setIsOpen] = useState(false);
+  const [donationDropdown, setDonationDropdown] = useState(false);
+  const location = useLocation();
+
+  const handleDonationClick = () => {
+    setDonationDropdown(!donationDropdown);
+  };
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -255,12 +262,12 @@ const Navbar = () => {
             <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
               🗓️
             </span>
-            <p className="pr-2 text-gray-600 text-sm font-semibold">
-              Schedule
-            </p>
+            <p className="pr-2 text-gray-600 text-sm font-semibold">Schedule</p>
           </div>
           <div className="w-auto h-auto relative flex justify-center items-center">
-            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white"><IoNotifications size={25} className="text-[#ffa700]" /></span>
+            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white">
+              <IoNotifications size={25} className="text-[#ffa700]" />
+            </span>
             <span className="w-2 h-2 bg-[#fc9191] rounded-full absolute top-0 right-1"></span>
           </div>
           {isOpen && (
@@ -433,56 +440,59 @@ const Navbar = () => {
                     key={path}
                     className="relative group flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setDropdownOpen(true)}
-                  // onMouseLeave={() => setDropdownOpen(false)}
+                    onMouseLeave={() =>
+                      setTimeout(() => setDropdownOpen(false), 200)
+                    }
                   >
-                    <span className="flex items-center gap-2 text-black group-hover:text-[#eb852c]">
+                    <span className="flex items-center gap-2 text-black ">
                       {label}
                       <IoIosArrowDown />
+                      {dropdownOpen && (
+                        <div
+                          className="absolute top-6 left-0 w-60 bg-white shadow-md rounded-xl"
+                          // onMouseLeave={() =>
+                          //   setTimeout(() => setDropdownOpen(false), 200)
+                          // } // Small delay for better UX
+                        >
+                          <ul className="flex flex-col p-2">
+                            <li>
+                              <NavLink
+                                to="/donation"
+                                className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                              >
+                                General Donation
+                              </NavLink>
+                            </li>
+                            <li>
+                              <NavLink
+                                to="/csr"
+                                className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                              >
+                                CSR Donation
+                              </NavLink>
+                            </li>
+                            <li>
+                              <NavLink
+                                to="/temple-construction"
+                                className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
+                              >
+                                Temple Construction
+                              </NavLink>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
                     </span>
-                    {dropdownOpen && (
-                      <div
-                        className="absolute top-8 left-0 w-60 bg-white shadow-md rounded-xl"
-                        onMouseLeave={() =>
-                          setTimeout(() => setDropdownOpen(false), 200)
-                        } // Small delay for better UX
-                      >
-                        <ul className="flex flex-col p-2">
-                          <li>
-                            <NavLink
-                              to="/donation"
-                              className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
-                            >
-                              General Donation
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/csr"
-                              className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
-                            >
-                              CSR Donation
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/temple-construction"
-                              className="block px-4 py-2 rounded-full hover:bg-[#eb852c] hover:text-white"
-                            >
-                              Temple Construction
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
                   </li>
                 ) : (
                   <li key={path}>
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `group relative flex items-center gap-2 ${isActive
-                          ? "text-[#eb852c] underline underline-offset-8"
-                          : "text-black"
+                        `group relative flex items-center gap-2 ${
+                          isActive
+                            ? "text-[#eb852c] underline underline-offset-8"
+                            : "text-black"
                         } hover:text-[#eb852c]`
                       }
                     >
@@ -624,7 +634,6 @@ const Navbar = () => {
               <ul className="flex flex-col items-center gap-6 text-base font-medium">
                 {[
                   { path: "/about", label: "About Us" },
-                  { path: "/donation", label: "Donation" },
                   { path: "/events", label: "Events" },
                   { path: "/blogs", label: "Blogs" },
                   { path: "/shop", label: "Shop" },
@@ -634,9 +643,10 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `${isActive
-                          ? "text-[#eb852c] underline-[#eb852c]"
-                          : "text-black underline underline-offset-8"
+                        `${
+                          isActive
+                            ? "text-[#eb852c] underline-[#eb852c]"
+                            : "text-black underline underline-offset-8"
                         } hover:text-[#eb852c]`
                       }
                       onClick={() => setMenuOpen(false)}
@@ -645,11 +655,52 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                 ))}
+
+                {/* Donation Menu Item with Dropdown */}
+                <li className="relative">
+                  <span
+                    className="text-black cursor-pointer flex items-center gap-2 hover:text-[#eb852c]"
+                    onClick={handleDonationClick}
+                  >
+                    Donation
+                    <span>{donationDropdown ? "▲" : "▼"}</span>
+                  </span>
+
+                  {donationDropdown && (
+                    <ul className="absolute left-1/2 -translate-x-1/2 mt-2 w-[330px] bg-[#ece4c7] shadow-md rounded-lg p-2">
+                      {[
+                        { path: "/donation", label: "General Donation" },
+                        { path: "/csr", label: "CSR Donation" },
+                        { path: "/temple-construction", label: "Temple Construction" },
+                      ].map(({ path, label }) => (
+                        <li key={path}>
+                          <NavLink
+                            to={path}
+                            className={({ isActive }) =>
+                              `${
+                                isActive
+                                  ? "text-[#eb852c] font-bold"
+                                  : "text-black"
+                              } block px-4 py-2 hover:bg-orange-100 rounded-md text-center underline underline-offset-4`
+                            }
+                            onClick={() => {
+                              setDonationDropdown(false);
+                              setMenuOpen(false);
+                            }}
+                          >
+                            {label}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
               </ul>
+
+              {/* Cart & Donation Buttons */}
               <div className="flex flex-col gap-4 mt-6">
                 <span
                   className="flex items-center justify-center text-black hover:text-[#eb852c]"
-                  // onClick={() => setMenuOpen(false)}
                   onClick={() => setCartSidebar(true)}
                 >
                   <img src={cart} alt="cart" />

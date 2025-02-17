@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -20,6 +21,17 @@ function DailyDarshan() {
     const handleNextDate = () => {
         const newDate = new Date(selectedDate);
         newDate.setDate(newDate.getDate() + 1);
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for accurate comparison
+        newDate.setHours(0, 0, 0, 0); // Normalize newDate to midnight
+        
+        // Prevent navigating to future dates
+        if (newDate > today) {
+            toast.error("Cannot select a future date.");
+            return;
+        }
+        
         setSelectedDate(newDate);
     };
 

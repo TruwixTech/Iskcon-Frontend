@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import about1 from "../assets/about1.jpg";
@@ -142,17 +142,21 @@ const CardDetails = () => {
   const { id } = useParams();
   const card = data.find((item) => item.id === parseInt(id));
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="bg-[#fde3b6] w-full h-full">
-      <div className="px-20 pt-4 relative z-50">
+      <div className="px-4 md:px-20 pt-4 relative z-50">
         <Navbar />
       </div>
       <div className="px-4 md:px-20 py-20">
-        <div className="flex gap-10 items-center">
+        <div className="flex flex-col md:flex-row gap-10 items-center">
         <img
           src={card.image}
           alt={card.title}
-          className="w-full h-96 object-contain rounded-lg mb-6"
+          className="w-full h-auto md:h-96 object-contain rounded-lg mb-6"
         />
         <div>
         <h1 className="text-3xl font-bold mb-4 font-prata">{card.title}</h1>

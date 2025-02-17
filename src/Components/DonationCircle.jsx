@@ -86,7 +86,7 @@ function DonationCircle() {
               <div className="w-[85%] h-[85%] border-[10px] rounded-full border-[#bf9d78] relative flex justify-center items-center">
                 <div className="w-full h-full flex flex-col justify-center items-center relative py-3 gap-3 2xl:py-8 z-40">
                   <div className="w-full h-auto flex flex-col justify-center items-center gap-2">
-                    <h1 className="text-center font-bold font-nunito text-xl 2xl:text-2xl">
+                    <h1 className="w-[80%] text-center font-bold font-nunito text-xl 2xl:text-2xl">
                       {item.title}
                     </h1>
                     <div className="w-full h-auto flex justify-center items-center">

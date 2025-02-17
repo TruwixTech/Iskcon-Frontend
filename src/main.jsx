@@ -68,6 +68,7 @@ import DailyDarshan from "./Pages/DailyDarshanPage.jsx";
 import LiveDarshan from "./Pages/LiveDarshan.jsx";
 import AdminLiveDarshan from "./Components/Admin-Dashboard/LiveDarshan/AdminLiveDarshan.jsx";
 import AdminDailyStory from "./Components/Admin-Dashboard/DailyStory/AdminDailyStory.jsx";
+import { ToastContainer } from "react-toastify";
 
 
 const MainApp = () => {
@@ -220,6 +221,7 @@ const MainApp = () => {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <ToastContainer />
     <MainApp />
   </StrictMode>
 );
