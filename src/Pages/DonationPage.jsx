@@ -3,11 +3,11 @@ import Section1 from "../Components/DonationComponents/Section1";
 import Section2 from "../Components/DonationComponents/Section2";
 import DonationCircle from "../Components/DonationCircle";
 import PaymentDetailsCard from "../Components/PaymentDetailsCard";
-import leaf1 from "../assets/leaf1.png";
-import leaf2 from "../assets/leaf2.png";
-import styleborder from "../assets/styleborder.png";
-import pea from "../assets/pea.png";
-import borderbg from "../assets/borderbg.png";
+import leaf1 from "../assets/leaf1.webp";
+import leaf2 from "../assets/leaf2.webp";
+import styleborder from "../assets/styleborder.webp";
+import pea from "../assets/pea.webp";
+import borderbg from "../assets/borderbg.webp";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 const DonationPage = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styleborder from "../../assets/styleborder.png";
+import styleborder from "../../assets/styleborder.webp";
 
 const logout = () => {
     localStorage.removeItem("isAuthenticated");

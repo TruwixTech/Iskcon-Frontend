@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Category1 from '../../assets/category1.svg';
-import Category2 from '../../assets/grocery.png';
+import Category2 from '../../assets/grocery.webp';
 import Category3 from '../../assets/category3.svg';
 import Category4 from '../../assets/category4.svg';
 import Category5 from '../../assets/cloth.webp'; // New category icon for Clothes

@@ -84,7 +84,7 @@ const AllProducts = () => {
                         <ProductCard 
                             key={index} 
                             productId={item._id} 
-                            productImage={item.images?.[0] || 'default-image.jpg'} 
+                            productImage={item.images?.[0] || 'default-image.webp'} 
                             productName={item.name} 
                             productPrice={item.price} 
                             productDesc={item.subDesc} 

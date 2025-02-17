@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import BgOne from "../../assets/bg2.png";
+import BgOne from "../../assets/bg2.webp";
 import Navbar from "../Navbar";
 import axios from "axios";
 import DonationCircle from "../DonationCircle";

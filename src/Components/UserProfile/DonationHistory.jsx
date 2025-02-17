@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import BgOne from "../../assets/bg2.png";
+import BgOne from "../../assets/bg2.webp";
 import Navbar from "../Navbar";
 
 const backend = import.meta.env.VITE_BACKEND_URL;

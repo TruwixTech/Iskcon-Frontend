@@ -1,7 +1,7 @@
 import React from 'react'
-import BgOne from '../assets/bg2.png'
+import BgOne from '../assets/bg2.webp'
 import Navbar from './Navbar'
-import Donate from '../assets/donateImage.jpeg'
+import Donate from '../assets/donateImage.webp'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 

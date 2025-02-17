@@ -1,7 +1,7 @@
 import React from 'react'
 import CardBorder from '../../assets/cardBorder.svg'
-import ProductBook from '../../assets/productBook.png'
-import ProductShadow from '../../assets/productShadow.png'
+import ProductBook from '../../assets/productBook.webp'
+import ProductShadow from '../../assets/productShadow.webp'
 import { FaStar } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 

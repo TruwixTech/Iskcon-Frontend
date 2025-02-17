@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import BgOne from '../../assets/bg2.png'
+import BgOne from '../../assets/bg2.webp'
 import Navbar from '../Navbar'
 import { FaChevronLeft } from "react-icons/fa6"
 import { FaChevronRight } from "react-icons/fa6"
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiTruckLine } from "react-icons/ri";
 import { FaRegCalendar } from "react-icons/fa";
-import Icon1 from '../../assets/singleProductIcon1.png'
-import Icon2 from '../../assets/singleProductIcon2.png'
-import Icon3 from '../../assets/singleProductIcon3.png'
-import Icon4 from '../../assets/singleProductIcon4.png'
+import Icon1 from '../../assets/singleProductIcon1.webp'
+import Icon2 from '../../assets/singleProductIcon2.webp'
+import Icon3 from '../../assets/singleProductIcon3.webp'
+import Icon4 from '../../assets/singleProductIcon4.webp'
 import axios from 'axios'
 import ProductCard from './ProductCard'
 import { CartContext } from '../../Context/CartContext'

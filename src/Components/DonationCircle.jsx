@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import BgOne from "../assets/bg1.png";
+import BgOne from "../assets/bg1.webp";
 import Border1 from "../assets/section1border1.svg";
 import Border2 from "../assets/section1border2.svg";
-import c1 from "../assets/c1.png";
-import c2 from "../assets/c2.png";
-import c3 from "../assets/c3.png";
-import c4 from "../assets/c4.png";
+import c1 from "../assets/c1.webp";
+import c2 from "../assets/c2.webp";
+import c3 from "../assets/c3.webp";
+import c4 from "../assets/c4.webp";
 import { NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import about1 from "../assets/about1.jpg";
-import about2 from "../assets/about2.png";
-import about3 from "../assets/about3.png";
-import about4 from "../assets/bout4.jpg";
+import about1 from "../assets/about1.webp";
+import about2 from "../assets/about2.webp";
+import about3 from "../assets/about3.webp";
+import about4 from "../assets/bout4.webp";
 
 const data = [
   {

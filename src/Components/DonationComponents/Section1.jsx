@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../Navbar";
-import bg from "../../assets/krishnabg.png";
-import frame from "../../assets/frame.png";
+import bg from "../../assets/krishnabg.webp";
+import frame from "../../assets/frame.webp";
 
 const Section1 = () => {
   return (
@@ -47,7 +47,7 @@ const Section1 = () => {
         </div>
       </div>
 
-      {/* Right Half (Transparent to let `krishnabg.png` show) */}
+      {/* Right Half (Transparent to let `krishnabg.webp` show) */}
       <div className="w-1/2 h-full"></div>
     </div>
   );

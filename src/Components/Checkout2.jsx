@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Navbar from "./Navbar";
-import formbg from "../assets/formbg.png";
-import BgOne from "../assets/bg2.png";
+import formbg from "../assets/formbg.webp";
+import BgOne from "../assets/bg2.webp";
 import { DonationCartContext } from "../Context/DonationCartContext";
 import axios from "axios";
 

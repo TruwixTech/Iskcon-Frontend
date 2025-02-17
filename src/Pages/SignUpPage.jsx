@@ -5,7 +5,7 @@ import 'react-phone-input-2/lib/style.css'; // Import the library's CSS
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { FaGoogle } from "react-icons/fa";
-import Image from '../assets/signUpImage.jpg'
+import Image from '../assets/signUpImage.webp'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa";
 import axios from 'axios';
@@ -141,7 +141,7 @@ function SignUpPage() {
 
             if (response.status === 200 || response.status === 201) {
                 toast.dismiss();
-                toast.success('OTP sent successfully');
+                alert('OTP sent successfully');
             }
         } catch (error) {
             console.log("Error while verifying otp", error);
@@ -152,13 +152,13 @@ function SignUpPage() {
         // Validation
         if (!userDetails.name.trim()) {
             toast.dismiss();
-            toast.error("Name is required");
+            alert("Name is required");
             return;
         }
 
         if (!/^[A-Za-z\s]+$/.test(userDetails.name.trim())) {
             toast.dismiss();
-            toast.error("Name should contain only alphabets and spaces.");
+            alert("Name should contain only alphabets and spaces.");
             return;
         }
 
@@ -166,33 +166,33 @@ function SignUpPage() {
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!userDetails.email || !emailRegex.test(userDetails.email)) {
                 toast.dismiss();
-                toast.error("Please enter a valid email address");
+                alert("Please enter a valid email address");
                 return;
             }
         } else if (signUpWay === 'phone') {
             // If using phone, check if the phone number is not empty and properly formatted
             if (!userDetails.phone_no || userDetails.phone_no.length < 10) {
                 toast.dismiss();
-                toast.error("Please enter a valid phone number");
+                alert("Please enter a valid phone number");
                 return;
             }
         }
 
         if (!userDetails.password) {
             toast.dismiss();
-            toast.error("Password is required");
+            alert("Password is required");
             return;
         }
 
         if (userDetails.password.length < 6) {
             toast.dismiss();
-            toast.error("Password must be at least 6 characters long");
+            alert("Password must be at least 6 characters long");
             return;
         }
 
         if (userDetails.password !== userDetails.confirmPassword) {
             toast.dismiss();
-            toast.error("Password and Confirm Password do not match");
+            alert("Password and Confirm Password do not match");
             return;
         }
 
@@ -207,7 +207,7 @@ function SignUpPage() {
                     setIsResendDisabled(true); // Disable resend initially
                 } else {
                     toast.dismiss();
-                    toast.success('Account created successfully');
+                    alert('Account created successfully');
                     setUserDetails({
                         name: '',
                         email: '',

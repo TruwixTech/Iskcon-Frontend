@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Circlebg from "../assets/circlebg.png";
+import Circlebg from "../assets/circlebg.webp";
 import Navbar from "../Components/Navbar";
 import bronge from "../assets/bronze.svg";
 import silver from "../assets/silver.svg";

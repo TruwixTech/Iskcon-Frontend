@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import circlebg from "../../assets/circlebg.png";
-import krishnadonation from "../../assets/krishnadon.png";
-import leaf1 from "../../assets/leaf1.png";
-import leaf2 from "../../assets/leaf2.png";
+import circlebg from "../../assets/circlebg.webp";
+import krishnadonation from "../../assets/krishnadon.webp";
+import leaf1 from "../../assets/leaf1.webp";
+import leaf2 from "../../assets/leaf2.webp";
 import DonationCircle from "../DonationCircle";
 
 import PaymentDetailsCard from "../PaymentDetailsCard";

@@ -1,9 +1,9 @@
-import blogbg from "../../assets/blogbg.jpeg";
+import blogbg from "../../assets/blogbg.webp";
 import { useEffect, useState } from "react";
 import DonationCircle from "../DonationCircle.jsx";
 
 import axios from "axios";
-import BgOne from "../../assets/bg2.png";
+import BgOne from "../../assets/bg2.webp";
 import { NavLink } from "react-router-dom";
 
 const backend = import.meta.env.VITE_BACKEND_URL;

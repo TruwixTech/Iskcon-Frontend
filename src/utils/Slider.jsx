@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Image from '../assets/signUpImage.jpg'
+import Image from '../assets/signUpImage.webp'
 
 
 function Slider() {

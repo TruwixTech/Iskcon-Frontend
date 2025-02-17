@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Image from '../assets/signUpImage.jpg'
+import Image from '../assets/signUpImage.webp'
 import Logo from '../assets/logo.svg'
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";

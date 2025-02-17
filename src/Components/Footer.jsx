@@ -1,9 +1,9 @@
 import React from "react";
-import footerbg from "../assets/footerbg.jpg";
+import footerbg from "../assets/footerbg.webp";
 import logof from "../assets/logofooter.svg";
-import fb from "../assets/fb.png"
-import insta from "../assets/insta.png"
-import twit from "../assets/twit.png"
+import fb from "../assets/fb.webp"
+import insta from "../assets/insta.webp"
+import twit from "../assets/twit.webp"
 import { Link, NavLink } from "react-router-dom";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";

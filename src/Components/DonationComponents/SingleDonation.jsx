@@ -1,5 +1,5 @@
 import axios from "axios";
-import Image1 from "../../assets/bg2.png";
+import Image1 from "../../assets/bg2.webp";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../Navbar";

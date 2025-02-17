@@ -1,5 +1,5 @@
 import React from "react";
-import scan from "../assets/scan.png";
+import scan from "../assets/scan.webp";
 
 const PaymentDetailsCard = () => {
   return (

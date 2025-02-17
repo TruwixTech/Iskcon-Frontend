@@ -1,7 +1,7 @@
 import React from 'react'
-import BgOne from '../../assets/bg1.png'
-import CalendorIcon from '../../assets/calenderIcon.png'
-import COmmentIcon from '../../assets/commentIcon.png'
+import BgOne from '../../assets/bg1.webp'
+import CalendorIcon from '../../assets/calenderIcon.webp'
+import COmmentIcon from '../../assets/commentIcon.webp'
 import Blogimg1 from '../../assets/blog1.svg'
 import Blogimg2 from '../../assets/blog2.svg'
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";

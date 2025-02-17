@@ -1,6 +1,6 @@
 import React from "react";
-import BgOne from "../../assets/bg2.png";
-import KrishnaJiClouds from "../../assets/krishnajiClouds.png";
+import BgOne from "../../assets/bg2.webp";
+import KrishnaJiClouds from "../../assets/krishnajiClouds.webp";
 import { Link } from "react-router-dom";
 function Section2() {
   return (

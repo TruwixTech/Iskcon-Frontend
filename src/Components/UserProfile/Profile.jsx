@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import BgOne from "../../assets/bg2.png";
-import BgTwo from "../../assets/bg1.png";
+import BgOne from "../../assets/bg2.webp";
+import BgTwo from "../../assets/bg1.webp";
 import Navbar from "../Navbar";
 import TextField from "@mui/material/TextField";
 import { FormControl, MenuItem, Select } from "@mui/material";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Image from '../assets/signUpImage.jpg'
+import Image from '../assets/signUpImage.webp'
 import Logo from '../assets/logo.svg'
 import PhoneInput from 'react-phone-input-2'; // Import the library
 import 'react-phone-input-2/lib/style.css'; // Import the library's CSS

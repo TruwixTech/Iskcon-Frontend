@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styleborder from "../../assets/styleborder.png";
-import pea from "../../assets/pea.png";
-import borderbg from "../../assets/donateImg.png";
+import styleborder from "../../assets/styleborder.webp";
+import pea from "../../assets/pea.webp";
+import borderbg from "../../assets/donateImg.webp";
 
 function Section3() {
   const carousal = [
