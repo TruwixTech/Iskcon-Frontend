@@ -68,7 +68,7 @@ function DailyDarshan() {
 
     return (
         <div className='w-full bg-gradient-to-b from-[#fde3b6] to-[#f8c56a] flex flex-col min-h-screen'>
-            <div className="px-4 md:px-20 pt-10 relative z-50">
+            <div className="px-4 md:px-20 pt-4 relative z-50">
                 <Navbar />
             </div>
             <div className='w-full h-full flex flex-col px-5 gap-6 md:px-10 lg:px-20 py-10 md:py-20'>

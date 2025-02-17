@@ -119,13 +119,13 @@ const CSRPage = () => {
     <>
       {/* first section */}
       <div className="bg-[#fde3b6] w-full h-[500px] lg:h-screen relative ">
-        <div className="px-4 md:px-20 pt-10 relative z-50 ">
+        <div className="px-4 md:px-20 pt-4 relative z-50 ">
           <Navbar />
         </div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full opacity-15">
           <img src={circlebg} alt="" className="w-full" />
         </div>
-        <div className="absolute top-7 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
           <img src={csr} alt="csr" className="" />
         </div>
         <div className="absolute bottom-0 right-20 md:flex gap-10 hidden">
@@ -142,7 +142,7 @@ const CSRPage = () => {
             the hungry, supporting education, and promoting environmental
             sustainability.
           </p>
-          <a href="/donation#donationcircle">
+          <a href="/csr#sectiondonation">
             <button className="w-[250px] md:w-[180px] bg-[#EB852C] text-white py-2 rounded-full">
               Donate Now
             </button>
@@ -239,7 +239,7 @@ const CSRPage = () => {
     </div>
 
       {/* fourht section */}
-      <div className="w-full h-auto bg-white py-20">
+      <div className="w-full h-auto bg-white py-20"id="sectiondonation">
         <div className="w-full flex flex-col  justify-center items-center">
           <h1 className="w-full text-center text-5xl font-semibold font-prata mb-10">
             Joining our mission is the most <br /> impactful way to give

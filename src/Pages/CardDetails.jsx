@@ -144,7 +144,7 @@ const CardDetails = () => {
 
   return (
     <div className="bg-[#fde3b6] w-full h-full">
-      <div className="px-20 pt-10 relative z-50">
+      <div className="px-20 pt-4 relative z-50">
         <Navbar />
       </div>
       <div className="px-4 md:px-20 py-20">

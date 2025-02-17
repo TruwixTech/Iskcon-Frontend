@@ -163,7 +163,7 @@ const Checkout2 = () => {
         backgroundSize: "contain",
       }}
     >
-      <div className="px-4 md:px-20 pt-10 z-10 relative">
+      <div className="px-4 md:px-20 pt-4 z-10 relative">
         <Navbar />
       </div>
 

@@ -21,7 +21,7 @@ function LiveDarshan() {
       setLiveDarshan(response.data.liveDarshan);
     } catch (error) {
       console.log("Error while fetching live darshan", error);
-      toast.error("Failed to fetch live darshan!");
+      // toast.error("Failed to fetch live darshan!");
     }
   }
 
@@ -32,7 +32,7 @@ function LiveDarshan() {
 
   return (
     <div className='w-full h-auto flex flex-col bg-[#fde3b6]'>
-      <div className="px-4 md:px-20 pt-10 relative z-50">
+      <div className="px-4 md:px-20 pt-4 relative z-50">
         <Navbar />
       </div>
       <div className='w-full h-auto px-5 md:px-10 lg:px-20 my-10 lg:my-20'>

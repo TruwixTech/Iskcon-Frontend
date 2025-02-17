@@ -42,7 +42,7 @@ const AboutUs = () => {
 
   return (
     <div className="bg-gradient-to-b from-[#fde3b6] to-[#f8c56a] w-full min-h-screen">
-      <div className="px-4 md:px-20 pt-10 relative z-50">
+      <div className="px-4 md:px-20 pt-4 relative z-50">
         <Navbar />
       </div>
       {/* Heading with Animation */}

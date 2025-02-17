@@ -181,7 +181,7 @@ const MembershipPage = () => {
 
   return (
     <div className="bg-[#fde3b6] w-full h-auto relative py-20">
-      <div className="w-full h-[70px] z-40 absolute top-10 px-4 md:px-20">
+      <div className="w-full h-[70px] z-40 absolute top-4 px-4 md:px-20">
         <Navbar />
       </div>
       <div className="w-full absolute top-0 left-1/2 -translate-x-1/2">

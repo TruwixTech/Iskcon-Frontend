@@ -13,10 +13,11 @@ import logicon from "../assets/enter.png";
 import donation from "../assets/donation.png";
 import { PiBellSimpleZLight } from "react-icons/pi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import sun from "../assets/sun.gif"
-import moon from "../assets/moon.gif"
+import sun from "../assets/sun.gif";
+import moon from "../assets/moon.gif";
 import puja from "../assets/puja.png";
 import { IoNotifications } from "react-icons/io5";
+import darshan from "../assets/darshan.svg";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -169,9 +170,9 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full md:flex justify-end hidden ">
-        <div className="flex items-center gap-6">
-          <div className="bg-[#ffffff] rounded-3xl py-3 px-4 flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
+      <div className="w-full flex justify-end ">
+        <div className="flex items-center gap-3">
+          <div className="bg-[#ffffff] hidden  rounded-3xl py-3 px-4 lg:flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
             <span>
               {status.isOpen ? (
                 <svg
@@ -225,8 +226,30 @@ const Navbar = () => {
               {status.timeSlot}
             </p>
           </div>
+          <Link
+            to={"/live-darshan"}
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-2 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+          >
+            <span className="w-9 h-9 flex justify-center rounded-full items-center ">
+              <img src={logo} alt="" />
+            </span>
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">
+              Live-Darshan
+            </p>
+          </Link>
+          <Link
+            to={"/daily-darshan"}
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+          >
+            <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
+              <img src={darshan} alt="" />
+            </span>
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">
+              Daily-Darshan
+            </p>
+          </Link>
           <div
-            className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
             onClick={openModal}
           >
             <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
@@ -350,16 +373,28 @@ const Navbar = () => {
               </div>
             </div>
           )}
-          {/* <div>
-              <span className="bg-[#ffffff] rounded-full w-10 h-10 flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
-                <PiBellSimpleZLight size={24} />
-              </span>
-            </div>
-            <div>
-              <span className="bg-[#ffffff] text-gray-600 text-sm font-semibold rounded-full py-2 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
-                Login
-              </span>
-            </div> */}
+          {!hasAccessToken ? (
+            <>
+              <div>
+                <Link
+                  to={"/signup"}
+                  className="bg-[#ffffff] text-gray-600 text-[10px] lg:text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                >
+                  SignUp
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to={"/signin"}
+                  className="bg-[#ffffff] text-gray-600 text-[10px] lg:text-sm font-semibold rounded-full py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
+                >
+                  Login
+                </Link>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div
@@ -527,34 +562,7 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <>
-                  <div className="relative flex items-center gap-4">
-                    <div className="mr-2" onMouseEnter={toggleDropdown2}>
-                      <img src={logicon} alt="" className="w-10 h-10 " />
-                    </div>
-                    {isDropdownOpen2 && (
-                      <div
-                        className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
-                        onMouseLeave={toggleDropdown2}
-                      >
-                        <ul className="flex flex-col text-md space-y-1 m-2">
-                          <Link
-                            to="/signup"
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          >
-                            SignUp
-                          </Link>
-                          <Link
-                            to="/signin"
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          >
-                            SignIn
-                          </Link>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </>
+                ""
               )}
             </div>
           </span>
@@ -596,11 +604,7 @@ const Navbar = () => {
                         </Link>
                         <li
                           className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          onClick={() => {
-                            // Clear the AccessToken on logout
-                            Cookies.remove("AccessToken");
-                            setHasAccessToken(false);
-                          }}
+                          onClick={handleLogout}
                         >
                           Logout
                         </li>
@@ -609,34 +613,7 @@ const Navbar = () => {
                   )}
                 </>
               ) : (
-                <>
-                  <div className="relative flex items-center gap-4">
-                    <div className="mr-2" onMouseEnter={toggleDropdown3}>
-                      <img src={logicon} alt="" className="w-10 h-10 " />
-                    </div>
-                    {isDropdownOpen3 && (
-                      <div
-                        className="absolute top-12 right-0 mt-2 w-52 bg-white shadow-lg rounded-lg border"
-                        onMouseLeave={toggleDropdown3}
-                      >
-                        <ul className="flex flex-col text-md space-y-1 m-2">
-                          <Link
-                            to="/signup"
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          >
-                            SignUp
-                          </Link>
-                          <Link
-                            to="/signin"
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                          >
-                            SignIn
-                          </Link>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </>
+                ""
               )}
             </div>
           </div>
@@ -829,13 +806,19 @@ const Navbar = () => {
         }}
       >
         <button
-          className="absolute top-3 right-3 text-gray-600"
+          className="absolute top-3 right-3 text-gray-600 hidden md:block"
           onClick={() => setDonationSidebar(false)}
         >
           <IoMdClose size={40} />
         </button>
-        <div className="w-[95%] h-auto flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-bold">Donation Cart</h2>
+        <button
+          className="absolute top-3 right-3 text-gray-600 md:hidden"
+          onClick={() => setDonationSidebar(false)}
+        >
+          <IoMdClose size={28} />
+        </button>
+        <div className="w-[90%] md:w-[95%] h-auto flex justify-between items-center mb-4">
+          <h2 className="text-xl md:text-3xl font-bold">Donation Cart</h2>
 
           <span
             className="flex gap-2 text-red-500 items-center text-sm md:text-base font-semibold cursor-pointer"
@@ -845,10 +828,10 @@ const Navbar = () => {
             <RiDeleteBin5Fill size={20} />
           </span>
         </div>
-        <div className="w-full flex gap-10">
+        <div className="w-full flex flex-col md:flex-row  gap-10">
           {/* Donation Cart Section */}
           <div
-            className="w-1/2 flex flex-col gap-2 justify-start items-start overflow-y-auto"
+            className="w-full md:w-1/2 flex flex-col gap-2 justify-start items-start overflow-y-auto"
             style={{ maxHeight: "240px" }} // Fixed height for ~4 items
           >
             {donationCartItems.length > 0 ? (
@@ -856,10 +839,10 @@ const Navbar = () => {
                 <div key={item.id} className="w-full flex items-center">
                   <div className="w-full flex flex-col border border-gray-300 rounded-lg p-2">
                     <div className="w-full flex justify-between items-center">
-                      <h3 className="w-[60%] text-xs font-semibold sm:text-base xl:text-lg">
+                      <h3 className="w-[50%] md:w-[60%] text-xs font-semibold sm:text-base xl:text-lg">
                         {item.title}
                       </h3>
-                      <p className="text-xs font-semibold w-[15%] sm:text-sm xl:text-base">
+                      <p className="text-xs font-semibold w-[20%] md:w-[15%] sm:text-sm xl:text-base">
                         ₹ {item.amount * item.quantity}
                       </p>
                       <div className="w-[20%] h-auto flex justify-end">
@@ -894,7 +877,7 @@ const Navbar = () => {
 
           {/* Donation Summary & Checkout Section */}
           {donationCartItems.length > 0 && (
-            <div className="w-1/2 flex flex-col gap-4">
+            <div className="w-full md:w-1/2 flex flex-col gap-4">
               {/* Checkout as Guest Checkbox */}
               <div className="flex items-center gap-2">
                 <input

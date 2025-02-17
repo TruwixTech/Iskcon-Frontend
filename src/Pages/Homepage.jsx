@@ -87,22 +87,22 @@ const Homepage = () => {
     <>
       <div className="w-full h-auto relative font-poppins">
         {/* Hero Section */}
-        <div className="w-full h-[800px] md:h-screen relative bg-[#fde3b6] overflow-hidden">
-          <div className="w-full h-[70px] z-[100] absolute top-10 px-4 md:px-20">
+        <div className="w-full h-[800px] md:h-[900px] lg:h-screen relative bg-[#fde3b6] overflow-hidden">
+          <div className="w-full h-[70px] z-[100] absolute top-4 px-4 md:px-20">
             <Navbar />
           </div>
 
           <div className="hidden md:block">
             <div
-              className="w-full h-full absolute top-[35%] z-50 -left-60"
+              className="w-full h-full absolute top-[35%] z-50 -left-72 lg:-left-60"
               style={textStyle}
             >
               <div className="flex flex-col gap-2 relative z-[999]">
-                <h3 className="text-xl">
-                  Connect to SHRI SHRI RADHA MADAN MOHAN JI
+                <h3 className="text-lg lg:text-xl">
+                Feel the Divine Essence of Lord Krishna
                 </h3>
-                <h2 className="text-4xl">Welcome to</h2>
-                <h1 className="text-6xl font-[500]">ISCKON Ghaziabad</h1>
+                <h2 className="text-2xl lg:text-4xl">Welcome to</h2>
+                <h1 className="text-3xl lg:text-5xl font-[500]">ISCKON Wavecity <br/> Ghaziabad</h1>
                 <div className="flex gap-4 items-center">
                   <a href="/donation#donationcircle" className="">
                     <button className="w-[180px] rounded-full bg-white text-[#eb852c] hover:border-2 hover:border-[#eb852c] py-3 px-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
@@ -127,7 +127,7 @@ const Homepage = () => {
               <img
                 src={tree}
                 alt="tree"
-                className="w-full max-h-[880px] absolute -top-[8px]"
+                className="w-full lg:max-h-[900px] md:h-[900px] absolute -top-[8px]"
                 style={treeStyle}
               />
               <img
@@ -139,7 +139,7 @@ const Homepage = () => {
               <img
                 src={morpankh}
                 alt="morpankh"
-                className="absolute top-[28%] right-[29%]"
+                className="absolute md:top-[29%] lg:top-[28%] md:right-[4%] lg:right-[29%]"
                 style={morpankhStyle}
               />
             </div>
@@ -169,18 +169,18 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div className="md:hidden block">
+          <div className="md:hidden block ">
             <div
               className="w-full h-full absolute top-[15%] z-[60]  -left-60"
               style={textStyle2}
             >
               <div className="flex flex-col gap-2 mt-10">
                 <h3 className="text-sm text-center">
-                  Connect to SHRI SHRI RADHA MADAN MOHAN JI
+                Feel the Divine Essence of Lord Krishna
                 </h3>
                 <h2 className="text-xl text-center">Welcome to</h2>
                 <h1 className="text-3xl font-[500] text-center">
-                  ISCKON Ghaziabad
+                  ISCKON Wavecity <br/> Ghaziabad
                 </h1>
                 <Link to="/donation#donationcircle" className="">
                   <div className="flex justify-center">
@@ -204,11 +204,11 @@ const Homepage = () => {
             >
               <img src={grass} alt="grass" className="w-full h-[200px]" />
             </div>
-            <div className="w-[150%] h-[750px] relative top-0 right-0 z-50">
+            <div className="w-[150%] h-[850px] relative top-0 right-0 z-50">
               <img
                 src={tree}
                 alt="tree"
-                className="w-full min-h-[750px] absolute "
+                className="w-full min-h-[800px] absolute "
                 style={treeStyle}
               />
               <img
