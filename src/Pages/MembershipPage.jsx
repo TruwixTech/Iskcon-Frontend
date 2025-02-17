@@ -187,7 +187,7 @@ const MembershipPage = () => {
       <div className="w-full absolute top-0 left-1/2 -translate-x-1/2">
         <img src={Circlebg} alt="" className="w-full opacity-10" />
       </div>
-      <h1 className="text-5xl text-center text-[#3b2106] mt-20 font-prata uppercase font-[400px]">
+      <h1 className="text-2xl md:text-5xl text-center text-[#3b2106] mt-20 font-prata uppercase font-[400px]">
         Membership Categories
       </h1>
 
@@ -196,7 +196,7 @@ const MembershipPage = () => {
         {cardData.map((card) => (
           <div
             key={card.id}
-            className={`membership-card shiny-${card.id} p-6 rounded-lg text-center font-bold shadow-md h-[300px] flex flex-col justify-between`}
+            className={`membership-card shiny-${card.id} p-6 rounded-lg text-center font-bold shadow-md h-auto xl:h-[300px] flex flex-col justify-between`}
           >
             <div className="flex justify-center items-center mb-4">
               <img src={card.img} alt={card.title} className="w-20 h-20" />

@@ -67,6 +67,7 @@ import DonationConfirm from "./Pages/DonationConfirm.jsx";
 import DailyDarshan from "./Pages/DailyDarshanPage.jsx";
 import LiveDarshan from "./Pages/LiveDarshan.jsx";
 import AdminLiveDarshan from "./Components/Admin-Dashboard/LiveDarshan/AdminLiveDarshan.jsx";
+import AdminDailyStory from "./Components/Admin-Dashboard/DailyStory/AdminDailyStory.jsx";
 
 
 const MainApp = () => {
@@ -169,6 +170,7 @@ const MainApp = () => {
             />
 
             <Route path="/admin-dashboard/live-darshan" element={<AdminLiveDarshan />} />
+            <Route path="/admin-dashboard/story" element={<AdminDailyStory />} />
           </Route>
 
           {/* Public Routes */}

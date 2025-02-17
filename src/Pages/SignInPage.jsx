@@ -142,7 +142,7 @@ function SignInPage() {
                             signInWay === 'email'
                                 ? (<input type="email" placeholder='Email Address' value={userDetails.email} onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
                                 : (<PhoneInput
-                                    country={'us'} // Default country
+                                    country={'in'} // Default country
                                     value={userDetails.phone_no}
                                     onChange={(phone) => setUserDetails({ ...userDetails, phone_no: phone })}
                                     placeholder='Phone Number'

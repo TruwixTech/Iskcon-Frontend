@@ -9,6 +9,7 @@ import Image from '../assets/signUpImage.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -27,7 +28,7 @@ function SignUpPage() {
         user_role: "iskcon-user"
     })
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [otp, setOtp] = useState(["", "", "", ""]);
+    const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const [timer, setTimer] = useState(179); // Timer in seconds (2:59)
     const [isResendDisabled, setIsResendDisabled] = useState(true);
     const navigate = useNavigate()
@@ -71,7 +72,26 @@ function SignUpPage() {
                     navigate('/signin')
                 }
             } else {
-                // Handle phone number verification here
+                const simpleOtp = otp.join('');
+
+                const response = await axios.post(`${backend}/secure/verify-otp-mobile`, {
+                    mobileNumber: userDetails.phone_no,
+                    code: simpleOtp
+                })
+                if (response.status === 200 || response.status === 201) {
+                    alert('Mobile Verified successfully');
+                    setUserDetails({
+                        name: '',
+                        email: '',
+                        phone_no: '',
+                        password: '',
+                        confirmPassword: '',
+                        user_role: "iskcon-user"
+                    })
+                    setTermsCheck(false)
+                    setOtpPopUp(false)
+                    navigate('/signin')
+                }
             }
         } catch (error) {
             console.log("Error while verifying otp", error);
@@ -95,6 +115,21 @@ function SignUpPage() {
                 })
                 setTermsCheck(false)
                 setOtpPopUp(false)
+                setOtp(["", "", "", "", "", ""]);
+            }
+        } catch (error) {
+            console.log("Error while verifying otp", error);
+        }
+    }
+
+    async function verifyOtp() {
+        try {
+            const response = await axios.post(`${backend}/secure/send-otp`, {
+                mobileNumber: userDetails.phone_no
+            })
+
+            if (response.status === 200 || response.status === 201) {
+                toast.success('OTP sent successfully');
             }
         } catch (error) {
             console.log("Error while verifying otp", error);
@@ -158,6 +193,10 @@ function SignUpPage() {
                     })
                     setTermsCheck(false)
                     navigate('/signin')
+                    // verifyOtp()
+                    // setOtpPopUp(true);
+                    // setTimer(179); // Reset timer when OTP popup opens
+                    // setIsResendDisabled(true); // Disable resend initially
                 }
             }
             // console.log(response);
@@ -192,7 +231,8 @@ function SignUpPage() {
     const handleResend = () => {
         setTimer(179);
         setIsResendDisabled(true);
-        setOtp(["", "", "", ""]);
+        setOtp(["", "", "", "", "", ""]);
+        verifyOtp()
     };
     const carousal = [
         {
@@ -267,7 +307,7 @@ function SignUpPage() {
                             signUpWay === 'email'
                                 ? (<input type="email" placeholder='Email Address' value={userDetails.email} onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })} className='w-full h-auto px-3 border border-black rounded-3xl py-2' />)
                                 : (<PhoneInput
-                                    country={'us'} // Default country
+                                    country={'in'} // Default country
                                     value={userDetails.phone_no}
                                     placeholder='Phone Number'
                                     onChange={(phone) => setUserDetails({ ...userDetails, phone_no: phone })}

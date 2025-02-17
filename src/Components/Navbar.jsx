@@ -16,6 +16,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import sun from "../assets/sun.gif"
 import moon from "../assets/moon.gif"
 import puja from "../assets/puja.png";
+import { IoNotifications } from "react-icons/io5";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -225,126 +226,130 @@ const Navbar = () => {
             </p>
           </div>
           <div
-              className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
-              onClick={openModal}
-            >
-              <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
-                🗓️
-              </span>
-              <p className="pr-2 text-gray-600 text-sm font-semibold">
-                Schedule
-              </p>
-            </div>
+            className="flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+            onClick={openModal}
+          >
+            <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
+              🗓️
+            </span>
+            <p className="pr-2 text-gray-600 text-sm font-semibold">
+              Schedule
+            </p>
+          </div>
+          <div className="w-auto h-auto relative flex justify-center items-center">
+            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white"><IoNotifications size={25} className="text-[#ffa700]" /></span>
+            <span className="w-2 h-2 bg-[#fc9191] rounded-full absolute top-0 right-1"></span>
+          </div>
           {isOpen && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30"
+              onClick={closeModal}
+            >
               <div
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30"
-                onClick={closeModal}
+                className="bg-white rounded-lg shadow-lg p-6 w-[100%] max-w-7xl relative"
+                onClick={(e) => e.stopPropagation()}
               >
-                <div
-                  className="bg-white rounded-lg shadow-lg p-6 w-[100%] max-w-7xl relative"
-                  onClick={(e) => e.stopPropagation()} 
+                <button
+                  className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+                  onClick={closeModal}
                 >
-                  <button
-                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-                    onClick={closeModal}
-                  >
-                    <IoIosCloseCircleOutline size={40} />
-                  </button>
+                  <IoIosCloseCircleOutline size={40} />
+                </button>
 
-                  <h2 className="text-xl font-bold text-center mb-4">
-                    ISKCON Wevecity Temple Timings
-                  </h2>
-                  <p className="text-center text-gray-600 font-semibold mb-8">
-                    Closed from 13:00 - 16:00 and 21:30 - 04:10
-                  </p>
+                <h2 className="text-xl font-bold text-center mb-4">
+                  ISKCON Wevecity Temple Timings
+                </h2>
+                <p className="text-center text-gray-600 font-semibold mb-8">
+                  Closed from 13:00 - 16:00 and 21:30 - 04:10
+                </p>
 
-                  <div className="grid grid-cols-3 gap-8">
-                    {[
-                      {
-                        time: "04:30 AM",
-                        event: "Mangal Aarti",
-                        translation: "मंगल आरती",
-                      },
-                      {
-                        time: "05:00 AM",
-                        event: "Tulsi puja",
-                        translation: "तुलसी पूजा",
-                      },
-                      {
-                        time: "07:15 AM",
-                        event: "Shrinagar Darshan",
-                        translation: "श्रीनगर दर्शन",
-                      },
-                      {
-                        time: "07:30 AM",
-                        event: "Guru Puja",
-                        translation: "गुरु पूजा",
-                      },
-                      {
-                        time: "08:00 AM",
-                        event: "Srimad Bhagavatam Class",
-                        translation: "श्रीमद भागवतम क्लास",
-                      },
-                      {
-                        time: "12:30 PM",
-                        event: "Raj Bhoga Aarti",
-                        translation: "राज भोग आरती",
-                      },
-                      {
-                        time: "01:00 PM",
-                        event: "Darshan Closed",
-                        translation: "दर्शन बंद",
-                      },
-                      {
-                        time: "04:15 PM",
-                        event: "Dhoop Aarti",
-                        translation: "धूप आरती",
-                      },
-                      {
-                        time: "06:30 PM",
-                        event: "Sandhya Aarti",
-                        translation: "संध्या आरती",
-                      },
-                      {
-                        time: "07:30 PM",
-                        event: "Bhagavad Gita Discourse",
-                        translation: "भगवद गीता डिस्कोर्स ",
-                      },
-                      {
-                        time: "08:30 PM",
-                        event: "Shayan Aarti",
-                        translation: "शयन आरती",
-                      },
-                      {
-                        time: "09:00 PM",
-                        event: "Darshan Closed",
-                        translation: "दर्शन बंद",
-                      },
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <span className="w-10 h-10 bg-blue-300 rounded-full flex justify-center items-center">
-                          <img
-                            src={puja}
-                            alt="icon"
-                            width={200}
-                            height={200}
-                            className="w-6 h-6 object-contain"
-                          />
-                        </span>
-                        <div>
-                          <p className="font-bold">
-                            {item.time} – {item.event}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            {item.translation}
-                          </p>
-                        </div>
+                <div className="grid grid-cols-3 gap-8">
+                  {[
+                    {
+                      time: "04:30 AM",
+                      event: "Mangal Aarti",
+                      translation: "मंगल आरती",
+                    },
+                    {
+                      time: "05:00 AM",
+                      event: "Tulsi puja",
+                      translation: "तुलसी पूजा",
+                    },
+                    {
+                      time: "07:15 AM",
+                      event: "Shrinagar Darshan",
+                      translation: "श्रीनगर दर्शन",
+                    },
+                    {
+                      time: "07:30 AM",
+                      event: "Guru Puja",
+                      translation: "गुरु पूजा",
+                    },
+                    {
+                      time: "08:00 AM",
+                      event: "Srimad Bhagavatam Class",
+                      translation: "श्रीमद भागवतम क्लास",
+                    },
+                    {
+                      time: "12:30 PM",
+                      event: "Raj Bhoga Aarti",
+                      translation: "राज भोग आरती",
+                    },
+                    {
+                      time: "01:00 PM",
+                      event: "Darshan Closed",
+                      translation: "दर्शन बंद",
+                    },
+                    {
+                      time: "04:15 PM",
+                      event: "Dhoop Aarti",
+                      translation: "धूप आरती",
+                    },
+                    {
+                      time: "06:30 PM",
+                      event: "Sandhya Aarti",
+                      translation: "संध्या आरती",
+                    },
+                    {
+                      time: "07:30 PM",
+                      event: "Bhagavad Gita Discourse",
+                      translation: "भगवद गीता डिस्कोर्स ",
+                    },
+                    {
+                      time: "08:30 PM",
+                      event: "Shayan Aarti",
+                      translation: "शयन आरती",
+                    },
+                    {
+                      time: "09:00 PM",
+                      event: "Darshan Closed",
+                      translation: "दर्शन बंद",
+                    },
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span className="w-10 h-10 bg-blue-300 rounded-full flex justify-center items-center">
+                        <img
+                          src={puja}
+                          alt="icon"
+                          width={200}
+                          height={200}
+                          className="w-6 h-6 object-contain"
+                        />
+                      </span>
+                      <div>
+                        <p className="font-bold">
+                          {item.time} – {item.event}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {item.translation}
+                        </p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            )}
+            </div>
+          )}
           {/* <div>
               <span className="bg-[#ffffff] rounded-full w-10 h-10 flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
                 <PiBellSimpleZLight size={24} />
@@ -393,7 +398,7 @@ const Navbar = () => {
                     key={path}
                     className="relative group flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setDropdownOpen(true)}
-                    // onMouseLeave={() => setDropdownOpen(false)}
+                  // onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <span className="flex items-center gap-2 text-black group-hover:text-[#eb852c]">
                       {label}
@@ -440,10 +445,9 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `group relative flex items-center gap-2 ${
-                          isActive
-                            ? "text-[#eb852c] underline underline-offset-8"
-                            : "text-black"
+                        `group relative flex items-center gap-2 ${isActive
+                          ? "text-[#eb852c] underline underline-offset-8"
+                          : "text-black"
                         } hover:text-[#eb852c]`
                       }
                     >
@@ -653,10 +657,9 @@ const Navbar = () => {
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
-                        `${
-                          isActive
-                            ? "text-[#eb852c] underline-[#eb852c]"
-                            : "text-black underline underline-offset-8"
+                        `${isActive
+                          ? "text-[#eb852c] underline-[#eb852c]"
+                          : "text-black underline underline-offset-8"
                         } hover:text-[#eb852c]`
                       }
                       onClick={() => setMenuOpen(false)}

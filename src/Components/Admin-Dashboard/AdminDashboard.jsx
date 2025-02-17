@@ -28,6 +28,7 @@ function AdminDashboard() {
           { label: "Live Darshan", link: "/admin-dashboard/live-darshan" },
           // { label: "Offline Classes", link: "/admin-dashboard/classes" },
           { label: "CSR Donation", link: "/admin-dashboard/csrdonation" },
+          // { label: "Story", link: "/admin-dashboard/story" },
         ].map((item, index) => (
           <Link
             to={item.link}
