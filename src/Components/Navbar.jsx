@@ -19,6 +19,7 @@ import puja from "../assets/puja.webp";
 import { IoNotifications } from "react-icons/io5";
 import darshan from "../assets/darshan.svg";
 import { useLocation } from "react-router-dom";
+import StoryViewer from "../Components/Strory.jsx";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,6 +36,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [donationDropdown, setDonationDropdown] = useState(false);
   const location = useLocation();
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleDonationClick = () => {
     setDonationDropdown(!donationDropdown);
@@ -177,6 +179,7 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Upper Navbar */}
       <div className="w-full flex justify-end z-[100] ">
         <div className="flex items-center gap-3">
           <div className="bg-[#ffffff] hidden  rounded-3xl py-3 px-4 lg:flex items-center gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)]">
@@ -233,6 +236,8 @@ const Navbar = () => {
               {status.timeSlot}
             </p>
           </div>
+
+          {/* Live Darshan */}
           <Link
             to={"/live-darshan"}
             className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-2 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
@@ -244,6 +249,8 @@ const Navbar = () => {
               Live-Darshan
             </p>
           </Link>
+
+          {/* Daily Darshan */}
           <Link
             to={"/daily-darshan"}
             className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
@@ -255,6 +262,8 @@ const Navbar = () => {
               Daily-Darshan
             </p>
           </Link>
+
+          {/* Schedule */}
           <div
             className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
             onClick={openModal}
@@ -264,10 +273,20 @@ const Navbar = () => {
             </span>
             <p className="pr-2 text-gray-600 text-sm font-semibold">Schedule</p>
           </div>
-          <div className="w-auto h-auto relative flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)] rounded-full">
-            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white"><IoNotifications size={25} className="text-[#ffa700]" /></span>
+
+          {/* Notifications */}
+          <div
+            className="w-auto h-auto relative flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)] rounded-full"
+            onClick={() => setIsPopupVisible(true)}
+          >
+            <span className="cursor-pointer w-10 flex justify-center items-center h-10 rounded-full bg-white">
+              <IoNotifications size={25} className="text-[#ffa700]" />
+            </span>
             <span className="w-2 h-2 bg-[#fc9191] rounded-full absolute top-0 right-1"></span>
           </div>
+          {isPopupVisible && (
+            <StoryViewer onClose={() => setIsPopupVisible(false)} />
+          )}
           {isOpen && (
             <div
               className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30"
@@ -402,6 +421,8 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* Lower Navbar */}
       <div
         className="w-full h-[70px] rounded-[100px] pl-6 pr-4 mt-2 z-[100]"
         style={{
@@ -669,7 +690,10 @@ const Navbar = () => {
                       {[
                         { path: "/donation", label: "General Donation" },
                         { path: "/csr", label: "CSR Donation" },
-                        { path: "/temple-construction", label: "Temple Construction" },
+                        {
+                          path: "/temple-construction",
+                          label: "Temple Construction",
+                        },
                       ].map(({ path, label }) => (
                         <li key={path}>
                           <NavLink
@@ -847,6 +871,8 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* Donation Sidebar with Smooth Animation */}
       <div
         className={`fixed inset-x-0 font-poppins z-[100] h-[35%] flex flex-col overflow-y-scroll bottom-0 w-full bg-white shadow-lg px-6 py-3 transform transition-transform duration-300 ease-in-out  
         ${donationSidebar ? "translate-y-0" : "translate-y-full"}`}
@@ -971,6 +997,8 @@ const Navbar = () => {
           onClick={() => setCartSidebar(false)}
         ></div>
       )}
+
+      {/*Backdrop for Donation Sidebar Prevents clicking on the main content while the sidebar is open */}
       {donationSidebar && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-50"

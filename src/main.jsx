@@ -69,6 +69,7 @@ import LiveDarshan from "./Pages/LiveDarshan.jsx";
 import AdminLiveDarshan from "./Components/Admin-Dashboard/LiveDarshan/AdminLiveDarshan.jsx";
 import AdminDailyStory from "./Components/Admin-Dashboard/DailyStory/AdminDailyStory.jsx";
 import { ToastContainer } from "react-toastify";
+import StoryViewer from "./Components/Strory.jsx";
 
 
 const MainApp = () => {
@@ -178,6 +179,7 @@ const MainApp = () => {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/daily-darshan" element={<DailyDarshan />} />
           <Route path="/live-darshan" element={<LiveDarshan />} />
+          <Route path="/story" element={<StoryViewer />} />
           <Route path="/shop/single-product/:id" element={<SingleProduct />} />
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/blogs" element={<BlogsPage />} />

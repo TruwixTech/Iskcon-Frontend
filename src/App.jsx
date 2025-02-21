@@ -13,7 +13,7 @@ function App() {
       <DonationCartProvider>
       <CartProvider>
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
       </CartProvider>
       </DonationCartProvider>
     </>

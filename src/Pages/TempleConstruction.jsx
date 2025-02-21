@@ -28,7 +28,7 @@ const TempleConstruction = () => {
     { _id: 11, title: "500 Bricks", price: 3500 },
     { _id: 12, title: "Half Sq. Foot Area", price: 4999 },
     { _id: 13, title: "1000 Bricks", price: 7000 },
-    { _id: 14, title: "2 Sq. Feet Area", price: 19999 }
+    { _id: 14, title: "2 Sq. Feet Area", price: 19999 },
   ];
 
   const {
@@ -53,14 +53,16 @@ const TempleConstruction = () => {
   }, []);
 
   function handleAddToDonationCart(donationType) {
-    const isInCart2 = donationCartItems.find(item => item.id === donationType._id);
+    const isInCart2 = donationCartItems.find(
+      (item) => item.id === donationType._id
+    );
 
     if (!isInCart2) {
       addToDonationCart({
         id: donationType._id,
         title: donationType.title,
         amount: donationType.price,
-        quantity: 1
+        quantity: 1,
       });
       toast.dismiss();
       toast.success("Donation Added to cart !!", {
@@ -165,7 +167,12 @@ const TempleConstruction = () => {
                                 ₹ {donationType.price}
                               </div>
                               <div className="w-full h-auto flex justify-center items-center">
-                                <button className="px-6 py-2 text-white bg-[#EB852C] rounded-3xl md:hover:bg-[#f0913e]" onClick={() => handleAddToDonationCart(donationType)}>
+                                <button
+                                  className="px-6 py-2 text-white bg-[#EB852C] rounded-3xl md:hover:bg-[#f0913e]"
+                                  onClick={() =>
+                                    handleAddToDonationCart(donationType)
+                                  }
+                                >
                                   Donate Now
                                 </button>
                               </div>
@@ -181,10 +188,10 @@ const TempleConstruction = () => {
                           src={Border1}
                           alt="border 1"
                           className="w-full h-full absolute"
-                        // style={{
-                        //   transform: `rotate(${scrollY}deg)`, // Spins the image
-                        //   transition: "transform 5s linear",
-                        // }}
+                          // style={{
+                          //   transform: `rotate(${scrollY}deg)`, // Spins the image
+                          //   transition: "transform 5s linear",
+                          // }}
                         />
                       </div>
                     ))}
