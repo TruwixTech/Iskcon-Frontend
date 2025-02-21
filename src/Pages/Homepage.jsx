@@ -17,6 +17,10 @@ import { Link, NavLink } from "react-router-dom";
 const Homepage = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
 
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
   useEffect(() => {
     let progress = 0;
     const interval = setInterval(() => {
