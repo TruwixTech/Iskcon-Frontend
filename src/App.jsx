@@ -9,12 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <DonationCartProvider>
-      <CartProvider>
-        <Outlet />
-        <Footer />
-      </CartProvider>
+        <CartProvider>
+          <Outlet />
+          <Footer />
+        </CartProvider>
       </DonationCartProvider>
     </>
   );

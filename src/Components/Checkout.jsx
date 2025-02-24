@@ -43,6 +43,7 @@ const statesList = [
 const Checkout = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -51,6 +52,8 @@ const Checkout = () => {
 
         if (!token) {
           console.error("No token found in localStorage");
+          toast.error("Please sign in to continue");
+          navigate('/signin')
           return;
         }
 
@@ -99,9 +102,6 @@ const Checkout = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const navigate = useNavigate()
-
   const validateForm = () => {
     const { firstName, email, mobile, address, city, state, pincode } = formData;
 
@@ -196,72 +196,6 @@ const Checkout = () => {
       console.log("error while order placement", error);
     }
   }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   try {
-  // if (!validateForm()) {
-  //   setLoading(false);
-  //   return;
-  // }
-  //     const payload = {
-  //       userId: user?.userData?.userId,
-  //       amount: totalAmount,
-  //       shippingAddress:
-  //         formData.address +
-  //         ", " +
-  //         formData.city +
-  //         ", " +
-  //         formData.state +
-  //         ", " +
-  //         formData.pincode,
-  //       orderStatus: "PENDING",
-  //       orderItems: cartItems.map((item) => ({
-  //         productId: item.id,
-  //         name: item.name,
-  //         quantity: item.quantity,
-  //         price: item.price,
-  //       })),
-  //       contact: formData.mobile,
-  //       transactionId: "T" + Date.now(),
-  //       paymentDetails: {
-  //         paymentStatus: "PENDING", // Default payment status
-  //         paymentId: "T" + Date.now(), // Assign transactionId as paymentId
-  //       },
-  //     };
-
-  //     // console.log("payload", payload);
-
-  //     // Send payment request to backend
-  //     const response = await axios.post(`${backend}/admin/order/add`, payload);
-
-  //     if (
-  //       response.data &&
-  //       response.data.data &&
-  //       response.data.data.instrumentResponse
-  //     ) {
-  //       const redirectInfo = response.data.data.instrumentResponse.redirectInfo;
-
-  //       if (redirectInfo && redirectInfo.url) {
-  //         // Redirect the user to the payment gateway URL
-  //         window.location.href = redirectInfo.url;
-  //       } else {
-  //         console.log("Redirect URL not found in the response");
-  //         // Optionally, notify the user that payment initiation failed.
-  //       }
-  //     } else {
-  //       console.log("Invalid response structure from payment gateway");
-  //       // Optionally, notify the user of an error with payment initiation.
-  //     }
-  //     console.log(response.data);
-  //     localStorage.removeItem("cartItems");
-  //   } catch (error) {
-  //     console.error("Payment failed:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <div

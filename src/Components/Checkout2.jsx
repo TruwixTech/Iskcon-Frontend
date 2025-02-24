@@ -4,6 +4,8 @@ import formbg from "../assets/formbg.webp";
 import BgOne from "../assets/bg2.webp";
 import { DonationCartContext } from "../Context/DonationCartContext";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -41,34 +43,35 @@ const statesList = [
 const Checkout2 = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const token = JSON.parse(localStorage.getItem("token"));
-  
+
         if (!token) {
           console.error("No token found in localStorage");
+          toast.error("Please sign in to continue");
+          navigate("/signin");
           return;
         }
-  
+
         const response = await fetch(`${backend}/secure/decode`, {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`, 
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
-  
+
         if (!response.ok) {
           throw new Error(`Failed to fetch user data: ${response.statusText}`);
         }
-  
+
         const data = await response.json();
         setUser(data);
-        // console.log("✅ User Data:", data);
-  
-        // Pre-fill form fields if user data exists
         setFormData((prev) => ({
           ...prev,
           firstName: data?.userData?.name || "",
@@ -79,11 +82,11 @@ const Checkout2 = () => {
         console.error("❌ Error fetching user data:", error);
       }
     };
-  
+
     fetchUserData();
   }, []);
 
-  const { donationCartItems, getDonationCartTotal } = useContext(DonationCartContext);
+  const { donationCartItems, getDonationCartTotal, clearDonationCart } = useContext(DonationCartContext);
 
   const totalAmount = getDonationCartTotal();
 
@@ -102,56 +105,93 @@ const Checkout2 = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const validateForm = () => {
+      const { firstName, email, mobile, address, city, state, pincode } = formData;
+  
+      // Check for empty fields
+      if (!firstName || !email || !mobile || !address || !city || !state || !pincode) {
+        toast.dismiss();
+        toast.error("All fields are required!");
+        return false;
+      }
+  
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        toast.dismiss();
+        toast.error("Invalid email format!");
+        return false;
+      }
+  
+      // Mobile number validation (10 digits)
+      const mobileRegex = /^[0-9]{10}$/;
+      if (!mobileRegex.test(mobile)) {
+        toast.dismiss();
+        toast.error("Mobile number must be 10 digits!");
+        return false;
+      }
+  
+      // Pincode validation (6 digits)
+      const pincodeRegex = /^[0-9]{6}$/;
+      if (!pincodeRegex.test(pincode)) {
+        toast.dismiss();
+        toast.error("Pincode must be 6 digits!");
+        return false;
+      }
+      return true;
+    };
+
+  async function handlePayment(e) {
     e.preventDefault();
     setLoading(true);
-  
     try {
-      const transactionId = "T" + Date.now(); // Generate a single transaction ID for consistency
-  
-      const payload = {
-        userId: user?.userData?.userId,
-        amount: totalAmount,
-        shippingAddress: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.pincode}`,
-        donationOrderStatus: "PENDING",
-        donationItems: donationCartItems.map((item) => ({
-          donationItemsId: item.id,
-          title: item.title,
-          quantity: item.quantity,
-          amount: item.amount,
-        })),
-        contact: formData.mobile,
-        transactionId,
-        paymentDetails: {
-          paymentStatus: "PENDING",
-          paymentId: transactionId, // Use the same transaction ID for paymentId
-        },
-      };
-  
-      // console.log("Payload:", payload);
-  
-      // Send payment request to backend
-      const response = await axios.post(`${backend}/admin/donationOrder/add`, payload);
-      // console.log("Payment response:", response.data);
-  
-      if (
-        response.data?.data?.instrumentResponse?.redirectInfo?.url
-      ) {
-        // Redirect the user to the payment gateway URL
-        window.location.href = response.data.data.instrumentResponse.redirectInfo.url;
-      } else {
-        console.error("Redirect URL not found in the response");
-        alert("Payment initiation failed. Please try again.");
+      if (!validateForm()) {
+        setLoading(false);
+        return;
       }
-      localStorage.removeItem("donationItems");
+      const response = await axios.post(`${backend}/admin/donationOrder/add`, { amount: 1 });
+      const data = response.data.data
+
+      const paymentObject = new window.Razorpay({
+        key: "rzp_live_BMJ2CcMdY7bNr6",
+        order_id: data.id,
+        ...data,
+        handler: function (response) {
+          const option2 = {
+            orderId: response.razorpay_order_id,
+            paymentId: response.razorpay_payment_id,
+            signature: response.razorpay_signature,
+            userId: user?.userData?.userId,
+            amount: totalAmount,
+            shippingAddress: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.pincode}`,
+            donationItems: donationCartItems.map((item) => ({
+              donationItemsId: item.id,
+              title: item.title,
+              quantity: item.quantity,
+              amount: item.amount,
+            })),
+            contact: formData.mobile,
+          }
+          axios.post(`${backend}/admin/donationOrder/status`, option2)
+            .then((response) => {
+              if (response.status === 200) {
+                setLoading(true)
+                clearDonationCart()
+                toast.success("Donation Order placed successfully")
+                navigate('/')
+              } else {
+                console.log("error while placing order");
+              }
+            }).catch((error) => {
+              console.log(error);
+            })
+        }
+      })
+      paymentObject.open()
     } catch (error) {
-      console.error("Payment failed:", error);
-      alert("An error occurred while processing the payment. Please try again.");
-    } finally {
-      setLoading(false);
+      console.log("error while order placement", error);
     }
-  };
-  
+  }
 
   return (
     <div
@@ -189,7 +229,7 @@ const Checkout2 = () => {
                       className="mt-2 p-3 border rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
-                 
+
                   <div className="flex flex-col">
                     <label className="text-gray-700 font-medium">Email</label>
                     <input
@@ -293,7 +333,7 @@ const Checkout2 = () => {
                 </div>
                 <button
                   className="w-full bg-orange-500 text-white font-bold py-3 rounded-full mt-6 hover:bg-orange-600"
-                  onClick={handleSubmit}
+                  onClick={handlePayment}
                 >
                   Pay Now
                 </button>
