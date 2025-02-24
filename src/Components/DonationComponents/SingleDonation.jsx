@@ -13,6 +13,8 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 
 function SingleDonation() {
   const [singleDonation, setSingleDonation] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [amount, setAmount] = useState(0);
   const [images, setImages] = useState([]);
   const [scrollY, setScrollY] = useState(0);
 
@@ -62,9 +64,10 @@ function SingleDonation() {
   const handleInputChange = (e) => {
     const value = e.target.value;
     if (value === "" || (Number(value) >= 0 && !value.startsWith("0"))) {
-      e.target.value = value;
+      setAmount(value);
     } else {
       e.target.value = value.replace(/[^0-9]/g, '');
+      setAmount(value);
     }
   }
 
@@ -95,6 +98,48 @@ function SingleDonation() {
     }
   }
 
+  async function handlePayment() {
+    setLoading(true);
+    toast.dismiss();
+    try {
+      if (amount === 0) {
+        toast.error("Please enter a valid amount");
+        return;
+      }
+      const response = await axios.post(`${backend}/admin/guestDonation/add`, { amount: amount });
+      const data = response.data.data
+
+      const paymentObject = new window.Razorpay({
+        key: "rzp_live_BMJ2CcMdY7bNr6",
+        order_id: data.id,
+        ...data,
+        handler: function (response) {
+          const option2 = {
+            orderId: response.razorpay_order_id,
+            paymentId: response.razorpay_payment_id,
+            signature: response.razorpay_signature,
+            amount: amount,
+          }
+          axios.post(`${backend}/admin/guestDonation/status`, option2)
+            .then((response) => {
+              if (response.status === 200) {
+                setLoading(true)
+                toast.success("Donation Placed successfully")
+                setAmount(0)
+                navigate('/')
+              } else {
+                console.log("error while placing order");
+              }
+            }).catch((error) => {
+              console.log(error);
+            })
+        }
+      })
+      paymentObject.open()
+    } catch (error) {
+      console.log("error while order placement", error);
+    }
+  }
 
 
   return (
@@ -217,7 +262,7 @@ function SingleDonation() {
               placeholder="Enter Amount"
             />
           </div>
-          <button className="w-full h-auto flex rounded-3xl py-3 bg-white text-[#EB852C] md:hover:text-white md:hover:bg-[#EB852C] duration-300 ease-in-out border border-white font-nunito justify-center items-center">
+          <button onClick={handlePayment} className="w-full h-auto flex rounded-3xl py-3 bg-white text-[#EB852C] md:hover:text-white md:hover:bg-[#EB852C] duration-300 ease-in-out border border-white font-nunito justify-center items-center">
             Donate Now
           </button>
         </div>
