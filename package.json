@@ -33,6 +33,7 @@
     "react-player": "^2.16.0",
     "react-router-dom": "^7.1.1",
     "react-toastify": "^11.0.3",
+    "recharts": "^2.15.1",
     "utf8": "^3.0.0"
   },
   "devDependencies": {

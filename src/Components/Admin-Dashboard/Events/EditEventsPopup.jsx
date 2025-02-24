@@ -88,10 +88,10 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
     }, [event]);
 
     return (
-        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 pt-20 font-marcellus">
-            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto relative z-50">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 font-marcellus">
+            <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-3xl border-orange-500 border-2  relative z-50">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">
+                    <h2 className="text-2xl font-prata font-bold text-gray-800">
                         {event ? "Edit Event" : "Create Event"}
                     </h2>
                     <button onClick={closePopup} className="text-gray-500 hover:text-gray-700">
@@ -102,7 +102,7 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Title */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                        <label className="block text-sm font-bold font-prata  text-gray-700 mb-1">Title</label>
                         <input
                             type="text"
                             name="title"
@@ -114,19 +114,20 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                     </div>
                     {/* Description */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <label className="block text-sm font-bold font-prata  text-gray-700 mb-1">Description</label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                            rows="5"
+                            rows="4"
                             required
                         />
                     </div>
                     {/* Start Date */}
+                    <div className="w-full grid grid-cols-3 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                        <label className="block w-1/2 text-sm font-bold font-prata  text-gray-700 mb-1">Start Date</label>
                         <input
                             type="date"
                             name="startDate"
@@ -138,7 +139,7 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                     </div>
                     {/* End Date */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                        <label className="block w-1/2 text-sm font-bold font-prata  text-gray-700 mb-1">End Date</label>
                         <input
                             type="date"
                             name="endDate"
@@ -148,9 +149,8 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                             required
                         />
                     </div>
-                    {/* Location */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <label className="block w-1/3 text-sm font-bold font-prata  text-gray-700 mb-1">Location</label>
                         <input
                             type="text"
                             name="location"
@@ -160,15 +160,16 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                             required
                         />
                     </div>
-                    {/* Images */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
+                    </div>
+                   
+                    <div className="">
+                        <label className="text-sm font-bold font-prata flex   text-gray-700 mb-2">Images</label>
                         {images.map((image, index) => (
                             <div key={index} className="flex items-center mb-2 space-x-2">
                                 <input
                                     type="file"
                                     onChange={(e) => handleImageChange(index, e.target.files[0])}
-                                    className="flex-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className=" p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                                 {images.length > 1 && (
                                     <button
@@ -190,7 +191,7 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                         </button>
                     </div>
                     {/* Submit and Cancel Buttons */}
-                    <div className="flex justify-end space-x-4 mt-8">
+                    <div className="flex justify-end space-x-4 mt-2">
                         <button
                             type="button"
                             onClick={closePopup}
@@ -200,7 +201,7 @@ const EditEventsPopup = ({ event, closePopup, refreshEvents }) => {
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+                            className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-300"
                         >
                             {event ? "Save Changes" : "Create Event"}
                         </button>

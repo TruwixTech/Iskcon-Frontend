@@ -1,13 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
-import img1 from "../assets/krishna2.webp";
 import axios from "axios";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const stories = [
-  { type: "image", src: img1, text: "Welcome to the event! lorem ipsum lorem4 ipsum lorem4 Welcome to the event! lorem ipsum lorem4 ipsum lorem4 Welcome to the event! lorem ipsum lorem4 ipsum lorem4 Welcome to the event! lorem ipsum lorem4 ipsum lorem4 Welcome to the event! lorem ipsum lorem4 ipsum lorem4" },
-  { type: "video", src: "https://www.youtube.com/watch?v=9hvXjIPiAsA&t=0s", text: "Live Kirtan Happening Now!" },
-  { type: "image", src: img1, text: "Join the Bhagavad Gita class!" },
-];
 const backend = import.meta.env.VITE_BACKEND_URL;
 
 export default function StoryViewer({ onClose }) {
@@ -17,10 +12,23 @@ export default function StoryViewer({ onClose }) {
   const progressRef = useRef(null);
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
-  const [Story, setStory] = useState([]);
+  const [story, setStory] = useState([]);
 
   useEffect(() => {
-    if (!isPaused) {
+    const fetchStories = async () => {
+      try {
+        const response = await axios.get(`${backend}/admin/daily-story`);
+        setStory(response.data.story[0].story || []); // Ensure it's an array
+      } catch (error) {
+        console.error("Error fetching stories:", error);
+      }
+    };
+  
+    fetchStories();
+  }, []);
+
+  useEffect(() => {
+    if (!isPaused && story.length > 0) {
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
@@ -29,19 +37,19 @@ export default function StoryViewer({ onClose }) {
           }
           return prev + 1;
         });
-      }, 100); // Progress bar updates every 50ms (5s total for each story)
+      }, 100);
 
       return () => clearInterval(interval);
     }
-  }, [currentIndex, isPaused]);
+  }, [currentIndex, isPaused, story.length]);
 
   const nextStory = () => {
-    setCurrentIndex((prev) => (prev + 1 < stories.length ? prev + 1 : 0));
+    setCurrentIndex((prev) => (prev + 1 < story.length ? prev + 1 : 0));
     setProgress(0);
   };
 
   const prevStory = () => {
-    setCurrentIndex((prev) => (prev - 1 >= 0 ? prev - 1 : stories.length - 1));
+    setCurrentIndex((prev) => (prev - 1 >= 0 ? prev - 1 : story.length - 1));
     setProgress(0);
   };
 
@@ -58,9 +66,9 @@ export default function StoryViewer({ onClose }) {
     if (touchStartX.current && touchEndX.current) {
       const deltaX = touchEndX.current - touchStartX.current;
       if (deltaX > 50) {
-        prevStory(); // Swipe right
+        prevStory();
       } else if (deltaX < -50) {
-        nextStory(); // Swipe left
+        nextStory();
       }
     }
     setIsPaused(false);
@@ -68,36 +76,17 @@ export default function StoryViewer({ onClose }) {
     touchEndX.current = null;
   };
 
-  useEffect(() => {
-    const fetchStories = async () => {
-      try {
-        const response = await axios.get(`${backend}/admin/daily-story`);
-        setStory(response.data.story);  // Make sure to access `story`
-        console.log(response.data.story);
-      } catch (error) {
-        console.error("Error fetching stories:", error);
-      }
-    };
-  
-    fetchStories();
-  }, []); 
-  // Dependency array to run once when the component mounts
-  
-  
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
       <div className="relative w-[90vw] max-w-[500px] h-screen max-h-[800px] bg-black rounded-lg overflow-hidden">
         {/* Progress Bar */}
-        <div className="absolute top-4 left-4 right-4 flex space-x-1 z-50 ">
-          {stories.map((_, index) => (
-            <div
-              key={index}
-              className="h-1 bg-gray-500 rounded-full flex-1"
-            >
+        <div className="absolute top-4 left-4 right-4 flex space-x-1 z-50">
+          {story?.map((_, index) => (
+            <div key={index} className="h-1 bg-gray-500 border border-gray-100 rounded-full flex-1">
               {index === currentIndex && (
                 <div
-                  className="h-1 bg-white rounded-full"
+                  className="h-1 bg-white  rounded-full"
                   style={{ width: `${progress}%` }}
                 ></div>
               )}
@@ -113,36 +102,47 @@ export default function StoryViewer({ onClose }) {
 
         {/* Story Content */}
         <div
-          className="relative w-full h-full flex items-center justify-center "
+          className="relative w-full h-full flex items-center justify-center"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {stories[currentIndex].type === "image" ? (
-            <img
-              src={stories[currentIndex].src}
-              alt="Story"
-              className="w-[80%] h-[90%] object-cover"
-            />
+          {story.length > 0 && story[currentIndex] ? (
+            story[currentIndex].type === "image" ? (
+              <img
+                src={story[currentIndex].media}
+                alt="Story"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <ReactPlayer
+                url={story[currentIndex].media}
+                playing={!isPaused}
+                width="100%"
+                height="100%"
+                loop={false}
+                controls={false}
+                onEnded={nextStory}
+              />
+            )
           ) : (
-            <ReactPlayer
-              url={stories[currentIndex].src}
-              playing={!isPaused}
-              width="100%"
-              height="100%"
-              loop={false}
-              controls={false}
-              onEnded={nextStory}
-            />
+            <p className="text-white">Loading...</p>
           )}
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
 
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
           {/* Text Overlay */}
-          <div className="absolute bottom-0 w-full h-auto  text-center text-white text-xl font-bold ">
-            {stories[currentIndex].text}
-          </div>
+          {story.length > 0 && story[currentIndex] && (
+            <>
+              <div className="absolute bottom-10 w-full text-center text-white text-xl font-bold">
+                {story[currentIndex].title}
+              </div>
+              <div className="absolute bottom-2 w-full text-center text-white text-sm">
+                {story[currentIndex].description}
+              </div>
+            </>
+          )}
 
           {/* Pause on Hold */}
           <div
@@ -161,9 +161,9 @@ export default function StoryViewer({ onClose }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-8 right-6 border border-gray-600 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center text-2xl z-50"
+          className="absolute top-8 right-6   flex text-4xl  justify-center items-center z-50"
         >
-          ✖
+         <IoIosCloseCircleOutline size={30} />
         </button>
       </div>
     </div>

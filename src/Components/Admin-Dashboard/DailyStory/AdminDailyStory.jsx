@@ -7,13 +7,13 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 function AdminDailyStory() {
     const [createStoryPopup, setCreateStoryPopup] = useState(false);
     const [stories, setStories] = useState([
-        { title: '', description: '', image: null }
+        { title: '', description: '', type: '', media: null }
     ]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Add a new story input group
     const addStory = () => {
-        setStories([...stories, { title: '', description: '', image: null }]);
+        setStories([...stories, { title: '', description: '', type: '', media: null }]);
     };
 
     // Handle changes in the input fields
@@ -26,7 +26,7 @@ function AdminDailyStory() {
     // Handle file input
     const handleFileChange = (index, file) => {
         const updatedStories = [...stories];
-        updatedStories[index].image = file;
+        updatedStories[index].media = file;
         setStories(updatedStories);
     };
 
@@ -40,8 +40,9 @@ function AdminDailyStory() {
         stories.forEach((story, index) => {
             formData.append(`titles[]`, story.title);
             formData.append(`descriptions[]`, story.description);
-            if (story.image) {
-                formData.append(`images`, story.image); // This matches `upload.array('images')`
+            formData.append(`types[]`, story.type);
+            if (story.media) {
+                formData.append(`images`, story.media); // This matches `upload.array('images')`
             }
         });
 
@@ -53,7 +54,7 @@ function AdminDailyStory() {
             if (response.status === 201) {
                 toast.dismiss();
                 toast.success('Daily stories created successfully!');
-                setStories([{ title: '', description: '', image: null }]);
+                setStories([{ title: '', description: '', type: '', media: null }]);
                 setCreateStoryPopup(false);
             } else {
                 toast.dismiss();
@@ -90,7 +91,7 @@ function AdminDailyStory() {
                         <div className='flex justify-between mb-6'>
                             <h2 className='text-xl font-bold'>Create Daily Stories</h2>
                             <button
-                                onClick={() => { setCreateStoryPopup(false); setStories([{ title: '', description: '', image: null }]) }}
+                                onClick={() => { setCreateStoryPopup(false); setStories([{ title: '', description: '', type: '', image: null }]) }}
                                 className='text-xl text-red-500 hover:text-red-700'
                             >
                                 X
@@ -108,11 +109,20 @@ function AdminDailyStory() {
                                         className='border p-2 rounded-md w-full mb-2'
                                         required
                                     />
+                                   
                                     <textarea
                                         placeholder='Description'
                                         value={story.description}
                                         onChange={(e) => handleChange(index, 'description', e.target.value)}
                                         className='border p-2 rounded-md w-full mb-2 resize-none h-32'
+                                        required
+                                    />
+                                     <input
+                                        type='text'
+                                        placeholder='Type of Media (image/video)'
+                                        value={story.type}
+                                        onChange={(e) => handleChange(index, 'type', e.target.value)}
+                                        className='border p-2 rounded-md w-full mb-2'
                                         required
                                     />
                                     <input

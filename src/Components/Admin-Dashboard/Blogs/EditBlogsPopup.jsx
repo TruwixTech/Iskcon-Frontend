@@ -76,10 +76,10 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
     }, [blog]);
 
     return (
-        <div className="fixed inset-0 overflow-y-auto flex items-center z-50 justify-center bg-gray-800 bg-opacity-50 pt-20 font-marcellus">
-            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-0 overflow-y-auto flex items-center z-50 justify-center bg-gray-800 bg-opacity-50 font-marcellus">
+            <div className="bg-white p-8 rounded-3xl border-2 border-orange-500 shadow-2xl w-full max-w-3xl">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">
+                    <h2 className="text-2xl font-prata font-bold text-gray-800">
                         {blog ? "Edit Blog" : "Create Blog"}
                     </h2>
                     <button onClick={closePopup} className="text-gray-500 hover:text-gray-700">
@@ -90,7 +90,7 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Title */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                        <label className="block text-sm font-prata font-bold text-gray-700 mb-1">Title</label>
                         <input
                             type="text"
                             name="title"
@@ -102,19 +102,19 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
                     </div>
                     {/* Content */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                        <label className="block text-sm font-prata font-bold text-gray-700 mb-1">Description</label>
                         <textarea
                             name="content"
                             value={formData.content}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                            rows="5"
+                            rows="4"
                             required
                         />
                     </div>
                     {/* Images */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
+                        <label className="block text-sm font-prata font-bold text-gray-700 mb-2">Images</label>
                         {images.map((image, index) => (
                             <div key={index} className="flex items-center mb-2 space-x-2">
                                 <input
@@ -152,7 +152,7 @@ const EditBlogsPopup = ({ blog, closePopup, refreshBlogs }) => {
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+                            className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-300"
                         >
                             {blog ? "Save Changes" : "Create Blog"}
                         </button>
