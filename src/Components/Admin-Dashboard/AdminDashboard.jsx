@@ -22,6 +22,7 @@ import ShowEvents from "./ShowEvents";
 import CreateBlogs from "./BlogsComponent";
 import ShowBlogs from "./ShowBlogs";
 import ShowDonations from "./ShowDonations";
+import CreateStories from "./AddStories";
 
 
 function AdminDashboard() {
@@ -46,7 +47,7 @@ function AdminDashboard() {
     { name: "Events", icon: <FaUsers size={18} />, dropdown: true },
     { name: "Blogs", icon: <FaUsers size={18} />, dropdown: true },
     { name: "Orders", icon: <FaClipboardList size={18} />, dropdown: true },
-    { name: "Stat Control", icon: <FaRegChartBar size={18} />, dropdown: true },
+    { name: "Stories", icon: <FaRegChartBar size={18} />, dropdown: true },
     { name: "E-Commerce", icon: <BsBoxSeam size={18} />, dropdown: true },
     { name: "Settings", icon: <FaCog size={18} />, dropdown: true },
   ];
@@ -135,14 +136,31 @@ function AdminDashboard() {
           <RevenueChart />
         </div>
       </div>
-      case "Stat Control":
+      case "Stories":
         return <div className="flex flex-col">
-        <span className="text-4xl font-bold">Stats Control </span>
-        <div>
-          <StatsCard />
+        <div className="flex justify-between items-center">
+          <span className="text-4xl font-bold">Stories</span>
+          <span className="flex gap-4">
+            <button
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                activeComponent === "addStories" ? "bg-orange-600" : "bg-orange-500"
+              } text-white`}
+              onClick={() => setActiveComponent("addStories")}
+            >
+              Add Stories
+            </button>
+            <button
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                activeComponent === "showStories" ? "bg-orange-600" : "bg-orange-500"
+              } text-white`}
+              onClick={() => setActiveComponent("showStories")}
+            >
+              Show Stories
+            </button>
+          </span>
         </div>
-        <div>
-          <RevenueChart />
+        <div className="mt-4">
+          {activeComponent === "addStories" ? <CreateStories  /> : <ShowBlogs />}
         </div>
       </div>
       case "E-Commerce":
