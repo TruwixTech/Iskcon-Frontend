@@ -139,8 +139,10 @@ const EditDonationsPopup = ({ donation, closePopup, refreshDonations }) => {
 
 
     return (
-        <div className="fixed inset-0 overflow-y-auto flex items-center z-50 justify-center bg-gray-800 bg-opacity-50 pt-20 font-marcellus">
-            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-y-auto relative z-50">
+        <div className="fixed inset-0 overflow-y-auto flex items-center z-50 justify-center bg-gray-800 bg-opacity-50 pt-10 font-marcellus">
+            <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-y-auto relative z-50 border-2 border-[#f97316]" style={{
+                scrollbarWidth: 'none'
+            }}>
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">
                         {donation ? "Edit Donation" : "Create Donation"}
@@ -176,29 +178,31 @@ const EditDonationsPopup = ({ donation, closePopup, refreshDonations }) => {
                         />
                     </div>
                     {/* Start Date */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-                        <input
-                            type="date"
-                            name="startDate"
-                            value={formData.startDate}
-                            onChange={handleInputChange}
-                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                            <input
+                                type="date"
+                                name="startDate"
+                                value={formData.startDate}
+                                onChange={handleInputChange}
+                                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                            <input
+                                type="date"
+                                name="endDate"
+                                value={formData.endDate}
+                                onChange={handleInputChange}
+                                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                        </div>
                     </div>
                     {/* End Date */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-                        <input
-                            type="date"
-                            name="endDate"
-                            value={formData.endDate}
-                            onChange={handleInputChange}
-                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        />
-                    </div>
                     {/* Images */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>

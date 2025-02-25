@@ -1,14 +1,18 @@
+import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DonateFormModal = ({ isOpen, onClose }) => {
+const backend = import.meta.env.VITE_BACKEND_URL;
+
+const DonateFormModal = ({ isOpen, onClose, selectedDonationId }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     contact: "",
     amount: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,14 +60,66 @@ const DonateFormModal = ({ isOpen, onClose }) => {
     return true;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   try {
+  //     e.preventDefault();
 
-    if (validateForm()) {
-      toast.success("Donation submitted successfully!");
-      setFormData({ name: "", email: "", contact: "", amount: "" });
+  //     if (validateForm()) {
+  //       toast.success("Donation submitted successfully!");
+  //       setFormData({ name: "", email: "", contact: "", amount: "" });
+  //     }
+  //   } catch (error) {
+
+  //   }
+  // };
+
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if (!validateForm()) {
+        setLoading(false);
+        return;
+      }
+      const response = await axios.post(`${backend}/admin/csdonation/orders/add`, { amount: formData.amount });
+      const data = response.data.data
+
+      const paymentObject = new window.Razorpay({
+        key: "rzp_live_BMJ2CcMdY7bNr6",
+        order_id: data.id,
+        ...data,
+        handler: function (response) {
+          const option2 = {
+            orderId: response.razorpay_order_id,
+            paymentId: response.razorpay_payment_id,
+            signature: response.razorpay_signature,
+            amount: formData.amount,
+            name: formData.name,
+            email: formData.email,
+            contact: formData.contact,
+            csdDonationType: selectedDonationId
+          }
+          axios.post(`${backend}/admin/csdonation/orders/donationStatus`, option2)
+            .then((response) => {
+              if (response.status === 200) {
+                setLoading(true)
+                toast.success("Donation placed successfully")
+                setFormData({ name: "", email: "", contact: "", amount: "" });
+                onClose();
+              } else {
+                console.log("error while placing order");
+              }
+            }).catch((error) => {
+              console.log(error);
+            })
+        }
+      })
+      paymentObject.open()
+    } catch (error) {
+      console.log("error while order placement", error);
     }
-  };
+  }
 
   if (!isOpen) return null; // Hide modal if not open
 
@@ -95,7 +151,7 @@ const DonateFormModal = ({ isOpen, onClose }) => {
 
           <label className="mb-2 font-medium">Contact:</label>
           <input
-            type="text"
+            type="number"
             name="contact"
             className="border p-2 rounded mb-3"
             placeholder="Enter your contact"
@@ -107,6 +163,8 @@ const DonateFormModal = ({ isOpen, onClose }) => {
           <input
             type="number"
             name="amount"
+            onWheel={(e) => e.target.blur()}
+            min={0}
             className="border p-2 rounded mb-3"
             placeholder="Enter donation amount"
             value={formData.amount}
