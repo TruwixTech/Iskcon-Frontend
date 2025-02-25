@@ -23,6 +23,9 @@ import CreateBlogs from "./BlogsComponent";
 import ShowBlogs from "./ShowBlogs";
 import ShowDonations from "./ShowDonations";
 import CreateStories from "./AddStories";
+import ShowStories from "./ShowStories";
+import { Link } from "react-router-dom";
+// import { handleLogout } from "../../utils/handleLogout";
 
 
 function AdminDashboard() {
@@ -30,6 +33,7 @@ function AdminDashboard() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [darkMode, setDarkMode] = useState(false);
   const [activeComponent, setActiveComponent] = useState("showEvents");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleMenuClick = (name, hasDropdown) => {
     setActiveMenu(name);
@@ -40,6 +44,16 @@ function AdminDashboard() {
       }));
     }
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    window.location.reload();
+  };
+  
 
   const menuItems = [
     { name: "Dashboard", icon: <MdDashboard size={20} />, dropdown: false },
@@ -160,7 +174,7 @@ function AdminDashboard() {
           </span>
         </div>
         <div className="mt-4">
-          {activeComponent === "addStories" ? <CreateStories  /> : <ShowBlogs />}
+          {activeComponent === "addStories" ? <CreateStories  /> : <ShowStories />}
         </div>
       </div>
       case "E-Commerce":
@@ -288,12 +302,39 @@ function AdminDashboard() {
 
                 {/* User Profile */}
                 <div className="flex items-center gap-1 cursor-pointer">
-                  <div className="w-8 h-8 rounded-full bg-orange-500 cursor-pointer"></div>
+                  <div className="w-8 h-8 rounded-full bg-orange-500 cursor-pointer"  onClick={toggleDropdown}></div>
                   <span>
                     {" "}
                     <IoIosArrowDown className="text-[#84818a] cursor-pointer" />
                   </span>
                 </div>
+                {isDropdownOpen && (
+                      <div
+                        className="absolute top-12 right-0 mt-2 w-52 bg-white z-50 shadow-lg rounded-lg border"
+                        onMouseLeave={toggleDropdown}
+                      >
+                        <ul className="flex flex-col text-md space-y-1 m-2">
+                          {/* <Link
+                            to="/profile"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            My Profile
+                          </Link>
+                          <Link
+                            to="/donation-history"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            Donation History
+                          </Link> */}
+                          <li
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </li>
+                        </ul>
+                      </div>
+                    )}
 
                 {/* Dropdown Arrow */}
               </div>
