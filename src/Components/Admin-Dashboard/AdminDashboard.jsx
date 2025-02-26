@@ -32,6 +32,8 @@ import ShowMedia from "./ShowMedia";
 import AddMediaComponent from "./AddMediaComponent";
 import ShowOrders from "./ShowOrders";
 import ShowDonationsOrders from "./ShowDonationsOrders";
+import AddOfflineClasses from "./AddOfflineClasses";
+import ShowClasses from "./ShowOfflineClasses";
 
 
 function AdminDashboard() {
@@ -65,6 +67,7 @@ function AdminDashboard() {
     { name: "Dashboard", icon: <MdDashboard size={20} />, dropdown: false },
     { name: "Donations", icon: <FaBoxOpen size={18} />, dropdown: true },
     { name: "Media", icon: <MdPermMedia size={18} />, dropdown: true },
+    { name: "Offline Classes", icon: <MdPermMedia size={18} />, dropdown: true },
     { name: "Events", icon: <FaUsers size={18} />, dropdown: true },
     { name: "Blogs", icon: <FaUsers size={18} />, dropdown: true },
     // { name: "Orders", icon: <FaClipboardList size={18} />, dropdown: true },
@@ -137,6 +140,31 @@ function AdminDashboard() {
           </div>
           <div className="mt-4">
             {activeComponent === "addMedia" ? <AddMediaComponent /> : <ShowMedia />}
+          </div>
+        </div>
+      case "Offline Classes":
+        return <div className="flex flex-col">
+          <div className="flex justify-between items-center">
+            <span className="text-4xl font-bold">Offline Classes </span>
+            <span className="flex gap-4">
+              <button
+                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "addClasses" ? "bg-orange-600" : "bg-orange-500"
+                  } text-white`}
+                onClick={() => setActiveComponent("addClasses")}
+              >
+                Add Classes
+              </button>
+              <button
+                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "showClasses" ? "bg-orange-600" : "bg-orange-500"
+                  } text-white`}
+                onClick={() => setActiveComponent("showClasses")}
+              >
+                Show Classes
+              </button>
+            </span>
+          </div>
+          <div className="mt-4">
+            {activeComponent === "addClasses" ? <AddOfflineClasses /> : <ShowClasses />}
           </div>
         </div>
       case "Events":
