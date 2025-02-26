@@ -62,17 +62,17 @@ const ShowBlogs = () => {
                 className="bg-white p-4 rounded-[16px] shadow-md border-2 border-[#D1C7C74D] flex flex-col items-center space-x-4"
               >
                 {/* blog Image */}
-                <div className="w-full h-full border-2 border-orange-500 p-1 rounded-xl">
+                <div className="w-full h-full border-2 border-orange-500 overflow-hidden rounded-xl">
                   <img
                     src={blog.image[0]}
                     alt={blog.title}
-                    className="w-full h-[200px] object-fit"
+                    className="w-full h-[200px] object-cover"
                   />
                 </div>
 
                 {/* blog Info */}
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold">{blog.title}</h3>
+                  <h3 className="text-lg font-bold">{blog.title.substring(0, 39)}</h3>
                   <p className="text-gray-600 text-sm my-2">
                     {blog.description.length > 100
                       ? blog.description.slice(0, 100) + "..."
