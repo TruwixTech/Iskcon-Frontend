@@ -120,7 +120,7 @@ const ContactPage = () => {
         </h1>
 
         {/* Contact Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
           {/* Call Us Card */}
           <div className="w-full md:w-[400px] h-auto bg-white mb-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 animate-fade-in-up">
             <div className="h-[130px] bg-[#eb852c] flex justify-center items-center rounded-t-lg">

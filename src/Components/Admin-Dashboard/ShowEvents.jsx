@@ -64,17 +64,17 @@ const ShowEvents = () => {
                 className="bg-white p-4 rounded-[16px] shadow-md border-2 border-[#D1C7C74D] flex flex-col items-center space-x-4"
               >
                 {/* Event Image */}
-                <div className="w-full h-full border-2 border-orange-500 p-1 rounded-xl">
+                <div className="w-full h-full border-2 border-orange-500 overflow-hidden rounded-xl">
                   <img
                     src={event.image[0]}
                     alt={event.title}
-                    className="w-full h-[200px] object-fit"
+                    className="w-full h-[200px] object-cover"
                   />
                 </div>
 
                 {/* Event Info */}
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold">{event.title}</h3>
+                  <h3 className="text-lg font-bold">{event.title.substring(0, 39)}</h3>
                   <p className="text-gray-600 text-sm my-2">
                     {event.description.length > 100
                       ? event.description.slice(0, 100) + "..."

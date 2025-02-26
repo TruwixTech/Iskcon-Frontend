@@ -33,7 +33,6 @@ function SingleDonation() {
       const response = await axios.get(`${backend}/admin/donation/get/${id}`);
       setSingleDonation(response.data.data);
       setImages(response.data.data.image);
-      // console.log(response.data.data);
     } catch (error) {
       console.log(
         "Error while sending request to fetch single donation",
@@ -43,19 +42,7 @@ function SingleDonation() {
   }
 
 
-  // Update scrollY value on scroll
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrollY(window.scrollY);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchSingleDonation();

@@ -262,6 +262,17 @@ const Navbar = () => {
               Daily-Darshan
             </p>
           </Link>
+          <Link
+            to={"/classes"}
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+          >
+            <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
+              <img src={darshan} alt="" />
+            </span>
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">
+              Offline Classes
+            </p>
+          </Link>
 
           {/* Schedule */}
           <div
@@ -399,7 +410,7 @@ const Navbar = () => {
           )}
           {!hasAccessToken ? (
             <>
-              <div>
+              <div> 
                 <Link
                   to={"/signup"}
                   className="bg-[#eb852c] text-white md:hover:bg-white md:hover:text-[#eb852c] duration-500 ease-in-out text-[10px] lg:text-sm font-semibold rounded-full py-2 md:py-3 px-8 cursor-pointer flex justify-center items-center shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
@@ -469,9 +480,6 @@ const Navbar = () => {
                       {dropdownOpen && (
                         <div
                           className="absolute top-6 left-0 w-60 bg-white shadow-md rounded-xl"
-                          // onMouseLeave={() =>
-                          //   setTimeout(() => setDropdownOpen(false), 200)
-                          // } // Small delay for better UX
                         >
                           <ul className="flex flex-col p-2">
                             <li>

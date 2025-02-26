@@ -7,6 +7,7 @@ import Border1 from "../assets/section1border1.svg";
 import Border2 from "../assets/section1border2.svg";
 import { DonationCartContext } from "../Context/DonationCartContext";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -142,9 +143,9 @@ const TempleConstruction = () => {
                   ></div>
                 </div>
 
-                <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
+                <Link to="/temple-construction/donate" className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
                   Donate Now
-                </button>
+                </Link>
                 <div className="w-full h-auto flex flex-col py-20">
                   {/* {donation?.map((donation, index) => (
                             <div key={index} className="w-full h-auto flex flex-col my-4 gap-2">
@@ -201,7 +202,7 @@ const TempleConstruction = () => {
                 </div>
 
                 {/* Pie Chart */}
-                <div className="mt-6 flex justify-center">
+                {/* <div className="mt-6 flex justify-center">
                   <div className="w-[300px] md:w-[450px] h-[300px] md:h-[450px]">
                     <Pie
                       data={pieChartData}
@@ -225,7 +226,7 @@ const TempleConstruction = () => {
                       }}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             );
           })}

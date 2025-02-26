@@ -23,8 +23,8 @@ function DailyDarshan() {
         newDate.setDate(newDate.getDate() + 1);
         
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for accurate comparison
-        newDate.setHours(0, 0, 0, 0); // Normalize newDate to midnight
+        // today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for accurate comparison
+        // newDate.setHours(0, 0, 0, 0); // Normalize newDate to midnight
         
         // Prevent navigating to future dates
         if (newDate > today) {
@@ -66,6 +66,7 @@ function DailyDarshan() {
     // Data fetching
     async function getAllMedia() {
         try {
+            console.log(selectedDate)
             const response = await axios.post(`${backend}/admin/media/get-media-date`, {
                 date: selectedDate
             });

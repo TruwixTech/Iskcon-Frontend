@@ -5,15 +5,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const backend = import.meta.env.VITE_BACKEND_URL;
-const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY; // Your YouTube Data API key
-const CHANNEL_ID = 'YOUR_YOUTUBE_CHANNEL_ID'; // Replace with your YouTube channel ID
+const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY 
+const CHANNEL_ID = import.meta.env.VITE_CHANNEL_ID
+
 
 function LiveDarshan() {
   const [liveVideoId, setLiveVideoId] = useState(null);
 
   async function getLiveVideoId() {
     try {
-      // Fetch the live broadcast details
+      // Step 1: Check if there is a live stream currently happening
       const liveResponse = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${YOUTUBE_API_KEY}`
       );
@@ -22,13 +23,17 @@ function LiveDarshan() {
         // If live, set the live video ID
         setLiveVideoId(liveResponse.data.items[0].id.videoId);
       } else {
-        // If not live, fetch the latest uploaded video
-        const uploadResponse = await axios.get(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&order=date&type=video&key=${YOUTUBE_API_KEY}`
+        // Step 2: If no live stream, fetch the most recent completed live stream
+        const completedLiveResponse = await axios.get(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=completed&type=video&key=${YOUTUBE_API_KEY}&order=date&maxResults=1`
         );
 
-        if (uploadResponse.data.items.length > 0) {
-          setLiveVideoId(uploadResponse.data.items[0].id.videoId);
+        if (completedLiveResponse.data.items.length > 0) {
+          // Set the most recent completed live stream video ID
+          setLiveVideoId(completedLiveResponse.data.items[0].id.videoId);
+        } else {
+          // If no live or completed live streams are found, show a message
+          setLiveVideoId(null);
         }
       }
     } catch (error) {
