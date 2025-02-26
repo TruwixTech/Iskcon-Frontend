@@ -80,6 +80,8 @@ const Checkout = () => {
           email: data?.userData?.email || "",
         }));
       } catch (error) {
+        localStorage.removeItem("token")
+        navigate('/signin')
         console.error("❌ Error fetching user data:", error);
       }
     };

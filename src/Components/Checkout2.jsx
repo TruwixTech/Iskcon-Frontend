@@ -79,6 +79,8 @@ const Checkout2 = () => {
           email: data?.userData?.email || "",
         }));
       } catch (error) {
+        localStorage.removeItem("token")
+        navigate('/signin')
         console.error("❌ Error fetching user data:", error);
       }
     };
@@ -140,7 +142,7 @@ const Checkout2 = () => {
       }
       return true;
     };
-
+    
   async function handlePayment(e) {
     e.preventDefault();
     setLoading(true);
@@ -172,7 +174,7 @@ const Checkout2 = () => {
             })),
             contact: formData.mobile,
           }
-          axios.post(`${backend}/admin/donationOrder/status`, option2)
+          axios.post(`${backend}/admin/donationOrder/donationStatus`, option2)
             .then((response) => {
               if (response.status === 200) {
                 setLoading(true)

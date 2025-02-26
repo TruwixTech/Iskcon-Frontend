@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import CreateDonationForm from './DonationModal.jsx';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import EditDonationsPopup from './EditDonationPopup.jsx';
+import EditDonationsPopup from '../EditDonationPopup.jsx';
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
