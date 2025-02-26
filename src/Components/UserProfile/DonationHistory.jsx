@@ -1,187 +1,186 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import BgOne from "../../assets/bg2.webp";
+import { X } from "lucide-react";
 import Navbar from "../Navbar";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
-function DonationHistory() {
-  const [donation, setDonation] = useState([]);
-  const [selectedDonation, setSelectedDonation] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const DonationHistory = () => {
+  const [userId, setUserId] = useState(""); // State to store user ID
+  const [donations, setDonations] = useState([]); // State to store all donations
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(""); // Error state
 
-  async function fetchDonations() {
+  const [user, setUser] = useState({});
+
+  const fetchUserData = async () => {
     try {
-      const response = await axios.get(`${backend}/admin/donationOrder/get`);
-      // console.log("API Response:", response.data); // Check the structure
-      setDonation(response.data || []); // Ensure it's an array
+      const token = JSON.parse(localStorage.getItem("token"));
+
+      if (!token) {
+        console.error("No token found in localStorage");
+        return;
+      }
+      const response = await fetch(`${backend}/secure/decode`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Send token in Authorization header
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch user data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setUser(data);
+      setUserId(data?.userData?.userId);
+
+      // console.log("✅ User Data:", data);
     } catch (error) {
-      console.log("Error while fetching donations", error);
-      setDonation([]); // Prevent errors if request fails
+      console.error("❌ Error fetching user data:", error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchDonations();
+    fetchUserData();
   }, []);
 
-  function bufferToUUID(buffer) {
-    return [...buffer.data]
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("")
-      .replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, "$1-$2-$3-$4-$5");
-  }
+  // Fetch Donations by User ID
+  const fetchDonationsByUserId = async () => {
+    if (!userId) {
+      setError("Please enter a valid user ID.");
+      return;
+    }
 
-  const openModal = (donation) => {
-    setSelectedDonation(donation);
-    setIsModalOpen(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      // Fetch normal donations
+      let normalDonations = [];
+      try {
+        const normalResponse = await axios.get(
+          `${backend}/admin/donationOrder/${userId}`
+        );
+        normalDonations = normalResponse.data.data || []; // Ensure it's an array
+      } catch (normalError) {
+        console.error("Error fetching normal donations:", normalError);
+        // Do not throw error or set message if normal donations are missing
+      }
+
+      // Fetch CSR donations
+      let csrDonations = [];
+      try {
+        const csrResponse = await axios.get(
+          `${backend}/admin/csdonation/orders/${user?.userData?.email}`
+        );
+        csrDonations = csrResponse.data.response || []; // Ensure it's an array
+      } catch (csrError) {
+        console.error("Error fetching CSR donations:", csrError);
+        // Do not throw error or set message if CSR donations are missing
+      }
+
+      // Combine all donations
+      const allDonations = [...normalDonations, ...csrDonations];
+
+      if (allDonations.length === 0) {
+        setError("No donations found for this user.");
+        setDonations([]);
+      } else {
+        setDonations(allDonations);
+      }
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+      setError("Failed to fetch donations. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Function to close modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedDonation(null);
-  };
+  useEffect(() => {
+    if (userId) {
+      fetchDonationsByUserId();
+    }
+  }, [userId]);
 
   return (
-    <div
-      className="w-full h-auto flex flex-col bg-[#fde3b6]"
-      style={{
-        backgroundImage: `url(${BgOne})`,
-        backgroundPosition: "top",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "contain",
-      }}
-    >
-      <div className="px-4 md:px-20 pt-4 pb-10 z-10 relative">
-        <Navbar />
-      </div>
-      <div className="w-full h-auto flex flex-col mt-10 px-5 md:px-10 lg:px-20">
-        <div className="w-full h-auto flex justify-between items-center">
-          <h1 className="font-prata text-lg font-semibold sm:text-xl md:text-2xl xl:text-3xl">
-            Donation History
-          </h1>
-        </div>
-        <div className="container mx-auto p-4">
-          <div className="overflow-x-auto">
-            <table className="min-w-full border border-black rounded-lg shadow-md">
+    <div className="relative w-full h-full bg-[#f3f4f6]">
+      {/* Search Bar */}
+      <div className="w-full h-[70px] z-[100] absolute top-4 px-4 md:px-20">
+            <Navbar />
+          </div>
+
+      {/* Error Message */}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      {/* Donations Table */}
+      <div className="w-full  h-[550px] flex flex-col gap-3 overflow-y-auto px-5 py-5 bg-[#fff4dc] rounded-3xl shadow-lg">
+        <div className="w-full px-4 md:px-20 rounded-lg pt-40 p-4">
+          <h2 className="text-2xl font-bold mb-6 text-amber-900 font-serif">
+            Donations by {user?.userData?.name}
+          </h2>
+
+          {donations.length > 0 ? (
+            <table className="w-full border-collapse overflow-y-scroll">
               <thead>
-                <tr className="text-center text-gray-600 uppercase text-xs">
-                  <th className="py-3 px-6">Donation</th>
-                  <th className="py-3 px-6">Date</th>
-                  <th className="py-3 px-6">Transaction ID</th>
-                  <th className="py-3 px-6">Amount</th>
-                  <th className="py-3 px-6">Status</th>
-                  <th className="py-3 px-6">Action</th>
+                <tr className="bg-amber-200">
+                  <th className="p-3 text-left text-amber-900 font-semibold">
+                    Order ID
+                  </th>
+                  <th className="p-3 text-left text-amber-900 font-semibold">
+                    Amount
+                  </th>
+                  <th className="p-3 text-left text-amber-900 font-semibold">
+                    Payment
+                  </th>
+                  <th className="p-3 text-left text-amber-900 font-semibold">
+                    Status
+                  </th>
+                  <th className="p-3 text-left text-amber-900 font-semibold">
+                    Date
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(donation) && donation.length > 0 ? (
-                  donation.map((donationItem, index) => (
-                    <tr
-                      key={index}
-                      className="border-t border-black text-center"
-                    >
-                      <td className="py-3 px-6">
-                        {donationItem.donationId || "N/A"}
-                      </td>
-                      <td className="py-3 px-6">
-                        {donationItem.createdAt || "N/A"}
-                      </td>
-
-                      <td className="py-3 px-6">
-                        {donationItem.transactionId || "N/A"}
-                      </td>
-                      <td className="py-3 px-6">
-                        {donationItem.amount
-                          ? `₹ ${(donationItem.amount / 100).toFixed(2)}`
-                          : "N/A"}
-                      </td>
-                      <td className="py-3 px-6">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            donationItem.paymentDetails.paymentStatus === "PAID"
-                              ? "bg-green-200 text-green-700 px-4"
-                              : "bg-yellow-200 text-yellow-700 px-4"
-                          }`}
-                        >
-                          {donationItem.paymentDetails.paymentStatus ||
-                            "PENDING"}
-                        </span>
-                      </td>
-                      <td className="py-3 px-6">
-                        <button
-                          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                          onClick={() => openModal(donationItem)}
-                        >
-                          View
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="text-center py-4">
-                      No donations found.
+                {donations.map((order) => (
+                  <tr
+                    key={order._id || order.guestDonationId}
+                    className="hover:bg-amber-100 transition-colors border-b border-amber-100 cursor-pointer"
+                  >
+                    <td className="p-3 text-amber-900 font-medium">
+                      {order._id || order.guestDonationId}
+                    </td>
+                    <td className="p-3 text-amber-900">₹{order.amount}</td>
+                    <td className="p-3 text-amber-800">
+                      <span
+                        className={`px-6 py-1 rounded-full ${
+                          order.paymentStatus === "PAID"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-rose-100 text-rose-800"
+                        }`}
+                      >
+                        {order.paymentStatus || "PENDING"}
+                      </span>
+                    </td>
+                    <td className="p-3 text-amber-800">
+                      {order.donationOrderStatus || "Completed"}
+                    </td>
+                    <td className="p-3 text-amber-600 font-mono">
+                      {order.createdAt}
                     </td>
                   </tr>
-                )}
+                ))}
               </tbody>
             </table>
-          </div>
+          ) : (
+            <p className="text-gray-600">No donations found for this user.</p>
+          )}
         </div>
       </div>
-      {isModalOpen && selectedDonation && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-6xl">
-            <h2 className="text-xl font-semibold mb-4">Order Details</h2>
-            <p><strong>Donor Name : </strong>{selectedDonation.user.name}</p>
-            <p><strong>Donor email :</strong> {selectedDonation.user.email}</p>
-            <p>
-              <strong>Transaction ID:</strong> {selectedDonation.transactionId}
-            </p>
-            <p>
-              <strong>Amount:</strong> ₹{" "}
-              {(selectedDonation.amount / 100).toFixed(2)}
-            </p>
-            <p>
-              <strong>Payment Status:</strong>{" "}
-              {selectedDonation.paymentDetails?.paymentStatus}
-            </p>
-            <p>
-              <strong>Shipping Address:</strong>{" "}
-              {selectedDonation.shippingAddress}
-            </p>
-            <p>
-              <strong>Contact:</strong> {selectedDonation.contact}
-            </p>
-            <p>
-              <strong>Order Status:</strong>{" "}
-              {selectedDonation.donationOrderStatus}
-            </p>
-
-            <h3 className="text-lg font-semibold mt-4">Donated Items</h3>
-            <ul className="list-disc pl-5">
-              {selectedDonation.donationItems.map((item, index) => (
-                <li key={index}>
-                  <strong>{item.title}</strong> - ₹ {item.amount} (Qty:{" "}
-                  {item.quantity})
-                </li>
-              ))}
-            </ul>
-            
-
-            <button
-              className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              onClick={closeModal}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
-}
+};
 
 export default DonationHistory;

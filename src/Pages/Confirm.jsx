@@ -91,7 +91,6 @@ function Confirm() {
         }/admin/order/${merchantTransactionId}`
       );
       setOrder(response.data.data);
-      // console.log("✅ Order Data:", response.data.data);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch order");
     } finally {
@@ -103,7 +102,6 @@ function Confirm() {
     fetchOrder();
   }, []);
 
-  // console.log(order);
 
   return (
     <div className="bg-[#fde3b6] w-full h-auto">

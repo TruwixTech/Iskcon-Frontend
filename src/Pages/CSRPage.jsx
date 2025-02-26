@@ -22,6 +22,7 @@ import CountUp from "react-countup";
 
 const CSRPage = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [selectedDonationId, setSelectedDonationId] = useState(null)
   const backend = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,7 +115,7 @@ const CSRPage = () => {
   //   };
   // }, []);
 
- 
+
   return (
     <>
       {/* first section */}
@@ -212,34 +213,34 @@ const CSRPage = () => {
 
       {/* third section */}
       <div className="bg-[#fde3b6] w-full h-auto py-28 flex flex-col gap-10 items-center justify-center">
-      <h1 className="text-3xl md:text-4xl text-center md:text-started font-prata">
-        Giving you can trust
-      </h1>
-      <p className="text-sm md:text-lg text-center font-nunito">
-        We conduct thorough and comprehensive checks on all nonprofits and
-        their projects to ensure your donation fulfills its purpose—making a{" "}
-        <br /> real difference and transforming lives. Learn more.
-      </p>
-      <div className="w-full md:w-2/3 flex flex-col md:flex-row gap-6 md:gap-0 items-center md:justify-between">
-        {[
-          { value: 700, suffix: "cr+", label: "Raised for Non-profits" },
-          { value: 15, suffix: "M+", label: "Lives Impacted" },
-          { value: 2, suffix: "M+", label: "Donors have Contributed to the cause" },
-          { value: 150, suffix: "+", label: "Trusted by Corporate and Brand" },
-        ].map((stat, index) => (
-          <div key={index} className="flex flex-col items-center text-center gap-4">
-            <h1 className="text-[#eb852c] font-bold text-4xl">
-              <CountUp end={stat.value} duration={8} separator="," />
-              {stat.suffix}
-            </h1>
-            <p className="text-base w-full md:w-[80%] text-gray-700">{stat.label}</p>
-          </div>
-        ))}
+        <h1 className="text-3xl md:text-4xl text-center md:text-started font-prata">
+          Giving you can trust
+        </h1>
+        <p className="text-sm md:text-lg text-center font-nunito">
+          We conduct thorough and comprehensive checks on all nonprofits and
+          their projects to ensure your donation fulfills its purpose—making a{" "}
+          <br /> real difference and transforming lives. Learn more.
+        </p>
+        <div className="w-full md:w-2/3 flex flex-col md:flex-row gap-6 md:gap-0 items-center md:justify-between">
+          {[
+            { value: 700, suffix: "cr+", label: "Raised for Non-profits" },
+            { value: 15, suffix: "M+", label: "Lives Impacted" },
+            { value: 2, suffix: "M+", label: "Donors have Contributed to the cause" },
+            { value: 150, suffix: "+", label: "Trusted by Corporate and Brand" },
+          ].map((stat, index) => (
+            <div key={index} className="flex flex-col items-center text-center gap-4">
+              <h1 className="text-[#eb852c] font-bold text-4xl">
+                <CountUp end={stat.value} duration={8} separator="," />
+                {stat.suffix}
+              </h1>
+              <p className="text-base w-full md:w-[80%] text-gray-700">{stat.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
 
       {/* fourht section */}
-      <div className="w-full h-auto bg-white py-20"id="sectiondonation">
+      <div className="w-full h-auto bg-white py-20" id="sectiondonation">
         <div className="w-full flex flex-col  justify-center items-center">
           <h1 className="w-full text-center text-5xl font-semibold font-prata mb-10">
             Joining our mission is the most <br /> impactful way to give
@@ -278,20 +279,19 @@ const CSRPage = () => {
                   <div
                     className="absolute top-0 left-0 h-1.5 bg-orange-500 rounded-full"
                     style={{
-                      width: `${
-                        (donation.amountRaised / donation.totalAmount) * 100
-                      }%`,
+                      width: `${(donation.amountRaised / donation.totalAmount) * 100
+                        }%`,
                     }}
                   ></div>
                 </div>
 
-                <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center" onClick={() => setIsModalOpen(true)}>
+                <button className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center" onClick={() => {setIsModalOpen(true);setSelectedDonationId(donation._id)}}>
                   Donate Now
                 </button>
               </div>
             ))}
           </div>
-          <DonateFormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          <DonateFormModal isOpen={isModalOpen} selectedDonationId={selectedDonationId} onClose={() => {setIsModalOpen(false);setSelectedDonationId(null)}} />
         </div>
       </div>
 

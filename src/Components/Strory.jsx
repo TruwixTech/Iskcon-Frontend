@@ -18,7 +18,7 @@ export default function StoryViewer({ onClose }) {
     const fetchStories = async () => {
       try {
         const response = await axios.get(`${backend}/admin/daily-story`);
-        setStory(response.data.story[0].story || []); // Ensure it's an array
+        setStory(response.data.story); // Ensure it's an array
       } catch (error) {
         console.error("Error fetching stories:", error);
       }

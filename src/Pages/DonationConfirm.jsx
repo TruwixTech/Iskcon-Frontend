@@ -90,7 +90,6 @@ function DonationConfirm() {
         }/admin/donationOrder/${merchantTransactionId}`
       );
       setDonation(response.data.data);
-      // console.log("✅ Donation Data:", response.data.data);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch order");
     } finally {
@@ -102,7 +101,6 @@ function DonationConfirm() {
     fetchOrder();
   }, []);
 
-  console.log("donation",donation);
 
   return (
     <div className="bg-[#fde3b6] w-full h-auto">
