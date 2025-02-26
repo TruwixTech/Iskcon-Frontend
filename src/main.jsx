@@ -70,6 +70,8 @@ import AdminLiveDarshan from "./Components/Admin-Dashboard/LiveDarshan/AdminLive
 import AdminDailyStory from "./Components/Admin-Dashboard/DailyStory/AdminDailyStory.jsx";
 import { ToastContainer } from "react-toastify";
 import StoryViewer from "./Components/Strory.jsx";
+import Classes from "./Components/Classes.jsx";
+import TempleConstructionPage from "./Components/TempleConstructionDonation.jsx";
 
 
 const MainApp = () => {
@@ -83,6 +85,7 @@ const MainApp = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/donation-history" element={<DonationHistory />} />
           <Route path="/donate" element={<DonatePage />} />
+          <Route path="/temple-construction/donate" element={<TempleConstructionPage />} />
 
           {/* Admin Authentication */}
           <Route
@@ -191,6 +194,7 @@ const MainApp = () => {
           <Route path="/donation" element={<DonationPage />} />
           <Route path="/status/:id" element={<Confirm />} />
           <Route path="/donationStatus/:id" element={<DonationConfirm />} />
+          <Route path="/classes" element={<Classes />} />
           <Route
             path="/donation/single-donation/:id"
             element={<SingleDonation />}

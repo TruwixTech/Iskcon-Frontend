@@ -39,7 +39,7 @@ const ShowOrders = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((order, orderIndex) =>
+                            {orders?.map((order, orderIndex) =>
                                 <tr
                                     key={`${orderIndex}`}
                                     className="hover:bg-amber-100/50 transition-colors border-b border-amber-100/80 cursor-pointer"

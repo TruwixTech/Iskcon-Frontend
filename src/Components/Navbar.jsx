@@ -262,6 +262,17 @@ const Navbar = () => {
               Daily-Darshan
             </p>
           </Link>
+          <Link
+            to={"/classes"}
+            className="hidden md:flex items-center bg-[#ffffff] rounded-3xl py-1 px-1 gap-2 shadow-[0_1px_5px_rgba(0,0,0,0.5)] cursor-pointer"
+          >
+            <span className="w-9 h-9 flex justify-center rounded-full items-center bg-[#ffa700]">
+              <img src={darshan} alt="" />
+            </span>
+            <p className="pr-2 text-gray-600 text-[12px] lg:text-sm font-semibold">
+              Offline Classes
+            </p>
+          </Link>
 
           {/* Schedule */}
           <div

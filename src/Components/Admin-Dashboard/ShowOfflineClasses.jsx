@@ -48,7 +48,7 @@ const ShowClasses =({  refreshClasses })=> {
   return (
     <div>
       <div className="w-full p-6 bg-white h-auto rounded-3xl shadow-md">
-        <div className="w-full grid grid-cols-3 gap-6 overflow-y-scroll h-[220px]">
+        <div className="w-full grid grid-cols-3 gap-6 overflow-y-scroll h-[250px]">
           {classes.length > 0 ? (
             classes.map((classes) => (
               <div
@@ -59,17 +59,17 @@ const ShowClasses =({  refreshClasses })=> {
                   <h3 className="text-lg font-bold">{classes.title}</h3>
                   <p className="text-gray-600 text-sm my-2">
                     {classes.description.length > 100
-                      ? classes.description.slice(0, 150) + "..."
+                      ? classes.description.slice(0, 100) + "..."
                       : classes.description}
                   </p>
                   <p className="text-gray-500 text-sm">
-                    Timings: {classes.timings}
+                    <span className="text-base text-black font-bold">Timings:</span> <span></span>{classes.timings}
                   </p>
                   <p className="text-gray-500 text-sm">
-                    Class Days: {classes.classesDays}
+                   <span className="text-base text-black font-bold">Class Days: </span> <span></span>{classes.classesDays}
                   </p>
                   <p className="text-gray-500 text-sm">
-                    Location: {classes.location}
+                    <span className="text-base text-black font-bold">Location:</span> {classes.location}
                   </p>
 
                   <div className="flex space-x-2 mt-2">

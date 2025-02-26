@@ -25,7 +25,6 @@ import ShowDonations from "./ShowDonations";
 import CreateStories from "./AddStories";
 import ShowStories from "./ShowStories";
 import { Link } from "react-router-dom";
-// import { handleLogout } from "../../utils/handleLogout";
 import AddDonationComponent from "./AddDonationComponent";
 import { MdPermMedia } from "react-icons/md";
 import ShowMedia from "./ShowMedia";
@@ -34,7 +33,6 @@ import ShowOrders from "./ShowOrders";
 import ShowDonationsOrders from "./ShowDonationsOrders";
 import AddOfflineClasses from "./AddOfflineClasses";
 import ShowClasses from "./ShowOfflineClasses";
-
 
 function AdminDashboard() {
   const [openMenus, setOpenMenus] = useState({});
@@ -61,22 +59,34 @@ function AdminDashboard() {
     localStorage.removeItem("isAuthenticated");
     window.location.reload();
   };
-  
 
   const menuItems = [
     { name: "Dashboard", icon: <MdDashboard size={20} />, dropdown: false },
     { name: "Donations", icon: <FaBoxOpen size={18} />, dropdown: true },
+    { name: "E-Commerce", icon: <BsBoxSeam size={18} />, dropdown: true },
+    {
+      name: "Products Orders",
+      icon: <FaClipboardList size={18} />,
+      dropdown: true,
+    },
+    {
+      name: "Donations Orders",
+      icon: <FaClipboardList size={18} />,
+      dropdown: true,
+    },
     { name: "Media", icon: <MdPermMedia size={18} />, dropdown: true },
-    { name: "Offline Classes", icon: <MdPermMedia size={18} />, dropdown: true },
+    {
+      name: "Offline Classes",
+      icon: <MdPermMedia size={18} />,
+      dropdown: true,
+    },
     { name: "Events", icon: <FaUsers size={18} />, dropdown: true },
     { name: "Blogs", icon: <FaUsers size={18} />, dropdown: true },
     // { name: "Orders", icon: <FaClipboardList size={18} />, dropdown: true },
     { name: "Stories", icon: <FaRegChartBar size={18} />, dropdown: true },
-    { name: "Products Orders", icon: <FaClipboardList size={18} />, dropdown: true },
-    { name: "Donations Orders", icon: <FaClipboardList size={18} />, dropdown: true },
-    { name: "Stat Control", icon: <FaRegChartBar size={18} />, dropdown: true },
-    { name: "E-Commerce", icon: <BsBoxSeam size={18} />, dropdown: true },
-    { name: "Settings", icon: <FaCog size={18} />, dropdown: true },
+    
+    // { name: "Stat Control", icon: <FaRegChartBar size={18} />, dropdown: true },
+    // { name: "Settings", icon: <FaCog size={18} />, dropdown: true },
   ];
   const renderContent = () => {
     switch (activeMenu) {
@@ -93,186 +103,258 @@ function AdminDashboard() {
           </div>
         );
       case "Donations":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Donations </span>
-            <span className="flex gap-4">
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "addDonation" ? "bg-orange-600" : "bg-orange-500"
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Donations </span>
+              <span className="flex gap-4">
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "addDonation"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("addDonation")}
-              >
-                Add Donations
-              </button>
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "showDonation" ? "bg-orange-600" : "bg-orange-500"
+                  onClick={() => setActiveComponent("addDonation")}
+                >
+                  Add Donations
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "showDonation"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("showDonation")}
-              >
-                Show Donations
-              </button>
-            </span>
+                  onClick={() => setActiveComponent("showDonation")}
+                >
+                  Show Donations
+                </button>
+              </span>
+            </div>
+            <div className="mt-4">
+              {activeComponent === "addDonation" ? (
+                <AddDonationComponent />
+              ) : (
+                <ShowDonations />
+              )}
+            </div>
           </div>
-          <div className="mt-4">
-            {activeComponent === "addDonation" ? <AddDonationComponent /> : <ShowDonations />}
-          </div>
-        </div>
+        );
       case "Media":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Media </span>
-            <span className="flex gap-4">
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "addMedia" ? "bg-orange-600" : "bg-orange-500"
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Media </span>
+              <span className="flex gap-4">
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "addMedia"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("addMedia")}
-              >
-                Add Media
-              </button>
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "showMedia" ? "bg-orange-600" : "bg-orange-500"
+                  onClick={() => setActiveComponent("addMedia")}
+                >
+                  Add Media
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "showMedia"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("showMedia")}
-              >
-                Show Media
-              </button>
-            </span>
+                  onClick={() => setActiveComponent("showMedia")}
+                >
+                  Show Media
+                </button>
+              </span>
+            </div>
+            <div className="mt-4">
+              {activeComponent === "addMedia" ? (
+                <AddMediaComponent />
+              ) : (
+                <ShowMedia />
+              )}
+            </div>
           </div>
-          <div className="mt-4">
-            {activeComponent === "addMedia" ? <AddMediaComponent /> : <ShowMedia />}
-          </div>
-        </div>
+        );
       case "Offline Classes":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Offline Classes </span>
-            <span className="flex gap-4">
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "addClasses" ? "bg-orange-600" : "bg-orange-500"
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Offline Classes </span>
+              <span className="flex gap-4">
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "addClasses"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("addClasses")}
-              >
-                Add Classes
-              </button>
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "showClasses" ? "bg-orange-600" : "bg-orange-500"
+                  onClick={() => setActiveComponent("addClasses")}
+                >
+                  Add Classes
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "showClasses"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("showClasses")}
-              >
-                Show Classes
-              </button>
-            </span>
+                  onClick={() => setActiveComponent("showClasses")}
+                >
+                  Show Classes
+                </button>
+              </span>
+            </div>
+            <div className="mt-4">
+              {activeComponent === "addClasses" ? (
+                <AddOfflineClasses />
+              ) : (
+                <ShowClasses />
+              )}
+            </div>
           </div>
-          <div className="mt-4">
-            {activeComponent === "addClasses" ? <AddOfflineClasses /> : <ShowClasses />}
-          </div>
-        </div>
+        );
       case "Events":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Events</span>
-            <span className="flex gap-4">
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "addEvent" ? "bg-orange-600" : "bg-orange-500"
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Events</span>
+              <span className="flex gap-4">
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "addEvent"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("addEvent")}
-              >
-                Add Event
-              </button>
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "showEvents" ? "bg-orange-600" : "bg-orange-500"
+                  onClick={() => setActiveComponent("addEvent")}
+                >
+                  Add Event
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "showEvents"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("showEvents")}
-              >
-                Show Events
-              </button>
-            </span>
+                  onClick={() => setActiveComponent("showEvents")}
+                >
+                  Show Events
+                </button>
+              </span>
+            </div>
+            <div className="mt-4">
+              {activeComponent === "addEvent" ? (
+                <EventsComponent />
+              ) : (
+                <ShowEvents />
+              )}
+            </div>
           </div>
-          <div className="mt-4">
-            {activeComponent === "addEvent" ? <EventsComponent /> : <ShowEvents />}
-          </div>
-        </div>
+        );
       case "Blogs":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Blogs</span>
-            <span className="flex gap-4">
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "addBlog" ? "bg-orange-600" : "bg-orange-500"
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Blogs</span>
+              <span className="flex gap-4">
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "addBlog"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("addBlog")}
-              >
-                Add blog
-              </button>
-              <button
-                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${activeComponent === "showBlogs" ? "bg-orange-600" : "bg-orange-500"
+                  onClick={() => setActiveComponent("addBlog")}
+                >
+                  Add blog
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "showBlogs"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
                   } text-white`}
-                onClick={() => setActiveComponent("showBlogs")}
-              >
-                Show Blogs
-              </button>
-            </span>
+                  onClick={() => setActiveComponent("showBlogs")}
+                >
+                  Show Blogs
+                </button>
+              </span>
+            </div>
+            <div className="mt-4">
+              {activeComponent === "addBlog" ? <CreateBlogs /> : <ShowBlogs />}
+            </div>
           </div>
-          <div className="mt-4">
-            {activeComponent === "addBlog" ? <CreateBlogs /> : <ShowBlogs />}
-          </div>
-        </div>
+        );
       case "Products Orders":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Products Orders</span>
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Products Orders</span>
+            </div>
+            <div className="mt-4">
+              <ShowOrders />
+            </div>
           </div>
-          <div className="mt-4">
-            <ShowOrders />
-          </div>
-        </div>
+        );
       case "Donations Orders":
-        return <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className="text-4xl font-bold">Donations Orders</span>
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Donations Orders</span>
+            </div>
+            <div className="mt-4">
+              <ShowDonationsOrders />
+            </div>
           </div>
-          <div className="mt-4">
-            <ShowDonationsOrders />
-          </div>
-        </div>
-      
+        );
+
       case "Stories":
-        return <div className="flex flex-col">
-        <div className="flex justify-between items-center">
-          <span className="text-4xl font-bold">Stories</span>
-          <span className="flex gap-4">
-            <button
-              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
-                activeComponent === "addStories" ? "bg-orange-600" : "bg-orange-500"
-              } text-white`}
-              onClick={() => setActiveComponent("addStories")}
-            >
-              Add Stories
-            </button>
-            <button
-              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
-                activeComponent === "showStories" ? "bg-orange-600" : "bg-orange-500"
-              } text-white`}
-              onClick={() => setActiveComponent("showStories")}
-            >
-              Show Stories
-            </button>
-          </span>
-        </div>
-        <div className="mt-4">
-          {activeComponent === "addStories" ? <CreateStories  /> : <ShowStories />}
-        </div>
-      </div>
+        return (
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-4xl font-bold">Stories</span>
+              <span className="flex gap-4">
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "addStories"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
+                  } text-white`}
+                  onClick={() => setActiveComponent("addStories")}
+                >
+                  Add Stories
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    activeComponent === "showStories"
+                      ? "bg-orange-600"
+                      : "bg-orange-500"
+                  } text-white`}
+                  onClick={() => setActiveComponent("showStories")}
+                >
+                  Show Stories
+                </button>
+              </span>
+            </div>
+            <div className="mt-4">
+              {activeComponent === "addStories" ? (
+                <CreateStories />
+              ) : (
+                <ShowStories />
+              )}
+            </div>
+          </div>
+        );
       case "Stat Control":
-        return <div className="flex flex-col">
-          <span className="text-4xl font-bold">Stats Control </span>
-          <div>
-            <StatsCard />
+        return (
+          <div className="flex flex-col">
+            <span className="text-4xl font-bold">Stats Control </span>
+            <div>
+              <StatsCard />
+            </div>
+            <div>
+              <RevenueChart />
+            </div>
           </div>
-          <div>
-            <RevenueChart />
-          </div>
-        </div>
+        );
       case "E-Commerce":
         return (
           <div className="flex flex-col">
@@ -307,12 +389,15 @@ function AdminDashboard() {
           <div className="h-full w-full  bg-[#fff4dc] rounded-[44px] p-4 relative">
             {/* left sidebar */}
             <div className="w-1/5 h-full flex flex-col items-center">
-              <div className="w-full flex justify-center items-center">
+              <Link to="/" className="w-full flex justify-center items-center">
                 <img src={adminlogo} alt="" />
-              </div>
-              <div className="w-64 bg-[#FEF4DC] p-4 overflow-y-scroll" style={{
-                scrollbarWidth: "none"
-              }}>
+              </Link>
+              <div
+                className="w-64 bg-[#FEF4DC] p-4 overflow-y-scroll"
+                style={{
+                  scrollbarWidth: "none",
+                }}
+              >
                 <ul className="space-y-2">
                   {menuItems.map((item, index) => (
                     <li key={index}>
@@ -320,17 +405,19 @@ function AdminDashboard() {
                         onClick={() =>
                           handleMenuClick(item.name, item.dropdown)
                         }
-                        className={`flex items-center justify-between w-full px-4 py-3 rounded-xl text-gray-700 transition-all ${activeMenu === item.name
-                          ? "bg-[#FFECC5] font-medium"
-                          : "hover:bg-[#FFECC5]"
-                          }`}
+                        className={`flex items-center justify-between w-full px-4 py-3 rounded-xl text-gray-700 transition-all ${
+                          activeMenu === item.name
+                            ? "bg-[#FFECC5] font-medium"
+                            : "hover:bg-[#FFECC5]"
+                        }`}
                       >
                         <span className="flex items-center gap-3">
                           <span
-                            className={`${activeMenu === item.name
-                              ? "text-orange-500"
-                              : "text-gray-700"
-                              }`}
+                            className={`${
+                              activeMenu === item.name
+                                ? "text-orange-500"
+                                : "text-gray-700"
+                            }`}
                           >
                             {item.icon}
                           </span>
@@ -339,8 +426,9 @@ function AdminDashboard() {
                         {item.dropdown && (
                           <IoIosArrowDown
                             size={16}
-                            className={`transition-transform ${openMenus[item.name] ? "rotate-180" : ""
-                              }`}
+                            className={`transition-transform ${
+                              openMenus[item.name] ? "rotate-180" : ""
+                            }`}
                           />
                         )}
                       </button>
@@ -369,14 +457,16 @@ function AdminDashboard() {
                   onClick={() => setDarkMode(!darkMode)}
                 >
                   <div
-                    className={`p-2 rounded-full ${!darkMode ? "bg-orange-500 text-white" : "text-[#84818a]"
-                      }`}
+                    className={`p-2 rounded-full ${
+                      !darkMode ? "bg-orange-500 text-white" : "text-[#84818a]"
+                    }`}
                   >
                     <FaSun />
                   </div>
                   <div
-                    className={`p-2 rounded-full ${darkMode ? "bg-orange-500 text-white" : "text-[#84818a]"
-                      }`}
+                    className={`p-2 rounded-full ${
+                      darkMode ? "bg-orange-500 text-white" : "text-[#84818a]"
+                    }`}
                   >
                     <FaMoon />
                   </div>
@@ -395,19 +485,22 @@ function AdminDashboard() {
 
                 {/* User Profile */}
                 <div className="flex items-center gap-1 cursor-pointer">
-                  <div className="w-8 h-8 rounded-full bg-orange-500 cursor-pointer"  onClick={toggleDropdown}></div>
+                  <div
+                    className="w-8 h-8 rounded-full bg-orange-500 cursor-pointer"
+                    onClick={toggleDropdown}
+                  ></div>
                   <span>
                     {" "}
                     <IoIosArrowDown className="text-[#84818a] cursor-pointer" />
                   </span>
                 </div>
                 {isDropdownOpen && (
-                      <div
-                        className="absolute top-12 right-0 mt-2 w-52 bg-white z-50 shadow-lg rounded-lg border"
-                        onMouseLeave={toggleDropdown}
-                      >
-                        <ul className="flex flex-col text-md space-y-1 m-2">
-                          {/* <Link
+                  <div
+                    className="absolute top-12 right-0 mt-2 w-52 bg-white z-50 shadow-lg rounded-lg border"
+                    onMouseLeave={toggleDropdown}
+                  >
+                    <ul className="flex flex-col text-md space-y-1 m-2">
+                      {/* <Link
                             to="/profile"
                             className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
                           >
@@ -419,15 +512,15 @@ function AdminDashboard() {
                           >
                             Donation History
                           </Link> */}
-                          <li
-                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
-                            onClick={handleLogout}
-                          >
-                            Logout
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                      <li
+                        className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </li>
+                    </ul>
+                  </div>
+                )}
 
                 {/* Dropdown Arrow */}
               </div>
