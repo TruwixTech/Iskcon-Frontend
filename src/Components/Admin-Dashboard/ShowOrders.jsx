@@ -11,7 +11,7 @@ const ShowOrders = () => {
     async function fetchOrders() {
         try {
             const response = await axios.get(`${backend}/admin/order/get`);
-            setOrders(response.data.data);
+            setOrders(response.data);
         } catch (error) {
             console.log("Error while fetching orders", error);
         }
@@ -21,7 +21,6 @@ const ShowOrders = () => {
         fetchOrders();
     }, []);
 
-    // console.log(selectedOrder);
 
     return (
         <div>
@@ -30,35 +29,31 @@ const ShowOrders = () => {
                 <div className="w-full max-w-6xl mx-auto rounded-lg p-4">
                     <h2 className="text-2xl font-bold mb-6 text-amber-900 font-serif">Order History</h2>
 
-                    <table className="w-full border-collapse">
+                    <table className="w-full border-collapse overflow-y-scroll">
                         <thead>
                             <tr className="bg-amber-200 backdrop-blur-sm">
-                                <th className="p-3 text-left text-amber-900 font-semibold rounded-tl-lg">Payment</th>
-                                <th className="p-3 text-left text-amber-900 font-semibold">Status</th>
-                                <th className="p-3 text-left text-amber-900 font-semibold">Product</th>
+                                <th className="p-3 text-left text-amber-900 font-semibold rounded-tl-lg">ID</th>
                                 <th className="p-3 text-left text-amber-900 font-semibold">Price</th>
-                                <th className="p-3 text-left text-amber-900 font-semibold rounded-tr-lg">ID</th>
+                                <th className="p-3 text-left text-amber-900 font-semibold">Payment</th>
+                                <th className="p-3 text-left text-amber-900 font-semibold rounded-tr-lg">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {orders.map((order, orderIndex) =>
-                                order.orderItems.map((item, itemIndex) => (
-                                    <tr
-                                        key={`${orderIndex}-${itemIndex}`}
-                                        className="hover:bg-amber-100/50 transition-colors border-b border-amber-100/80 cursor-pointer"
-                                        onClick={() => setSelectedOrder(order)} // Open popup on click
-                                    >
-                                        <td className="p-3 text-amber-800">
-                                            <span className={`inline-block px-6 py-1 rounded-full ${order.paymentStatus === 'PAID' ? 'bg-green-100 text-green-800' : 'bg-rose-100 text-rose-800'}`}>
-                                                {order.paymentStatus}
-                                            </span>
-                                        </td>
-                                        <td className="p-3 text-amber-800">{order.orderStatus}</td>
-                                        <td className="p-3 text-amber-900 font-medium">{item.name}</td>
-                                        <td className="p-3 text-amber-900">₹{item.price}</td>
-                                        <td className="p-3 text-amber-600 font-mono">{item.productId}</td>
-                                    </tr>
-                                ))
+                                <tr
+                                    key={`${orderIndex}`}
+                                    className="hover:bg-amber-100/50 transition-colors border-b border-amber-100/80 cursor-pointer"
+                                    onClick={() => setSelectedOrder(order)} // Open popup on click
+                                >
+                                    <td className="p-3 text-amber-600 font-mono">{order._id}</td>
+                                    <td className="p-3 text-amber-600 font-mono">{order.amount}</td>
+                                    <td className="p-3 text-amber-800">
+                                        <span className={`inline-block px-6 py-1 rounded-full ${order.paymentStatus === 'PAID' ? 'bg-green-100 text-green-800' : 'bg-rose-100 text-rose-800'}`}>
+                                            {order.paymentStatus}
+                                        </span>
+                                    </td>
+                                    <td className="p-3 text-amber-800">{order.orderStatus}</td>
+                                </tr>
                             )}
                         </tbody>
                     </table>
@@ -90,6 +85,15 @@ const ShowOrders = () => {
                             <p><span className="font-semibold">Contact:</span> {selectedOrder.contact}</p>
                             <p><span className="font-semibold">Ordered At:</span> {selectedOrder.createdAt}</p>
                         </div>
+
+                        {selectedOrder.user && (
+                            <>
+                                <h3 className="text-lg font-semibold mt-4">User Details</h3>
+                                <p className="text-gray-700"><span className="font-semibold">Name:</span> {selectedOrder.user.name}</p>
+                                <p className="text-gray-700"><span className="font-semibold">Email:</span> {selectedOrder.user.email}</p>
+                            </>
+                        )}
+
 
                         {/* Order Items List */}
                         <h3 className="text-lg font-semibold mt-4">Order Items</h3>
