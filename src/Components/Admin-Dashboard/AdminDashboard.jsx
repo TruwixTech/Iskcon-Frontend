@@ -22,6 +22,10 @@ import ShowEvents from "./ShowEvents";
 import CreateBlogs from "./BlogsComponent";
 import ShowBlogs from "./ShowBlogs";
 import ShowDonations from "./ShowDonations";
+import CreateStories from "./AddStories";
+import ShowStories from "./ShowStories";
+import { Link } from "react-router-dom";
+// import { handleLogout } from "../../utils/handleLogout";
 import AddDonationComponent from "./AddDonationComponent";
 import { MdPermMedia } from "react-icons/md";
 import ShowMedia from "./ShowMedia";
@@ -35,6 +39,7 @@ function AdminDashboard() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [darkMode, setDarkMode] = useState(false);
   const [activeComponent, setActiveComponent] = useState("showEvents");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleMenuClick = (name, hasDropdown) => {
     setActiveMenu(name);
@@ -46,12 +51,24 @@ function AdminDashboard() {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    window.location.reload();
+  };
+  
+
   const menuItems = [
     { name: "Dashboard", icon: <MdDashboard size={20} />, dropdown: false },
     { name: "Donations", icon: <FaBoxOpen size={18} />, dropdown: true },
     { name: "Media", icon: <MdPermMedia size={18} />, dropdown: true },
     { name: "Events", icon: <FaUsers size={18} />, dropdown: true },
     { name: "Blogs", icon: <FaUsers size={18} />, dropdown: true },
+    // { name: "Orders", icon: <FaClipboardList size={18} />, dropdown: true },
+    { name: "Stories", icon: <FaRegChartBar size={18} />, dropdown: true },
     { name: "Products Orders", icon: <FaClipboardList size={18} />, dropdown: true },
     { name: "Donations Orders", icon: <FaClipboardList size={18} />, dropdown: true },
     { name: "Stat Control", icon: <FaRegChartBar size={18} />, dropdown: true },
@@ -190,6 +207,34 @@ function AdminDashboard() {
             <ShowDonationsOrders />
           </div>
         </div>
+      
+      case "Stories":
+        return <div className="flex flex-col">
+        <div className="flex justify-between items-center">
+          <span className="text-4xl font-bold">Stories</span>
+          <span className="flex gap-4">
+            <button
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                activeComponent === "addStories" ? "bg-orange-600" : "bg-orange-500"
+              } text-white`}
+              onClick={() => setActiveComponent("addStories")}
+            >
+              Add Stories
+            </button>
+            <button
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                activeComponent === "showStories" ? "bg-orange-600" : "bg-orange-500"
+              } text-white`}
+              onClick={() => setActiveComponent("showStories")}
+            >
+              Show Stories
+            </button>
+          </span>
+        </div>
+        <div className="mt-4">
+          {activeComponent === "addStories" ? <CreateStories  /> : <ShowStories />}
+        </div>
+      </div>
       case "Stat Control":
         return <div className="flex flex-col">
           <span className="text-4xl font-bold">Stats Control </span>
@@ -322,12 +367,39 @@ function AdminDashboard() {
 
                 {/* User Profile */}
                 <div className="flex items-center gap-1 cursor-pointer">
-                  <div className="w-8 h-8 rounded-full bg-orange-500 cursor-pointer"></div>
+                  <div className="w-8 h-8 rounded-full bg-orange-500 cursor-pointer"  onClick={toggleDropdown}></div>
                   <span>
                     {" "}
                     <IoIosArrowDown className="text-[#84818a] cursor-pointer" />
                   </span>
                 </div>
+                {isDropdownOpen && (
+                      <div
+                        className="absolute top-12 right-0 mt-2 w-52 bg-white z-50 shadow-lg rounded-lg border"
+                        onMouseLeave={toggleDropdown}
+                      >
+                        <ul className="flex flex-col text-md space-y-1 m-2">
+                          {/* <Link
+                            to="/profile"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            My Profile
+                          </Link>
+                          <Link
+                            to="/donation-history"
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                          >
+                            Donation History
+                          </Link> */}
+                          <li
+                            className="px-4 py-2 cursor-pointer hover:bg-[#eb852c] hover:text-white rounded-full transition duration-300"
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </li>
+                        </ul>
+                      </div>
+                    )}
 
                 {/* Dropdown Arrow */}
               </div>
