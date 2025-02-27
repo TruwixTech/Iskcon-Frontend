@@ -80,7 +80,7 @@ const AboutUs = () => {
               className="w-full h-48 object-cover"
             />
             <div className="p-6">
-              <h2 className="text-2xl font-bold mb-4 text-center text-[#2c3e50]">
+              <h2 className="text-2xl h-[50px] font-bold mb-4 text-center text-[#2c3e50]">
                 {item.title}
               </h2>
               <button className="w-full rounded-full mt-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-2 px-4 hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300">

@@ -6,6 +6,8 @@ import Marquee from 'react-fast-marquee';
 import axios from "axios";
 import BgOne from '../../assets/bg2.webp'
 import { NavLink } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -78,9 +80,10 @@ const BlogPage = () => {
       </div>
       <div className="mt-10">
         <div className="w-full h-[300px] rounded-3xl relative -z-1 overflow-hidden px-4 md:px-20 ">
-          <img
+          <LazyLoadImage
             src={blogbg}
             alt="blog background"
+            effect="blur"
             className="w-full h-full rounded-3xl object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 rounded-3xl mx-4 md:mx-20  "></div>
@@ -163,9 +166,10 @@ const BlogPage = () => {
                               className=" overflow-hidden cursor-pointer transform transition duration-500 ease-out hover:scale-105 font-prata"
                             >
                               <div className="rounded-lg ">
-                                <img
+                                <LazyLoadImage
                                   src={blog.image[0]}
                                   alt={blog.title}
+                                  effect="blur"
                                   className="w-full h-[250px] rounded-lg object-fit"
                                 />
                               </div>

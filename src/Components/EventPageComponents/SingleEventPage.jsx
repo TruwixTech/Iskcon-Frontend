@@ -4,6 +4,8 @@ import BgOne from "../../assets/bg2.webp";
 import Navbar from "../Navbar";
 import axios from "axios";
 import DonationCircle from "../DonationCircle";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -44,6 +46,7 @@ function SingleEventPage() {
     window.scrollTo(0, 0);
     fetchSingleEvent();
   }, [id]);
+  
   return (
     <div
       className="bg-[#fde5bc] w-full h-full"
@@ -61,9 +64,10 @@ function SingleEventPage() {
         <h1 className="font-prata text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           {singleEvent?.title}
         </h1>
-        <img
+        <LazyLoadImage
           src={images[0]}
           alt="blog image"
+          effect="blur"
           className="w-full h-auto rounded-xl mt-3 md:mt-6 md:h-[550px] object-cover"
         />
         <h1 className="w-full h-auto flex gap-2 items-center text-[#4F4F4F] font-poppins mt-4 md:text-lg xl:text-xl">
@@ -92,9 +96,10 @@ function SingleEventPage() {
                     className="flex items-center cursor-pointer space-x-4 font-prata"
                   >
                     <div className="w-[100px] md:w-[120px] h-20 md:h-24 lg:w-[150px]">
-                      <img
+                      <LazyLoadImage
                         src={event.image[0]}
                         alt={event.title}
+                        effect="blur"
                         className="w-full h-full object-fit rounded-lg"
                       />
                     </div>

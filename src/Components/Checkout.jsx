@@ -43,7 +43,7 @@ const statesList = [
 const Checkout = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -53,7 +53,7 @@ const Checkout = () => {
         if (!token) {
           console.error("No token found in localStorage");
           toast.error("Please sign in to continue");
-          navigate('/signin')
+          navigate("/signin");
           return;
         }
 
@@ -80,8 +80,8 @@ const Checkout = () => {
           email: data?.userData?.email || "",
         }));
       } catch (error) {
-        localStorage.removeItem("token")
-        navigate('/signin')
+        localStorage.removeItem("token");
+        navigate("/signin");
         console.error("❌ Error fetching user data:", error);
       }
     };
@@ -105,14 +105,32 @@ const Checkout = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const validateForm = () => {
-    const { firstName, email, mobile, address, city, state, pincode } = formData;
+    const { firstName, email, mobile, address, city, state, pincode } =
+      formData;
 
     // Check for empty fields
-    if (!firstName || !email || !mobile || !address || !city || !state || !pincode) {
+    if (
+      !firstName ||
+      !email ||
+      !mobile ||
+      !address ||
+      !city ||
+      !state ||
+      !pincode
+    ) {
       toast.dismiss();
       toast.error("All fields are required!");
       return false;
     }
+
+    
+        const nameRegex = /^[a-zA-Z\s]+$/;
+        if (!nameRegex.test(firstName)) {
+          toast.dismiss();
+          toast.error("Name should contain only alphabets!");
+          return false;
+        }
+    
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -148,8 +166,10 @@ const Checkout = () => {
         setLoading(false);
         return;
       }
-      const response = await axios.post(`${backend}/admin/order/add`, { amount: 1 });
-      const data = response.data.data
+      const response = await axios.post(`${backend}/admin/order/add`, {
+        amount: 1,
+      });
+      const data = response.data.data;
 
       const paymentObject = new window.Razorpay({
         key: "rzp_live_BMJ2CcMdY7bNr6",
@@ -177,23 +197,25 @@ const Checkout = () => {
               price: item.price,
             })),
             contact: formData.mobile,
-          }
-          axios.post(`${backend}/admin/order/status`, option2)
+          };
+          axios
+            .post(`${backend}/admin/order/status`, option2)
             .then((response) => {
               if (response.status === 200) {
-                setLoading(true)
-                clearCart()
-                toast.success("Order placed successfully")
-                navigate('/')
+                setLoading(true);
+                clearCart();
+                toast.success("Order placed successfully");
+                navigate("/");
               } else {
                 console.log("error while placing order");
               }
-            }).catch((error) => {
-              console.log(error);
             })
-        }
-      })
-      paymentObject.open()
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+      });
+      paymentObject.open();
     } catch (error) {
       console.log("error while order placement", error);
     }
@@ -214,15 +236,15 @@ const Checkout = () => {
       </div>
 
       <div>
-        <div className="w-full min-h-screen flex items-center justify-center p-10 font-nunito">
-          <div className="bg-trasnparent w-full p-8">
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="col-span-2">
+        <div className="w-full min-h-screen flex items-center justify-center p-4 md:p-10 font-nunito">
+          <div className="bg-transparent w-full p-4 md:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="col-span-3 md:col-span-2">
                 <h2 className="text-xl font-bold text-orange-600 mb-6">
                   Your Details
                 </h2>
                 <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex flex-col">
+                  <div className="col-span-2 md:col-span-1 flex flex-col">
                     <label className="text-gray-700 font-medium">Name</label>
                     <input
                       name="firstName"
@@ -234,7 +256,7 @@ const Checkout = () => {
                     />
                   </div>
 
-                  <div className="flex flex-col">
+                  <div className="col-span-2 md:col-span-1 flex flex-col">
                     <label className="text-gray-700 font-medium">Email</label>
                     <input
                       name="email"
@@ -245,7 +267,8 @@ const Checkout = () => {
                       className="mt-2 p-3 border rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
-                  <div className="flex flex-col">
+
+                  <div className="col-span-2 md:col-span-1 flex flex-col">
                     <label className="text-gray-700 font-medium">
                       Mobile Number
                     </label>
@@ -258,6 +281,7 @@ const Checkout = () => {
                       className="mt-2 p-3 border rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
+
                   <div className="flex flex-col col-span-2">
                     <label className="text-gray-700 font-medium">
                       Complete Address
@@ -270,7 +294,8 @@ const Checkout = () => {
                       className="mt-2 p-3 border rounded-xl focus:outline-none resize-none h-32 focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
-                  <div className="flex flex-col">
+
+                  <div className="col-span-2 md:col-span-1 flex flex-col">
                     <label className="text-gray-700 font-medium">
                       City/District
                     </label>
@@ -283,7 +308,8 @@ const Checkout = () => {
                       className="mt-2 p-3 border rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
-                  <div className="flex flex-col">
+
+                  <div className="col-span-2 md:col-span-1 flex flex-col">
                     <label className="text-gray-700 font-medium">State</label>
                     <select
                       name="state"
@@ -299,7 +325,8 @@ const Checkout = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="flex flex-col">
+
+                  <div className="col-span-2 md:col-span-1 flex flex-col">
                     <label className="text-gray-700 font-medium">Pincode</label>
                     <input
                       name="pincode"
@@ -312,8 +339,9 @@ const Checkout = () => {
                   </div>
                 </form>
               </div>
-              <div>
-                <div className="bg-white border border-[#eb852c] rounded-xl p-6 shadow">
+
+              <div className="col-span-3 md:col-span-1 w-full">
+                <div className=" w-full bg-white border border-[#eb852c] rounded-xl p-2 md:p-6 shadow">
                   <h2 className="text-lg font-bold text-gray-800 mb-4">
                     Order Summary
                   </h2>

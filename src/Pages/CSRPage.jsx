@@ -19,6 +19,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import DonateFormModal from "../Components/DonateFormModal";
 import CountUp from "react-countup";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const CSRPage = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -126,19 +127,19 @@ const CSRPage = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full opacity-15">
           <img src={circlebg} alt="" className="w-full" />
         </div>
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[75%] ">
-          <img src={csr} alt="csr" className="" />
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-full sm:w-auto lg:h-[70%] ">
+          <LazyLoadImage src={csr} alt="csr" effect="blur" className="" />
         </div>
         <div className="absolute bottom-0 right-20 md:flex gap-10 hidden">
-          <img src={rectcsr} alt="" className="" />
-          <img src={scroll} alt="" />
+          <LazyLoadImage src={rectcsr} alt="" effect="blur" className="" />
+          <LazyLoadImage src={scroll} alt="" effect="blur" />
         </div>
         <div className="absolute bottom-24 sm:bottom-20  md:pl-6 lg:pl-20 flex flex-col items-center sm:items-start gap-1 md:gap-4 w-full ">
           <h1 className="hidden sm:block text-3xl font-bold md:font-normal text-center md:text-start md:text-3xl lg:text-4xl xl:text-6xl text-[#3b2106] font-prata lg:leading-[70px]">
             Our <br /> CSR Initiatives
           </h1>
           <p className=" hidden sm:block text-sm w-1/2 md:w-1/3 text-[#444444] font-nunito">
-            At [Temple Name], we are committed to uplifting our community
+            At ISKCON Wavecity, we are committed to uplifting our community
             through compassion and service. Our CSR initiatives focus on feeding
             the hungry, supporting education, and promoting environmental
             sustainability.

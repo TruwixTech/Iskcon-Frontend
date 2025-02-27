@@ -275,7 +275,7 @@ function SingleProduct() {
                     <div className='w-[300px] flex gap-4 h-auto p-5'>
                         <img src={Icon2} alt="icon2" className='w-10 h-10 object-cover flex-shrink-0' />
                         <div className='w-full h-auto flex flex-col font-prata text-[#484848]'>
-                            <span className='text-lg lg:text-xl'>Warrany Protection</span>
+                            <span className='text-lg lg:text-xl'>Warranty Protection</span>
                             <span className='text-sm lg:text-base'>Over 2 years</span>
                         </div>
                     </div>
@@ -286,7 +286,7 @@ function SingleProduct() {
                             <span className='text-sm lg:text-base'>Order over Rs 150</span>
                         </div>
                     </div>
-                    <div className='w-[300px] flex gap-4 h-auto p-5 '>
+                    <div className='w-[300px] flex gap-4 h-auto p-5'>
                         <img src={Icon4} alt="icon4" className='w-10 h-10 object-cover flex-shrink-0' />
                         <div className='w-full h-auto flex flex-col font-prata text-[#484848]'>
                             <span className='text-lg lg:text-xl'>24 / 7 Support</span>

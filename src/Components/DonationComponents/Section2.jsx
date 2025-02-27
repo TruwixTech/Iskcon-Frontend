@@ -4,6 +4,8 @@ import krishnadonation from "../../assets/krishnadon.webp";
 import leaf1 from "../../assets/leaf1.webp";
 import leaf2 from "../../assets/leaf2.webp";
 import DonationCircle from "../DonationCircle";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import PaymentDetailsCard from "../PaymentDetailsCard";
 

@@ -70,7 +70,7 @@ function DonationCircle() {
         backgroundSize: "cover",
       }}
     >
-      <div className="w-full h-auto flex flex-col justify-center pt-20 mt-10 md:mt-0">
+      <div className="w-full h-auto flex flex-col justify-center pt-4 md:pt-20 mt-10 md:mt-0">
         <h1 className="font-prata mb-10 text-[#3B2106] flex justify-center text-3xl  md:text-3xl lg:text-end lg:text-4xl  2xl:text-6xl">
           Donations
         </h1>

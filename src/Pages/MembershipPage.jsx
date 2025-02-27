@@ -192,7 +192,7 @@ const MembershipPage = () => {
       </h1>
 
       {/* Membership Cards */}
-      <div className="w-full px-4 md:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-50 py-20">
+      <div className="w-full px-4 md:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-20 py-20">
         {cardData.map((card) => (
           <div
             key={card.id}

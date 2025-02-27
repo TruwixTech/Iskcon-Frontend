@@ -26,7 +26,7 @@ function Footer() {
       <div className="relative z-10 flex flex-col items-center md:items-start justify-end h-full">
         <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-start md:gap-10 my-10 w-full">
           <div className="flex flex-col gap-4 items-center lg:items-start text-white w-full md:w-[35%]">
-            <img src={logof} alt="" className="w-[200px]" />
+            <img src={logof} alt="" className="w-[200px] relative z-50" />
             <p className="text-base lg:text-lg w-full text-center lg:text-start">
               R-11/35, Hare Krishna Marg,Sector 11,
               <br /> Raj Nagar, Ghaziabad, <br />

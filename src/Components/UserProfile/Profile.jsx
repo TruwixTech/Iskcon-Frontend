@@ -88,13 +88,14 @@ function Profile() {
   const [panNumber, setPanNumber] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
   const [citizenType, setCitizenType] = useState("Indian");
-  const [gender, setGender] = useState("female");
+  const [gender, setGender] = useState("male");
 
   // Address
   const [address, setAddress] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("India");
   const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
+
 
   // Relationships
   const [relationships, setRelationships] = useState([
@@ -150,8 +151,9 @@ function Profile() {
   };
 
   // Handle Form Submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     const formData = {
       personalDetails: {
         name: user?.userData?.name,
@@ -169,6 +171,28 @@ function Profile() {
       occasions,
       idProof: { aadhaarNumber, drivingLicense, voterId, otherId },
     };
+
+
+    try {
+      const response = await fetch(`${backend}/admin/profile/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      alert("Profile created successfully!");
+    } catch (error) {
+      console.error("Error creating profile:", error);
+      alert("Failed to create profile. Please try again.");
+    }
   };
 
   return (

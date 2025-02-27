@@ -8,6 +8,9 @@ import Border2 from "../assets/section1border2.svg";
 import { DonationCartContext } from "../Context/DonationCartContext";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import DonateFormModal from "../Components/DonateFormModal";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,6 +18,12 @@ const backend = import.meta.env.VITE_BACKEND_URL;
 
 const TempleConstruction = () => {
   const [csrDonation, setCsrDonation] = useState([]);
+   const [selectedDonationId, setSelectedDonationId] = useState(null)
+    const backend = import.meta.env.VITE_BACKEND_URL;
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+    const [isModalOpen, setIsModalOpen] = useState(false);
   const templeDonation = [
     { _id: 1, title: "5 CFT Sand", price: 300 },
     { _id: 2, title: "10 CFT Sand", price: 500 },
@@ -109,12 +118,13 @@ const TempleConstruction = () => {
             };
 
             return (
-              <div key={index} className="w-full h-full flex flex-col">
+              <div key={index} className="w-full h-full flex flex-col relative z-20">
                 {/* Image */}
-                <img
+                <LazyLoadImage
                   src={donation.image}
-                  alt="Donation"
-                  className="w-full h-[500px] object-cover rounded-xl"
+                  alt="Lazy Loaded"
+                  effect="blur" 
+                  className="w-full h-[500px] object-cover  rounded-xl"
                 />
 
                 {/* Title */}
@@ -143,9 +153,11 @@ const TempleConstruction = () => {
                   ></div>
                 </div>
 
-                <Link to="/temple-construction/donate" className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
+                <button onClick={() => {setIsModalOpen(true);setSelectedDonationId(donation._id)}} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-full flex justify-center items-center">
                   Donate Now
-                </Link>
+                </button>
+                <DonateFormModal isOpen={isModalOpen} selectedDonationId={selectedDonationId} onClose={() => {setIsModalOpen(false);setSelectedDonationId(null)}} />
+
                 <div className="w-full h-auto flex flex-col py-20">
                   {/* {donation?.map((donation, index) => (
                             <div key={index} className="w-full h-auto flex flex-col my-4 gap-2">

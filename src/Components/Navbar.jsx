@@ -175,6 +175,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setHasAccessToken(false);
+    window.location.reload();
   };
 
   return (
@@ -445,7 +446,7 @@ const Navbar = () => {
         <div className="w-full h-full flex justify-between items-center">
           <Link
             to="/"
-            className="flex justify-center items-center flex-shrink-0"
+            className="flex justify-center w-16 items-center flex-shrink-0"
           >
             <img
               src={logo}
@@ -479,7 +480,7 @@ const Navbar = () => {
                       <IoIosArrowDown />
                       {dropdownOpen && (
                         <div
-                          className="absolute top-6 left-0 w-60 bg-white shadow-md rounded-xl"
+                          className="absolute top-6 left-0 w-60 z-50 bg-white shadow-md rounded-xl"
                         >
                           <ul className="flex flex-col p-2">
                             <li>
