@@ -66,7 +66,7 @@ function LiveDarshan() {
               ></iframe>
             </div>
             : <div className='w-full h-80 flex justify-center items-center'>
-              <span className='font-prata text-2xl lg:text-4xl'>No live darshan available Today</span>
+              <span className='font-prata text-2xl lg:text-4xl'>Please Wait.....Loading............</span>
             </div>
         }
       </div>
