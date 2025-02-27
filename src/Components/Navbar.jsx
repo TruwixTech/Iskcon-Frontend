@@ -446,7 +446,7 @@ const Navbar = () => {
         <div className="w-full h-full flex justify-between items-center">
           <Link
             to="/"
-            className="flex justify-center w-16 items-center flex-shrink-0"
+            className="flex justify-center w-14 items-center flex-shrink-0"
           >
             <img
               src={logo}

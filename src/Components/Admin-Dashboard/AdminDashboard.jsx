@@ -389,7 +389,7 @@ function AdminDashboard() {
           <div className="h-full w-full  bg-[#fff4dc] rounded-[44px] p-4 relative">
             {/* left sidebar */}
             <div className="w-1/5 h-full flex flex-col items-center">
-              <Link to="/" className="w-full flex justify-center items-center">
+              <Link to="/" className="w-[100px] flex justify-center items-center">
                 <img src={adminlogo} alt="" />
               </Link>
               <div
@@ -438,21 +438,21 @@ function AdminDashboard() {
               </div>
             </div>
             {/* top bar */}
-            <div className="w-[75%] flex absolute top-4 right-10 justify-between items-center px-4 py-1 bg-[#FEF4DC]">
+            <div className="w-[8%] flex absolute top-4 right-10 justify-between items-center px-4 py-1 bg-[#FEF4DC]">
               {/* Search Bar */}
-              <div className="relative">
+              {/* <div className="relative">
                 <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search..."
                   className="pl-10 pr-4 py-2 rounded-[15px] bg-[#ffecc5] text-gray-700 placeholder-gray-500 focus:outline-none w-80"
                 />
-              </div>
+              </div> */}
 
               {/* Right Section */}
               <div className="flex items-center space-x-8">
-                {/* Theme Toggle */}
-                <div
+               
+                {/* <div
                   className="flex items-center bg-[#ffecc5] rounded-full p-1 cursor-pointer"
                   onClick={() => setDarkMode(!darkMode)}
                 >
@@ -472,16 +472,16 @@ function AdminDashboard() {
                   </div>
                 </div>
 
-                {/* Notification Bell */}
+                
                 <div className="relative">
                   <FaBell className="text-[#84818a] text-xl cursor-pointer" />
                   <span className="absolute -top-2 -right-1 bg-red-500 text-white text-xs border border-white rounded-full w-4 h-4 flex justify-center items-center">
                     3
                   </span>
-                </div>
+                </div> */}
 
                 {/* Help Icon */}
-                <FaQuestionCircle className="text-[#84818a] text-xl cursor-pointer" />
+                {/* <FaQuestionCircle className="text-[#84818a] text-xl cursor-pointer" /> */}
 
                 {/* User Profile */}
                 <div className="flex items-center gap-1 cursor-pointer">
@@ -521,7 +521,6 @@ function AdminDashboard() {
                     </ul>
                   </div>
                 )}
-
                 {/* Dropdown Arrow */}
               </div>
             </div>
