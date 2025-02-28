@@ -112,9 +112,6 @@ const DonationHistory = () => {
             <Navbar />
           </div>
 
-      {/* Error Message */}
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-
       {/* Donations Table */}
       <div className="w-full  h-[550px] flex flex-col gap-3 overflow-y-auto px-5 py-5 bg-[#fff4dc] rounded-3xl shadow-lg">
         <div className="w-full px-4 md:px-20 rounded-lg pt-40 p-4">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Slider from '../utils/Slider';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -16,10 +16,14 @@ function ForgotPassword() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
 
     // Handle email submission to send OTP
     const handleSendOtp = async () => {
+        setIsLoading(true);
         if (!email) {
             toast.error('Please enter your email address.');
             return;
@@ -34,16 +38,19 @@ function ForgotPassword() {
                 toast.success('OTP sent successfully!');
                 setOtpPopUp(true);
                 setTimer(179); // Reset timer
-                setIsResendDisabled(true); // Disable resend button initially
+                setIsResendDisabled(true); 
+                setIsLoading(false);
             }
         } catch (error) {
             toast.error('Failed to send OTP. Please try again.');
+            setIsLoading(false);
             console.error('Error sending OTP:', error);
         }
     };
 
     // Handle OTP verification
     const handleVerifyOtp = async () => {
+        setIsLoading(true);
         const simpleOtp = otp.join('');
 
         try {
@@ -56,22 +63,27 @@ function ForgotPassword() {
                 toast.success('OTP verified successfully!');
                 setIsOtpVerified(true); // Show password reset form
                 setOtpPopUp(false); // Close OTP popup
+                setIsLoading(false);
             }
         } catch (error) {
             toast.error('Invalid OTP. Please try again.');
+            setIsLoading(false);
             console.error('Error verifying OTP:', error);
         }
     };
 
     // Handle password reset
     const handleResetPassword = async () => {
+        setIsLoading(true);
         if (!newPassword || !confirmPassword) {
             toast.error('Please enter and confirm your new password.');
+            setIsLoading(false);
             return;
         }
 
         if (newPassword !== confirmPassword) {
             toast.error('Passwords do not match.');
+            setIsLoading(false);
             return;
         }
 
@@ -83,10 +95,12 @@ function ForgotPassword() {
 
             if (response.status === 200 || response.status === 201) {
                 toast.success('Password reset successfully!');
+                setIsLoading(false);
                 navigate('/signin'); // Redirect to sign-in page
             }
         } catch (error) {
             toast.error('Failed to reset password. Please try again.');
+            setIsLoading(false);
             console.error('Error resetting password:', error);
         }
     };
@@ -121,6 +135,15 @@ function ForgotPassword() {
         handleSendOtp();
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    };
+
+    // Toggle confirm password visibility
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword((prev) => !prev);
+    };
+
     return (
         <div className='w-full h-auto flex flex-col mt-10 gap-8 md:flex-row-reverse md:mt-0'>
             <div className='w-full h-[70vh] flex justify-center items-center px-5 lg:px-10 xl:px-20 md:h-auto sm:w-[70%] sm:mx-auto md:mx-0 md:w-[50%] lg:my-10'>
@@ -149,7 +172,7 @@ function ForgotPassword() {
                                 onClick={handleSendOtp}
                                 className="w-full py-3 bg-orange-500 text-white font-semibold rounded-3xl hover:bg-orange-600 transition"
                             >
-                                Send OTP
+                                {isLoading ? 'Sending...' : 'Send OTP'}
                             </button>
                         </>
                     ) : (
@@ -159,28 +182,44 @@ function ForgotPassword() {
                                 Please enter your new password.
                             </p>
 
-                            <input
-                                type="password"
-                                placeholder='New Password'
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                className='w-full h-auto px-3 py-2 rounded-3xl border my-4'
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    placeholder='New Password'
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    className='w-full h-auto px-3 py-2 rounded-3xl border my-4'
+                                />
+                                <button
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute right-8 top-9 transform -translate-y-1/2"
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
 
-                            <input
-                                type="password"
-                                placeholder='Confirm New Password'
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                className='w-full h-auto px-3 py-2 rounded-3xl border my-4'
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showConfirmPassword ? 'text' : 'password'}
+                                    placeholder='Confirm New Password'
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    className='w-full h-auto px-3 py-2 rounded-3xl border my-4'
+                                />
+                                <button
+                                    onClick={toggleConfirmPasswordVisibility}
+                                    className="absolute right-8 top-9 transform -translate-y-1/2"
+                                >
+                                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
 
                             {/* Submit Button */}
                             <button
                                 onClick={handleResetPassword}
                                 className="w-full py-3 bg-orange-500 text-white font-semibold rounded-3xl hover:bg-orange-600 transition"
                             >
-                                Reset Password
+                                {isLoading ? 'Resetting...' : 'Reset Password'}
                             </button>
                         </>
                     )}
@@ -189,7 +228,7 @@ function ForgotPassword() {
 
             {/* OTP Verification Popup */}
             {otpPopUp && (
-                <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
+                <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center'>
                     <div className='w-[90%] max-w-md bg-white p-6 rounded-lg'>
                         <h2 className="text-xl font-semibold">OTP Verification</h2>
                         <p className="text-gray-600 mt-2">
@@ -222,7 +261,7 @@ function ForgotPassword() {
                             onClick={handleVerifyOtp}
                             className="w-full py-3 bg-orange-500 text-white font-semibold rounded-3xl hover:bg-orange-600 transition"
                         >
-                            Verify OTP
+                            {isLoading ? 'Verifying...' : 'Verify OTP'}
                         </button>
 
                         {/* Resend OTP */}

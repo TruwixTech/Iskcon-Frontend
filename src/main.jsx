@@ -74,12 +74,14 @@ import Classes from "./Components/Classes.jsx";
 import TempleConstructionPage from "./Components/TempleConstructionDonation.jsx";
 
 
+
 const MainApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
+       
         <Route path="/" element={<App />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/profile" element={<Profile />} />
